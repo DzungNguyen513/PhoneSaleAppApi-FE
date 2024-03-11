@@ -13,13 +13,25 @@
         android:theme="@style/Theme.CinemaApp"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".mvvm.login.SlashActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".mvvm.login.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".mvvm.login.LoginActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustNothing">
         </activity>
     </application>
 
