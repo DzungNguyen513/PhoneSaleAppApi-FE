@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CinemaApp</string>
+    <string name="app_name">PhoneSaleApp</string>
     <string name="action_home">Home</string>
     <string name="action_fav">Favourite</string>
     <string name="action_my">My Page</string>

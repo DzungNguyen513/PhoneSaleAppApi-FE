@@ -1,4 +1,4 @@
-package com.example.cinemaapp.mvvm.login;
+package com.example.phonesaleapp.mvvm.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.TextView;
 
-import com.example.cinemaapp.R;
+import com.example.phonesaleapp.R;
 
 public class SlashActivity extends AppCompatActivity {
 
