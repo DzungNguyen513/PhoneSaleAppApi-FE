@@ -1,4 +1,4 @@
-package com.example.phonesaleapp.mvvm.login;
+package com.example.phonesaleapp.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 

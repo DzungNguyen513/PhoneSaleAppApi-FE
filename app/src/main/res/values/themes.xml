@@ -4,6 +4,7 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
-
+    <style name="Theme.PhoneSaleApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.PhoneSaleApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
     <style name="Theme.PhoneSaleApp" parent="Base.Theme.PhoneSaleApp" />
 </resources>

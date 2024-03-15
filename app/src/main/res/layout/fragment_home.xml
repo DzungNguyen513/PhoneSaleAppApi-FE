@@ -3,17 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".login.SlashActivity">
+    android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tv_hello"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="336dp"
-        android:text="Hello You"
-        android:textSize="30dp"
+        android:layout_marginStart="188dp"
+        android:layout_marginTop="248dp"
+        android:text="home"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
