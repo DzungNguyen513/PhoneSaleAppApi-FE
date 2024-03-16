@@ -42,4 +42,6 @@
     <color name="material_deep_purple">#673AB7</color>
     <color name="material_amber">#FFC107</color>
 
+    <color name="text_color">#212121</color>
+
 </resources>

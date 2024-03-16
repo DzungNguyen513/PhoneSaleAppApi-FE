@@ -56,4 +56,5 @@ dependencies {
 
     implementation ("com.github.bumptech.glide:glide:4.16.0")
     implementation ("me.relex:circleindicator:2.1.6")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.11.0")
 }

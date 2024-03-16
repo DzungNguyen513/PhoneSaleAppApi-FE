@@ -14,18 +14,6 @@
         android:theme="@style/Theme.PhoneSaleApp"
         tools:targetApi="31">
         <activity
-            android:name=".mvvm.view.NotiActivity"
-            android:exported="false" />
-        <activity
-            android:name=".mvvm.view.AccountActivity"
-            android:exported="false" />
-        <activity
-            android:name=".mvvm.view.CartActivity"
-            android:exported="false" />
-        <activity
-            android:name=".mvvm.view.HomeActivity"
-            android:exported="false" />
-        <activity
             android:name=".login.SlashActivity"
             android:exported="true">
             <intent-filter>
