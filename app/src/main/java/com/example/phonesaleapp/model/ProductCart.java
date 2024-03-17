@@ -1,13 +1,13 @@
 package com.example.phonesaleapp.model;
 
-public class Product {
+public class ProductCart {
     private String productId;
     private String productName;
     private int price;
     private int amount;
     private String imageUrl;
 
-    public Product(String productId, String productName, int price, int amount, String imageUrl) {
+    public ProductCart(String productId, String productName, int price, int amount, String imageUrl) {
         this.productId = productId;
         this.productName = productName;
         this.price = price;

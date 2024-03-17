@@ -18,7 +18,7 @@ import com.example.phonesaleapp.adapter.ProductCartAdapter;
 import com.example.phonesaleapp.api.RetrofitClient;
 import com.example.phonesaleapp.api.request.customer.CustomerResponse;
 import com.example.phonesaleapp.api.service.ShoppingCartService;
-import com.example.phonesaleapp.model.Product;
+import com.example.phonesaleapp.model.ProductCart;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ import retrofit2.Response;
 public class CartFragment extends Fragment {
     private RecyclerView rvCartItems;
     private ProductCartAdapter adapter;
-    private List<Product> productList = new ArrayList<>();
+    private List<ProductCart> productList = new ArrayList<>();
     private String customerEmail = "trang";
     private static final String ARG_EMAIL = "email";
     private String email;
@@ -75,12 +75,12 @@ public class CartFragment extends Fragment {
                 if (response.isSuccessful()) {
                     CustomerResponse customerResponse = response.body();
                     String customerId = customerResponse.getCustomerId();
-                    Call<List<Product>> cartProductsCall = service.getCartProducts(customerId);
-                    cartProductsCall.enqueue(new Callback<List<Product>>() {
+                    Call<List<ProductCart>> cartProductsCall = service.getCartProducts(customerId);
+                    cartProductsCall.enqueue(new Callback<List<ProductCart>>() {
                         @Override
-                        public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                        public void onResponse(Call<List<ProductCart>> call, Response<List<ProductCart>> response) {
                             if (response.isSuccessful()) {
-                                List<Product> products = response.body();
+                                List<ProductCart> products = response.body();
                                 productList.clear();
                                 productList.addAll(products);
                                 adapter.notifyDataSetChanged();
@@ -89,7 +89,7 @@ public class CartFragment extends Fragment {
                             }
                         }
                         @Override
-                        public void onFailure(Call<List<Product>> call, Throwable t) {
+                        public void onFailure(Call<List<ProductCart>> call, Throwable t) {
                             Toast.makeText(getContext(), "Lỗi Logic", Toast.LENGTH_SHORT).show();
                         }
                     });

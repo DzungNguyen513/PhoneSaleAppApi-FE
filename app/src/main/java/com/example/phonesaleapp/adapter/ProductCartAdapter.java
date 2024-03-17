@@ -11,15 +11,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.phonesaleapp.R;
-import com.example.phonesaleapp.model.Product;
+import com.example.phonesaleapp.model.ProductCart;
 
 import java.util.List;
 
 public class ProductCartAdapter extends RecyclerView.Adapter<ProductCartAdapter.ViewHolder> {
     private Context context;
-    private List<Product> productList;
+    private List<ProductCart> productList;
 
-    public ProductCartAdapter(Context context, List<Product> productList) {
+    public ProductCartAdapter(Context context, List<ProductCart> productList) {
         this.context = context;
         this.productList = productList;
     }
@@ -33,7 +33,7 @@ public class ProductCartAdapter extends RecyclerView.Adapter<ProductCartAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ProductCartAdapter.ViewHolder holder, int position) {
-        Product product = productList.get(position);
+        ProductCart product = productList.get(position);
 
         holder.tvNameProduct.setText(product.getProductName());
         holder.tvPriceProduct.setText(String.format("%,d VND", product.getPrice()));
