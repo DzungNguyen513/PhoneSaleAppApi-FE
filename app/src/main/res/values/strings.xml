@@ -3,4 +3,5 @@
     <string name="action_home">Trang chủ</string>
     <string name="action_fav">Giỏ hàng</string>
     <string name="action_my">Lịch sử mua hàng</string>
+    <string name="icon">Lịch sử mua hàng</string>
 </resources>

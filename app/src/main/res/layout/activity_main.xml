@@ -10,7 +10,7 @@
         android:id="@+id/bottomnav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/neutral_light"
+        android:background="#F9FDFF"
         app:itemIconTint="@color/black"
         app:itemTextColor="@color/black"
         app:labelVisibilityMode="labeled"

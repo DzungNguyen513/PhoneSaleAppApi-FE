@@ -3,11 +3,11 @@ package com.example.phonesaleapp.model;
 public class Product {
     private String productId;
     private String productName;
-    private double price;
+    private int price;
     private int amount;
     private String imageUrl;
 
-    public Product(String productId, String productName, double price, int amount, String imageUrl) {
+    public Product(String productId, String productName, int price, int amount, String imageUrl) {
         this.productId = productId;
         this.productName = productName;
         this.price = price;
@@ -32,11 +32,11 @@ public class Product {
         this.productName = productName;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
