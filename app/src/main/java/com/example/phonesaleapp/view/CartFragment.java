@@ -13,17 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.phonesaleapp.R;
 import com.example.phonesaleapp.adapter.ProductCartAdapter;
-import com.example.phonesaleapp.api.ShoppingCartService;
 import com.example.phonesaleapp.model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CartFragment extends Fragment {
     private String URL = "http://192.168.1.7:7244/api/";

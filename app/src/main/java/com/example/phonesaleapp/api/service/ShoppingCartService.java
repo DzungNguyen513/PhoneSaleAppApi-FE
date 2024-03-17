@@ -1,4 +1,4 @@
-package com.example.phonesaleapp.api;
+package com.example.phonesaleapp.api.service;
 
 import com.example.phonesaleapp.model.Product;
 

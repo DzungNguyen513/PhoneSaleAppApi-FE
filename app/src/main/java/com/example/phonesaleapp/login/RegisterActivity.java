@@ -1,8 +1,5 @@
 package com.example.phonesaleapp.login;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,83 +7,69 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.phonesaleapp.R;
+import androidx.appcompat.app.AppCompatActivity;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.example.phonesaleapp.R;
+import com.example.phonesaleapp.api.RetrofitClient;
+import com.example.phonesaleapp.api.request.register.RegisterRequest;
+import com.example.phonesaleapp.api.request.register.RegisterResponse;
+import com.example.phonesaleapp.api.service.RegisterService;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private static final String TAG = "RegisterActivity";
-    private String url_register = "http://192.168.1.7:7244/api/Customer/Register";
     EditText edt_email, edt_password;
     Button btn_signup;
     ImageView img_back;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         AnhXa();
-        img_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent1 = new Intent(RegisterActivity.this, LoginActivity.class);
-                startActivity(intent1);
-                finish();
-            }
-        });
-        btn_signup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = edt_email.getText().toString().trim();
-                String password = edt_password.getText().toString().trim();
 
-                // Tạo một JSON object chứa email và password
-                JSONObject jsonBody = new JSONObject();
-                try {
-                    jsonBody.put("email", email);
-                    jsonBody.put("password", password);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+        img_back.setOnClickListener(v -> {
+            finish();
+        });
+
+        btn_signup.setOnClickListener(v -> {
+            String email = edt_email.getText().toString().trim();
+            String password = edt_password.getText().toString().trim();
+
+            RegisterRequest registerRequest = new RegisterRequest(email, password);
+            RegisterService service = RetrofitClient.getClient().create(RegisterService.class);
+            Call<RegisterResponse> call = service.registerUser(registerRequest);
+            call.enqueue(new Callback<RegisterResponse>() {
+                @Override
+                public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        boolean success = response.body().isSuccess();
+                        if (success) {
+                            Toast.makeText(RegisterActivity.this, "Đăng ký thành công, Vui lòng đăng nhập!", Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            Toast.makeText(RegisterActivity.this, "Đăng ký thất bại: " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(RegisterActivity.this, "Đăng ký thất bại", Toast.LENGTH_SHORT).show();
+                    }
                 }
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                        (Request.Method.POST, url_register , jsonBody, new Response.Listener<JSONObject>() {
-                            public void onResponse(JSONObject response) {
-                                try {
-                                    boolean success = response.getBoolean("success");
-                                    if (success) {
-                                        Toast.makeText(RegisterActivity.this, "Đăng ký thành công, Vui lòng đăng nhập!", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                                        startActivity(intent);
-                                        finishAffinity();
-                                    } else {
-                                        Toast.makeText(RegisterActivity.this, "Đăng ký thất bại", Toast.LENGTH_SHORT).show();
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                error.printStackTrace();
-                                Toast.makeText(RegisterActivity.this, "Đã xảy ra lỗi, vui lòng thử lại sau", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                Volley.newRequestQueue(RegisterActivity.this).add(jsonObjectRequest);
-            }
-        });
 
+                @Override
+                public void onFailure(Call<RegisterResponse> call, Throwable t) {
+                    Toast.makeText(RegisterActivity.this, "Đã xảy ra lỗi, vui lòng thử lại sau", Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
     }
-    private void AnhXa(){
-        edt_email = this.findViewById(R.id.edt_email);
-        edt_password = this.findViewById(R.id.edt_password);
-        btn_signup = this.findViewById(R.id.btn_signup);
-        img_back = this.findViewById(R.id.img_back);
+
+    private void AnhXa() {
+        edt_email = findViewById(R.id.edt_email);
+        edt_password = findViewById(R.id.edt_password);
+        btn_signup = findViewById(R.id.btn_signup);
+        img_back = findViewById(R.id.img_back);
     }
 }
