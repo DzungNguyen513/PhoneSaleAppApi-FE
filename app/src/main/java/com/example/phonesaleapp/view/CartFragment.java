@@ -13,10 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.phonesaleapp.R;
 import com.example.phonesaleapp.adapter.ProductCartAdapter;
+import com.example.phonesaleapp.api.ShoppingCartService;
 import com.example.phonesaleapp.model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CartFragment extends Fragment {
     private String URL = "http://192.168.1.7:7244/api/";
@@ -53,16 +60,13 @@ public class CartFragment extends Fragment {
         rvCartItems.setAdapter(adapter);
         rvCartItems.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Load products for the given email
-        loadProductsForEmail(email);
-
+        loadProducts();
         return view;
     }
-    private void loadProductsForEmail(String email) {
-        // Here, you would load products based on the email. This might involve querying your database or making a network request.
-        // This is just a placeholder for your actual product loading logic.
-        // Example:
-        products.add(new Product("1", "Product Name", 100.0, 1, "Image URL"));
+    private void loadProducts() {
+        products.add(new Product("1", "Sản phẩm 1", 12, 1, "http://www.fixje.nl/iphone-14-pro-max-128gb-spacezwart/"));
+        products.add(new Product("2", "Sản phẩm 2", 13, 1, "http://ibox.co.id/product/iphone-14-pro-max-ibox"));
+        products.add(new Product("3", "Sản phẩm 3", 14, 1, "http://www.digitaltrends.com/mobile/iphone-se-2022-review/"));
         adapter.notifyDataSetChanged();
     }
 }

@@ -53,7 +53,7 @@ public class ProductCartAdapter extends RecyclerView.Adapter<ProductCartAdapter.
 
         public ViewHolder(View itemView) {
             super(itemView);
-            checkBoxSelectItem = itemView.findViewById(R.id.checkbox_select_item);
+            checkBoxSelectItem = itemView.findViewById(R.id.cb_productCart);
             imgPhotoProduct = itemView.findViewById(R.id.img_photo_cart);
             tvNameProduct = itemView.findViewById(R.id.tv_name_product_cart);
             tvPriceProduct = itemView.findViewById(R.id.tv_price_product_cart);
