@@ -1,5 +1,6 @@
 package com.example.phonesaleapp.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.util.Log;
@@ -43,13 +44,13 @@ public class ProductCartAdapter extends RecyclerView.Adapter<ProductCartAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductCartAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ProductCartAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         ProductCart product = productList.get(position);
-
         holder.tvNameProduct.setText(product.getProductName());
         holder.tvPriceProduct.setText(String.format("%,d VND", product.getPrice()));
         holder.tvCount.setText(String.valueOf(product.getAmount()));
-        Glide.with(context).load(product.getImageUrl()).into(holder.imgPhotoProduct);
+        String imageUrl = "http://192.168.1.7:7244/Assets/Images/" + product.getImg();
+        Glide.with(context).load(imageUrl).into(holder.imgPhotoProduct);
 
         holder.imgRemove.setOnClickListener(v -> {
             AlertDialog.Builder builder =new AlertDialog.Builder(context);

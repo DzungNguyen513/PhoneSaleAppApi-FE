@@ -6,18 +6,17 @@ public class ProductCart {
     private String productName;
     private int price;
     private int amount;
-    private String imageUrl;
+    private String img;
 
-    public ProductCart(String shoppingCartId, String productId, String productName, int price, int amount, String imageUrl) {
+    public ProductCart(String shoppingCartId, String productId, String productName, int price, int amount, String img) {
         this.shoppingCartId = shoppingCartId;
         this.productID = productId;
         this.productName = productName;
         this.price = price;
         this.amount = amount;
-        this.imageUrl = imageUrl;
+        this.img = img;
     }
 
-    // Getters and Setters
     public String getProductID() {
         return productID;
     }
@@ -50,12 +49,12 @@ public class ProductCart {
         this.amount = amount;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImg() {
+        return img;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public String getShoppingCartId() {
