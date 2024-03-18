@@ -1,14 +1,16 @@
 package com.example.phonesaleapp.model;
 
 public class ProductCart {
-    private String productId;
+    private String shoppingCartId;
+    private String productID;
     private String productName;
     private int price;
     private int amount;
     private String imageUrl;
 
-    public ProductCart(String productId, String productName, int price, int amount, String imageUrl) {
-        this.productId = productId;
+    public ProductCart(String shoppingCartId, String productId, String productName, int price, int amount, String imageUrl) {
+        this.shoppingCartId = shoppingCartId;
+        this.productID = productId;
         this.productName = productName;
         this.price = price;
         this.amount = amount;
@@ -16,12 +18,12 @@ public class ProductCart {
     }
 
     // Getters and Setters
-    public String getProductId() {
-        return productId;
+    public String getProductID() {
+        return productID;
     }
 
-    public void setProductId(String productId) {
-        this.productId = productId;
+    public void setProductID(String productID) {
+        this.productID = productID;
     }
 
     public String getProductName() {
@@ -54,6 +56,14 @@ public class ProductCart {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getShoppingCartId() {
+        return shoppingCartId;
+    }
+
+    public void setShoppingCartId(String shoppingCartId) {
+        this.shoppingCartId = shoppingCartId;
     }
 }
 

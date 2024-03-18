@@ -65,7 +65,6 @@ public class CartFragment extends Fragment {
         return view;
     }
     private void loadCustomerProducts() {
-
         ShoppingCartService service = RetrofitClient.getClient().create(ShoppingCartService.class);
         Call<CustomerResponse> customerIdCall = service.getCustomerIDByEmail(customerEmail);
         customerIdCall.enqueue(new Callback<CustomerResponse>() {
@@ -84,7 +83,7 @@ public class CartFragment extends Fragment {
                                 productList.addAll(products);
                                 adapter.notifyDataSetChanged();
                             } else {
-                                Toast.makeText(getContext(), "Không thể lấy sản phẩm từ giỏ hàng", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Không thể lấy sản phẩm từ giỏ hàng !", Toast.LENGTH_SHORT).show();
                             }
                         }
                         @Override
@@ -99,8 +98,8 @@ public class CartFragment extends Fragment {
 
             @Override
             public void onFailure(Call<CustomerResponse> call, Throwable t) {
-                Log.e("CartFragment", "Lỗi mạng: ", t);
-                Toast.makeText(getContext(), "Lỗi mạng: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                Log.e("CartFragment", "Lỗi: ", t);
+                Toast.makeText(getContext(), "Lỗi: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
