@@ -1,5 +1,6 @@
 package com.example.phonesaleapp.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.phonesaleapp.R;
 import com.example.phonesaleapp.adapter.AccountOptionsAdapter;
 import com.example.phonesaleapp.model.AccountOption;
+import com.example.phonesaleapp.view.login.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +26,6 @@ public class AccountFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private AccountOptionsAdapter mAdapter;
     private List<AccountOption> mOptionList;
-
     public AccountFragment() {
 
     }
@@ -54,10 +55,35 @@ public class AccountFragment extends Fragment {
         mOptionList.add(new AccountOption("Địa chỉ giao hàng", R.drawable.icon_location));
         mOptionList.add(new AccountOption("Lịch sử mua hàng", R.drawable.hitory_search));
         mOptionList.add(new AccountOption("Đổi Mật Khẩu", R.drawable.icon_changepass));
+        mOptionList.add(new AccountOption("Đăng xuất",R.drawable.signout));
 
         mAdapter = new AccountOptionsAdapter(mOptionList);
         mRecyclerView.setAdapter(mAdapter);
-
+        mAdapter.setOnItemClickListener(new AccountOptionsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Solve(position);
+            }
+        });
         return view;
     }
+    private void Solve(int position) {
+        AccountOption option = mOptionList.get(position);
+        switch (option.getTitle()) {
+            case "Chỉnh sửa trang cá nhân":
+                break;
+            case "Địa chỉ giao hàng":
+                break;
+            case "Lịch sử mua hàng":
+                break;
+            case "Đổi Mật Khẩu":
+                break;
+            case "Đăng xuất":
+                Intent intent = new Intent(getContext(), LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                break;
+        }
+    }
+
 }

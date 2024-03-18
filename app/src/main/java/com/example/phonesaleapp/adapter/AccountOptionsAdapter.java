@@ -16,11 +16,19 @@ import java.util.List;
 public class AccountOptionsAdapter extends RecyclerView.Adapter<AccountOptionsAdapter.ViewHolder> {
 
     private List<AccountOption> mOptions;
+    private static OnItemClickListener mListener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
 
     public AccountOptionsAdapter(List<AccountOption> options) {
         mOptions = options;
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_account_option, parent, false);
@@ -47,6 +55,16 @@ public class AccountOptionsAdapter extends RecyclerView.Adapter<AccountOptionsAd
             super(itemView);
             mImageView = itemView.findViewById(R.id.ivIcon);
             mTextView = itemView.findViewById(R.id.tvOption);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mListener != null && getAdapterPosition() != RecyclerView.NO_POSITION) {
+                        mListener.onItemClick(getAdapterPosition());
+                    }
+                }
+            });
         }
+
     }
 }
