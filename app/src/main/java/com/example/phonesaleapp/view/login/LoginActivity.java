@@ -1,4 +1,4 @@
-package com.example.phonesaleapp.login;
+package com.example.phonesaleapp.view.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +15,6 @@ import com.example.phonesaleapp.api.service.LoginService;
 import com.example.phonesaleapp.api.RetrofitClient;
 import com.example.phonesaleapp.api.request.login.LoginRequest;
 import com.example.phonesaleapp.api.request.login.LoginResponse;
-import com.example.phonesaleapp.view.CartFragment;
 
 import retrofit2.Call;
 import retrofit2.Callback;

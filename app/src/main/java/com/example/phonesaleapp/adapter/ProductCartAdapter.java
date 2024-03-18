@@ -49,7 +49,9 @@ public class ProductCartAdapter extends RecyclerView.Adapter<ProductCartAdapter.
         holder.tvNameProduct.setText(product.getProductName());
         holder.tvPriceProduct.setText(String.format("%,d VND", product.getPrice()));
         holder.tvCount.setText(String.valueOf(product.getAmount()));
-        String imageUrl = "http://192.168.1.7:7244/Assets/Images/" + product.getImg();
+
+        String baseUrl = RetrofitClient.getBaseUrl();
+        String imageUrl = baseUrl.replace("/api/", "/Assets/Images/") + product.getImg();
         Glide.with(context).load(imageUrl).into(holder.imgPhotoProduct);
 
         holder.imgRemove.setOnClickListener(v -> {

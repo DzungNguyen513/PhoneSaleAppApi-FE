@@ -1,7 +1,6 @@
-package com.example.phonesaleapp.login;
+package com.example.phonesaleapp.view.login;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
