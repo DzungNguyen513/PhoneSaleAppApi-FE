@@ -15,6 +15,7 @@ import com.example.phonesaleapp.api.service.LoginService;
 import com.example.phonesaleapp.api.RetrofitClient;
 import com.example.phonesaleapp.api.request.login.LoginRequest;
 import com.example.phonesaleapp.api.request.login.LoginResponse;
+import com.example.phonesaleapp.view.CartFragment;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (response.body().success) {
                         Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.putExtra("email", email);
                         startActivity(intent);
                         finish();
                     } else {

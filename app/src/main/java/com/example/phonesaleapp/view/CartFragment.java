@@ -31,9 +31,8 @@ public class CartFragment extends Fragment {
     private RecyclerView rvCartItems;
     private ProductCartAdapter adapter;
     private List<ProductCart> productList = new ArrayList<>();
-    private String customerEmail = "trang";
     private static final String ARG_EMAIL = "email";
-    private String email;
+    private String customerEmail;
 
 
     public CartFragment() {
@@ -52,7 +51,7 @@ public class CartFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            email = getArguments().getString(ARG_EMAIL);
+            customerEmail = getArguments().getString(ARG_EMAIL);
         }
     }
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,11 +61,11 @@ public class CartFragment extends Fragment {
         adapter = new ProductCartAdapter(getContext(), productList);
         rvCartItems.setAdapter(adapter);
         rvCartItems.setLayoutManager(new LinearLayoutManager(getContext()));
-
         loadCustomerProducts();
         return view;
     }
     private void loadCustomerProducts() {
+
         ShoppingCartService service = RetrofitClient.getClient().create(ShoppingCartService.class);
         Call<CustomerResponse> customerIdCall = service.getCustomerIDByEmail(customerEmail);
         customerIdCall.enqueue(new Callback<CustomerResponse>() {
@@ -103,7 +102,6 @@ public class CartFragment extends Fragment {
                 Log.e("CartFragment", "Lỗi mạng: ", t);
                 Toast.makeText(getContext(), "Lỗi mạng: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
-
         });
     }
 }

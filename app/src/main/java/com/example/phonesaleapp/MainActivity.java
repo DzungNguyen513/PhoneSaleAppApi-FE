@@ -21,8 +21,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = getIntent();
-        email = intent.getStringExtra("email");
+        email = getIntent().getStringExtra("email");
         bottomNav = this.findViewById(R.id.bottomnav);
         getSupportFragmentManager().beginTransaction().replace(R.id.layout_app, new HomeFragment()).commit();
         bottomNav.setSelectedItemId(R.id.action_Home);
