@@ -72,8 +72,7 @@ public class AccountFragment extends Fragment {
         switch (option.getTitle()) {
             case "Chỉnh sửa trang cá nhân":
                 Intent intent1 = new Intent(getContext(), EditAccountActivity.class);
-                intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent1);
+                startActivityForResult(intent1, -99);
                 break;
             case "Địa chỉ giao hàng":
                 break;

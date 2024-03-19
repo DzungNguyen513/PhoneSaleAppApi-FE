@@ -2,6 +2,7 @@ package com.example.phonesaleapp.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -19,8 +20,7 @@ public class EditAccountActivity extends AppCompatActivity {
         tv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EditAccountActivity.this, AccountFragment.class);
-                startActivity(intent);
+                setResult(Activity.RESULT_OK);
                 finish();
             }
         });

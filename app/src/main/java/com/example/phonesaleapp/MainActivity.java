@@ -1,5 +1,6 @@
 package com.example.phonesaleapp;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -43,7 +44,20 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         });
-
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == -99) {
+            showAccountFragment();
+        }
+    }
+
+    public void showAccountFragment() {
+        Fragment accountFragment = AccountFragment.newInstance(email);
+        getSupportFragmentManager().beginTransaction().replace(R.id.layout_app, accountFragment).commit();
+        bottomNav.setSelectedItemId(R.id.action_MyPage);
+    }
+
 }
 
