@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.phonesaleapp.MainActivity;
@@ -15,6 +16,11 @@ import com.example.phonesaleapp.api.service.LoginService;
 import com.example.phonesaleapp.api.RetrofitClient;
 import com.example.phonesaleapp.api.request.login.LoginRequest;
 import com.example.phonesaleapp.api.request.login.LoginResponse;
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,31 +47,50 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+
     private void Login(String email, String password) {
         LoginService loginService = RetrofitClient.getClient().create(LoginService.class);
         Call<LoginResponse> call = loginService.loginUser(new LoginRequest(email, password));
-
         call.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    if (response.body().success) {
+                if (!response.isSuccessful()) {
+                    try {
+                        String errorBody = response.errorBody().string();
+                        JSONObject jsonObject = new JSONObject(errorBody);
+                        String errorMessage = jsonObject.getString("message");
+                        runOnUiThread(() -> {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                            builder.setTitle("Thông báo");
+                            builder.setMessage(errorMessage);
+                            builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        runOnUiThread(() -> Toast.makeText(LoginActivity.this, "Có lỗi xảy ra, vui lòng thử lại sau.", Toast.LENGTH_LONG).show());
+                    }
+                } else if (response.body() != null) {
+                    boolean success = response.body().success;
+                    if (success) {
                         Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.putExtra("email", email);
                         startActivity(intent);
                         finish();
                     } else {
-                        Toast.makeText(LoginActivity.this, "Sai tên tài khoản hoặc mật khẩu", Toast.LENGTH_SHORT).show();
+                        runOnUiThread(() -> Toast.makeText(LoginActivity.this, "Sai tên tài khoản hoặc mật khẩu", Toast.LENGTH_SHORT).show());
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "Đã xảy ra lỗi, vui lòng thử lại sau", Toast.LENGTH_SHORT).show();
+                runOnUiThread(() -> Toast.makeText(LoginActivity.this, "Kết nối mạng có vấn đề. Vui lòng kiểm tra và thử lại.", Toast.LENGTH_SHORT).show());
             }
         });
+
     }
 
     private void gotoRegisterActivity() {

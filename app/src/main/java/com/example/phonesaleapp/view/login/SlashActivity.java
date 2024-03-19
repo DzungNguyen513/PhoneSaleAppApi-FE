@@ -32,6 +32,6 @@ public class SlashActivity extends AppCompatActivity {
     }
 
     private void AnhXa(){
-        tv_hello = this.findViewById(R.id.tv_hello);
+        //tv_hello = this.findViewById(R.id.tv_hello);
     }
 }

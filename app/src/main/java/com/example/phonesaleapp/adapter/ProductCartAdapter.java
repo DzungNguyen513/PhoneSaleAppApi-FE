@@ -54,6 +54,18 @@ public class ProductCartAdapter extends RecyclerView.Adapter<ProductCartAdapter.
         String imageUrl = baseUrl.replace("/api/", "/Assets/Images/") + product.getImg();
         Glide.with(context).load(imageUrl).into(holder.imgPhotoProduct);
 
+        holder.imgPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.tvCount.setText(String.valueOf(product.getAmount()+1));
+            }
+        });
+        holder.imgMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.tvCount.setText(String.valueOf(product.getAmount()-1));
+            }
+        });
         holder.imgRemove.setOnClickListener(v -> {
             AlertDialog.Builder builder =new AlertDialog.Builder(context);
             builder.setTitle("Xác nhận xóa");
