@@ -1,4 +1,4 @@
-package com.example.phonesaleapp.view;
+package com.example.phonesaleapp.view.shoppingcart;
 
 import android.os.Bundle;
 import android.util.Log;

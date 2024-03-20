@@ -17,7 +17,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".view.EditAccountActivity"
+            android:name=".view.account.EditAccountActivity"
             android:exported="false" />
         <activity
             android:name=".view.login.SlashActivity"

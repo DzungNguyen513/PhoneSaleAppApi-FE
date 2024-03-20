@@ -7,10 +7,10 @@ import androidx.fragment.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.phonesaleapp.view.AccountFragment;
-import com.example.phonesaleapp.view.CartFragment;
-import com.example.phonesaleapp.view.HomeFragment;
-import com.example.phonesaleapp.view.NotiFragment;
+import com.example.phonesaleapp.view.account.AccountFragment;
+import com.example.phonesaleapp.view.shoppingcart.CartFragment;
+import com.example.phonesaleapp.view.home.HomeFragment;
+import com.example.phonesaleapp.view.notification.NotiFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {

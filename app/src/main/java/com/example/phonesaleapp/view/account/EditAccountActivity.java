@@ -1,4 +1,4 @@
-package com.example.phonesaleapp.view;
+package com.example.phonesaleapp.view.account;
 
 import androidx.appcompat.app.AppCompatActivity;
 
