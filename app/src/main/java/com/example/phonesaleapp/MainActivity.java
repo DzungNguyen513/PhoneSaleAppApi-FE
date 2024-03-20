@@ -58,6 +58,5 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.layout_app, accountFragment).commit();
         bottomNav.setSelectedItemId(R.id.action_MyPage);
     }
-
 }
 

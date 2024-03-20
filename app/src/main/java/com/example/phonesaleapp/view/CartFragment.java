@@ -5,6 +5,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,12 +32,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CartFragment extends Fragment {
+    CheckBox cb_allProductCart;
+    TextView tv_totalCheck;
+    Button btn_buy;
     private RecyclerView rvCartItems;
     private ProductCartAdapter adapter;
     private List<ProductCart> productList = new ArrayList<>();
     private static final String ARG_EMAIL = "email";
     private String customerEmail;
-
 
     public CartFragment() {
 
@@ -56,13 +62,25 @@ public class CartFragment extends Fragment {
     }
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
-
-        rvCartItems = view.findViewById(R.id.rvCartItems);
-        adapter = new ProductCartAdapter(getContext(), productList);
-        rvCartItems.setAdapter(adapter);
-        rvCartItems.setLayoutManager(new LinearLayoutManager(getContext()));
+        AnhXa(view);
         loadCustomerProducts();
+        adapter.setOnProductCartChangeListener(() -> updateTotalCart());
+        cb_allProductCart.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                adapter.selectAllItems(isChecked);
+            }
+        });
         return view;
+    }
+    private void updateTotalCart() {
+        double total = 0;
+        for (ProductCart product : productList) {
+            if (product.isSelected()) {
+                total += product.getPrice() * product.getAmount();
+            }
+        }
+        tv_totalCheck.setText(String.format("%,d VND", (int) total));
     }
     private void loadCustomerProducts() {
         ShoppingCartService service = RetrofitClient.getClient().create(ShoppingCartService.class);
@@ -102,5 +120,14 @@ public class CartFragment extends Fragment {
                 Toast.makeText(getContext(), "Lỗi: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+    }
+    private void AnhXa(View view){
+        adapter = new ProductCartAdapter(getContext(), productList);
+        rvCartItems = view.findViewById(R.id.rvCartItems);
+        rvCartItems.setAdapter(adapter);
+        rvCartItems.setLayoutManager(new LinearLayoutManager(getContext()));
+        cb_allProductCart = view.findViewById(R.id.cb_allProductCart);
+        tv_totalCheck = view.findViewById(R.id.tv_TotalCheck);
+        btn_buy = view.findViewById(R.id.btn_buy);
     }
 }

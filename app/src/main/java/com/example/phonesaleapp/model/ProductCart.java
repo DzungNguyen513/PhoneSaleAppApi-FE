@@ -8,6 +8,8 @@ public class ProductCart {
     private int amount;
     private String img;
 
+    private boolean isSelected;
+
     public ProductCart(String shoppingCartId, String productId, String productName, int price, int amount, String img) {
         this.shoppingCartId = shoppingCartId;
         this.productID = productId;
@@ -63,6 +65,14 @@ public class ProductCart {
 
     public void setShoppingCartId(String shoppingCartId) {
         this.shoppingCartId = shoppingCartId;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 }
 

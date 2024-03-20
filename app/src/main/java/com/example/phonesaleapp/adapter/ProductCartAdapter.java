@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.phonesaleapp.R;
 import com.example.phonesaleapp.api.RetrofitClient;
+import com.example.phonesaleapp.api.request.shoppingcartitems.UpdateAmountRequest;
 import com.example.phonesaleapp.api.service.ShoppingCartService;
 import com.example.phonesaleapp.model.ProductCart;
 
@@ -30,10 +31,21 @@ import retrofit2.Response;
 public class ProductCartAdapter extends RecyclerView.Adapter<ProductCartAdapter.ViewHolder> {
     private Context context;
     private List<ProductCart> productList;
-
+    private OnProductCartChangeListener changeListener;
+    private boolean isSelectedAll = false;
     public ProductCartAdapter(Context context, List<ProductCart> productList) {
         this.context = context;
         this.productList = productList;
+    }
+    public interface OnProductCartChangeListener{
+        void onProductCartChange();
+    }
+    public void setOnProductCartChangeListener(OnProductCartChangeListener listener) {
+        this.changeListener = listener;
+    }
+    public void selectAllItems(boolean isSelectedAll) {
+        this.isSelectedAll = isSelectedAll;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -54,18 +66,58 @@ public class ProductCartAdapter extends RecyclerView.Adapter<ProductCartAdapter.
         String imageUrl = baseUrl.replace("/api/", "/Assets/Images/") + product.getImg();
         Glide.with(context).load(imageUrl).into(holder.imgPhotoProduct);
 
-        holder.imgPlus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                holder.tvCount.setText(String.valueOf(product.getAmount()+1));
+        ShoppingCartService service = RetrofitClient.getClient().create(ShoppingCartService.class);
+        holder.cb_productCart.setChecked(isSelectedAll);
+        holder.imgPlus.setOnClickListener(v -> {
+            int newAmount = product.getAmount() + 1;
+            product.setAmount(newAmount);
+            holder.tvCount.setText(String.valueOf(newAmount));
+
+            UpdateAmountRequest request = new UpdateAmountRequest(product.getShoppingCartId(), product.getProductID(), newAmount);
+            service.updateProductAmount(request).enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    if (!response.isSuccessful()) {
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+
+                }
+            });
+        });
+
+        holder.imgMinus.setOnClickListener(v -> {
+            if (product.getAmount() > 1) {
+                int newAmount = product.getAmount() - 1;
+                product.setAmount(newAmount);
+                holder.tvCount.setText(String.valueOf(newAmount));
+
+                UpdateAmountRequest request = new UpdateAmountRequest(product.getShoppingCartId(), product.getProductID(), newAmount);
+                service.updateProductAmount(request).enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if (!response.isSuccessful()) {
+
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+
+                    }
+                });
             }
         });
-        holder.imgMinus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                holder.tvCount.setText(String.valueOf(product.getAmount()-1));
+        holder.cb_productCart.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            productList.get(position).setSelected(isChecked);
+            if (changeListener != null) {
+                changeListener.onProductCartChange();
             }
         });
+
+
         holder.imgRemove.setOnClickListener(v -> {
             AlertDialog.Builder builder =new AlertDialog.Builder(context);
             builder.setTitle("Xác nhận xóa");
@@ -85,6 +137,7 @@ public class ProductCartAdapter extends RecyclerView.Adapter<ProductCartAdapter.
             AlertDialog dialog = builder.create();
             dialog.show();
         });
+
     }
 
     private void deleteProductFromCart(String shoppingCartId, String productId, int position) {
@@ -113,13 +166,13 @@ public class ProductCartAdapter extends RecyclerView.Adapter<ProductCartAdapter.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public CheckBox checkBoxSelectItem;
+        public CheckBox cb_productCart;
         public ImageView imgPhotoProduct, imgMinus, imgPlus, imgRemove;
         public TextView tvNameProduct, tvPriceProduct, tvCount;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            checkBoxSelectItem = itemView.findViewById(R.id.cb_productCart);
+            cb_productCart = itemView.findViewById(R.id.cb_productCart);
             imgPhotoProduct = itemView.findViewById(R.id.img_photo_cart);
             tvNameProduct = itemView.findViewById(R.id.tv_name_product_cart);
             tvPriceProduct = itemView.findViewById(R.id.tv_price_product_cart);
