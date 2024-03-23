@@ -1,17 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:title="Trang chủ"
+        app:titleTextColor="#FBF9F9"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="6dp" />
+
+    <!--    <GridView -->
+<!--        android:id="@+id/gridViewSanPham"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="505dp"-->
+<!--        android:layout_below="@+id/listViewDanhMuc" -->
+<!--        android:layout_marginTop="16dp" -->
+<!--        android:numColumns="2"/> -->
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPagerImage"
+        android:layout_width="match_parent"
+        android:layout_height="138dp"
+        android:layout_below="@+id/toolbar2"
+        android:layout_marginTop="6dp" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewDanhMuc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="188dp"
-        android:layout_marginTop="248dp"
-        android:text="home"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_below="@+id/viewPagerImage"
+        android:layout_marginTop="57dp"
+        android:text="Danh mục hàng đầu"
+        android:textSize="18sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewDanhMuc"
+        android:layout_marginTop="25dp" />
+
+    <com.example.phonesaleapp.view.home.CircleTabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="168dp"
+        android:layout_height="7dp"
+        android:layout_below="@id/viewPagerImage"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="4dp"
+        app:tabIndicator="@drawable/tab_indicator_circle"
+        app:tabMode="scrollable" />
+
+
+
+</RelativeLayout>
+
+</androidx.core.widget.NestedScrollView>
