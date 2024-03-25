@@ -67,7 +67,6 @@ public class ProductCartAdapter extends RecyclerView.Adapter<ProductCartAdapter.
         String baseUrl = RetrofitClient.getBaseUrl();
         String imageUrl = baseUrl.replace("/api/", "/Assets/Images/") + product.getImg();
         Glide.with(context).load(imageUrl).into(holder.img_ProductCart);
-
         ShoppingCartService service = RetrofitClient.getClient().create(ShoppingCartService.class);
         holder.cb_productCart.setChecked(isSelectedAll);
         holder.imgPlus.setOnClickListener(v -> {

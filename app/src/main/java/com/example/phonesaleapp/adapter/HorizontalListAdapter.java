@@ -11,9 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.phonesaleapp.R;
 
+import java.util.ArrayList;
+
 public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAdapter.ViewHolder>{
-    private String [] data;
-    public HorizontalListAdapter(String[] data) {
+    private ArrayList<String> data;
+    public HorizontalListAdapter(ArrayList<String> data) {
         this.data = data;
     }
    public ViewHolder onCreateViewHolder (ViewGroup parent, int viewType ){
@@ -22,19 +24,17 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
    }
     @Override
     public void onBindViewHolder(@NonNull HorizontalListAdapter.ViewHolder holder, int position) {
-        holder.textViewCat.setText(data[position]);
-        holder.imageViewCat.setImageResource(R.drawable.ip14);
+        holder.textViewCat.setText(data.get(position));
     }
     @Override
     public int getItemCount() {
-        return data.length;
+        return data.size();
     }
     public static  class ViewHolder extends RecyclerView.ViewHolder{
         public ImageView imageViewCat;
-        public TextView textViewCat;
+        public TextView textViewCat; 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageViewCat= itemView.findViewById(R.id.imageViewCategory);
             textViewCat=itemView.findViewById(R.id.textViewCategory);
         }
     }

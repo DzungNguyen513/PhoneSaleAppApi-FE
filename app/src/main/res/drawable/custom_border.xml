@@ -1,0 +1,12 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="8dp" /> <!-- Điều chỉnh bán kính bo góc tùy thích -->
+    <stroke
+        android:width="0.6dp"
+        android:color="@color/pastel_green"/>
+    <padding
+        android:left="8dp"
+        android:top="8dp"
+        android:right="8dp"
+        android:bottom="8dp" />
+</shape>
