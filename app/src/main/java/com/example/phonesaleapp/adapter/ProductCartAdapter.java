@@ -58,13 +58,15 @@ public class ProductCartAdapter extends RecyclerView.Adapter<ProductCartAdapter.
     @Override
     public void onBindViewHolder(@NonNull ProductCartAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         ProductCart product = productList.get(position);
-        holder.tvNameProduct.setText(product.getProductName());
-        holder.tvPriceProduct.setText(String.format("%,d VND", product.getPrice()));
+        holder.tv_ProductCartName.setText(product.getProductName());
+        holder.tv_ProductCartPrice.setText(String.format("%,d VND", product.getPrice()));
+        holder.tv_ProductCartColor.setText(product.getColorName());
+        holder.tv_ProductCartStorage.setText(String.valueOf(product.getStorageGB()));
         holder.tvCount.setText(String.valueOf(product.getAmount()));
 
         String baseUrl = RetrofitClient.getBaseUrl();
         String imageUrl = baseUrl.replace("/api/", "/Assets/Images/") + product.getImg();
-        Glide.with(context).load(imageUrl).into(holder.imgPhotoProduct);
+        Glide.with(context).load(imageUrl).into(holder.img_ProductCart);
 
         ShoppingCartService service = RetrofitClient.getClient().create(ShoppingCartService.class);
         holder.cb_productCart.setChecked(isSelectedAll);
@@ -167,19 +169,21 @@ public class ProductCartAdapter extends RecyclerView.Adapter<ProductCartAdapter.
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public CheckBox cb_productCart;
-        public ImageView imgPhotoProduct, imgMinus, imgPlus, imgRemove;
-        public TextView tvNameProduct, tvPriceProduct, tvCount;
+        public ImageView img_ProductCart, imgMinus, imgPlus, imgRemove;
+        public TextView tv_ProductCartName, tv_ProductCartPrice, tvCount, tv_ProductCartColor, tv_ProductCartStorage;
 
         public ViewHolder(View itemView) {
             super(itemView);
             cb_productCart = itemView.findViewById(R.id.cb_productCart);
-            imgPhotoProduct = itemView.findViewById(R.id.img_photo_cart);
-            tvNameProduct = itemView.findViewById(R.id.tv_name_product_cart);
-            tvPriceProduct = itemView.findViewById(R.id.tv_price_product_cart);
-            imgMinus = itemView.findViewById(R.id.img_minus_cart);
-            tvCount = itemView.findViewById(R.id.tv_count_cart);
-            imgPlus = itemView.findViewById(R.id.img_plus_cart);
-            imgRemove = itemView.findViewById(R.id.img_remove_cart);
+            img_ProductCart = itemView.findViewById(R.id.img_ProductCart);
+            tv_ProductCartName = itemView.findViewById(R.id.tv_ProductCartName);
+            tv_ProductCartPrice = itemView.findViewById(R.id.tv_ProductCartPrice);
+            tv_ProductCartColor = itemView.findViewById(R.id.tv_ProductCartColor);
+            tv_ProductCartStorage = itemView.findViewById(R.id.tv_ProductCartStorage);
+            imgMinus = itemView.findViewById(R.id.img_minusProductCart);
+            tvCount = itemView.findViewById(R.id.tv_countProductCart);
+            imgPlus = itemView.findViewById(R.id.img_plusProductCart);
+            imgRemove = itemView.findViewById(R.id.img_removeProductCart);
         }
     }
 }

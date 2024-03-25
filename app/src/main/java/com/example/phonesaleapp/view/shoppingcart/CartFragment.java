@@ -71,6 +71,17 @@ public class CartFragment extends Fragment {
                 adapter.selectAllItems(isChecked);
             }
         });
+        btn_buy.setOnClickListener(v -> {
+            double total = 0;
+            for (ProductCart product : productList) {
+                if (product.isSelected()) {
+                    total += product.getPrice() * product.getAmount();
+                }
+            }
+            BottomDialogCartFragment bottomSheetDialog = new BottomDialogCartFragment(total);
+            bottomSheetDialog.show(getChildFragmentManager(), bottomSheetDialog.getTag());
+        });
+
         return view;
     }
     private void updateTotalCart() {

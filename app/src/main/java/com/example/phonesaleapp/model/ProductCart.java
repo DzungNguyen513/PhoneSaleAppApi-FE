@@ -5,16 +5,20 @@ public class ProductCart {
     private String productID;
     private String productName;
     private int price;
+    private String colorName;
+    private int storageGB;
     private int amount;
     private String img;
 
     private boolean isSelected;
 
-    public ProductCart(String shoppingCartId, String productId, String productName, int price, int amount, String img) {
+    public ProductCart(String shoppingCartId, String productId, String productName, int price, String colorName, int storageGB, int amount, String img) {
         this.shoppingCartId = shoppingCartId;
         this.productID = productId;
         this.productName = productName;
         this.price = price;
+        this.colorName = colorName;
+        this.storageGB = storageGB;
         this.amount = amount;
         this.img = img;
     }
@@ -41,6 +45,22 @@ public class ProductCart {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public String getColorName() {
+        return colorName;
+    }
+
+    public void setColorName(String colorName) {
+        this.colorName = colorName;
+    }
+
+    public int getStorageGB() {
+        return storageGB;
+    }
+
+    public void setStorageGB(int storageGB) {
+        this.storageGB = storageGB;
     }
 
     public int getAmount() {
