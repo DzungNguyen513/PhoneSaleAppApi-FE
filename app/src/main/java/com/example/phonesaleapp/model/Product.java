@@ -1,5 +1,7 @@
 package com.example.phonesaleapp.model;
 
+import android.graphics.Color;
+
 import java.util.List;
 
 public class Product {
@@ -11,26 +13,27 @@ public class Product {
     private double price;
     private String categoryId;
     private String vendorId;
-    private  String detail;
+    private String detail;
     private String img;
     private int status;
     private Category category;
-    private ColorName colorNameNavigation;
+    private Color colorNameNavigation;
     private StorageGb storageGbNavigation;
     private Vendor vendor;
     private List<BillDetails> billDetails;
     private List<ShoppingCartDetail> shoppingCartDetails;
-
-    public Product(String productId, String productName, String colorName, double price, String img) {
-        this.productId = productId;
-        this.productName = productName;
-        this.colorName = colorName;
-        this.price = price;
-        this.img = img;
-    }
+    private List<ProductImage> productImages;
 
     public String getProductId() {
         return productId;
+    }
+
+    public List<ProductImage> getProductImages() {
+        return productImages;
+    }
+
+    public void setProductImages(List<ProductImage> productImages) {
+        this.productImages = productImages;
     }
 
     public void setProductId(String productId) {
@@ -125,11 +128,11 @@ public class Product {
         this.category = category;
     }
 
-    public ColorName getColorNameNavigation() {
+    public Color getColorNameNavigation() {
         return colorNameNavigation;
     }
 
-    public void setColorNameNavigation(ColorName colorNameNavigation) {
+    public void setColorNameNavigation(Color colorNameNavigation) {
         this.colorNameNavigation = colorNameNavigation;
     }
 

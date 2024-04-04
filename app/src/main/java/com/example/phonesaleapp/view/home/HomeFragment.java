@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -26,6 +27,8 @@ import com.example.phonesaleapp.api.service.CategoryService;
 import com.example.phonesaleapp.api.service.ProductService;
 import com.example.phonesaleapp.model.Category;
 import com.example.phonesaleapp.model.Product;
+import com.example.phonesaleapp.model.ProductImage;
+import com.example.phonesaleapp.model.Product_Detail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,13 +38,12 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
     ArrayList<String> arrayListCatName= new ArrayList<>();;
-    RecyclerView recyclerView;
+    RecyclerView recyclerView, recyclerViewProduct;
     ViewPager viewPager;
     CircleTabLayout tabLayout;
     HorizontalListAdapter adapterCat;
-    ArrayList<Product> arrayListProduct= new ArrayList<>();
+    ArrayList<Product_Detail> arrayListProduct= new ArrayList<>();
     ListProductAdapter productAdapter;
-    GridView gridListProduct;
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         Init(view);
@@ -52,8 +54,9 @@ public class HomeFragment extends Fragment {
         adapterCat= new HorizontalListAdapter(arrayListCatName);
         recyclerView.setAdapter(adapterCat);
         // adapter của listProduct
-        productAdapter= new ListProductAdapter(getContext(), R.layout.item_product, arrayListProduct);
-        gridListProduct.setAdapter(productAdapter);
+        recyclerViewProduct.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        productAdapter= new ListProductAdapter(getContext(), arrayListProduct);
+        recyclerViewProduct.setAdapter(productAdapter);
         return view;
     }
     @Override
@@ -104,25 +107,54 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
     private  void LoadProduct(){
         ProductService productService= RetrofitClient.getClient().create(ProductService.class);
         Call<List<Product>> callListProduct= productService.GetProducts();
+
         callListProduct.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(@NonNull Call<List<Product>> call, @NonNull Response<List<Product>> response) {
                 if(response.isSuccessful() && response.body()!=null){
                     List<Product> products= response.body();
+
                     for (Product pd: products){
-                        arrayListProduct.add(new Product(pd.getProductId(),pd.getProductName(),pd.getColorName(), pd.getPrice(), pd.getImg()));
-                        productAdapter.notifyDataSetChanged();
-                        Log.d(TAG, "Product: "+pd);
+                        Product_Detail productDetail= new Product_Detail(pd.getProductId(),pd.getProductName(),pd.getColorName(), pd.getPrice(), "");
+
+                        Call<List<ProductImage>> callListImage= productService.GetProductImages(pd.getProductId());
+                        callListImage.enqueue(new Callback<List<ProductImage>>() {
+                            @Override
+                            public void onResponse(@NonNull Call<List<ProductImage>> call, @NonNull Response<List<ProductImage>> response) {
+                                if(response.isSuccessful() && response.body()!=null) {
+                                    List<ProductImage> productImages = response.body();
+                                    for (ProductImage pro : productImages) {
+                                        if (pro.isPrimary()) {
+                                            productDetail.imagePath= pro.getImagePath();
+                                            arrayListProduct.add(productDetail);
+                                            productAdapter.notifyDataSetChanged();
+                                            break;
+                                        }
+                                    }
+
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(@NonNull Call<List<ProductImage>> call, @NonNull Throwable t) {
+
+                            }
+                        });
+
+
+
+
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Product>> call, Throwable t) {
-                Toast.makeText(getContext(), ""+t.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onFailure(@NonNull Call<List<Product>> call, @NonNull Throwable t) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -130,6 +162,6 @@ public class HomeFragment extends Fragment {
         recyclerView= view.findViewById(R.id.recyclerView);
         viewPager= view.findViewById(R.id.viewPagerImage);
         tabLayout= view.findViewById(R.id.tabLayout);
-        gridListProduct= view.findViewById(R.id.gridListSanPham);
+        recyclerViewProduct= view.findViewById(R.id.recyclerViewProduct);
     }
 }

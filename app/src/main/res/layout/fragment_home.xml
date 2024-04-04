@@ -1,30 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar2"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:title="Trang chủ"
-        app:titleTextColor="#FBF9F9"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="6dp" />
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPagerImage"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="138dp"
-        android:layout_below="@+id/toolbar2"
-        android:layout_marginTop="6dp" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar2"
+            android:layout_width="409dp"
+            android:layout_height="wrap_content"
+            android:background="#9BB0C1"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:title="Trang chủ"
+            app:titleTextColor="@color/black"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="6dp" />
+
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPagerImage"
+            android:layout_width="match_parent"
+            android:layout_height="138dp"
+            android:layout_below="@+id/toolbar2"
+            android:layout_marginTop="6dp" />
 
         <TextView
             android:id="@+id/textViewDanhMuc"
@@ -43,26 +47,23 @@
             android:layout_marginTop="2dp" />
 
         <com.example.phonesaleapp.view.home.CircleTabLayout
-        android:id="@+id/tabLayout"
-        android:layout_width="168dp"
-        android:layout_height="7dp"
-        android:layout_below="@id/viewPagerImage"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="bottom"
-        android:layout_marginTop="4dp"
-        app:tabIndicator="@drawable/tab_indicator_circle"
-        app:tabMode="scrollable" />
+            android:id="@+id/tabLayout"
+            android:layout_width="168dp"
+            android:layout_height="7dp"
+            android:layout_below="@id/viewPagerImage"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="4dp"
+            app:tabIndicator="@drawable/tab_indicator_circle"
+            app:tabMode="scrollable" />
 
-    <GridView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewProduct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/recyclerView"
+            android:layout_marginTop="2dp" />
 
-        android:id="@+id/gridListSanPham"
-        android:layout_width="match_parent"
-        android:layout_height="505dp"
-        android:layout_below="@+id/recyclerView"
-        android:layout_marginTop="16dp"
-        android:numColumns="2"
-        android:verticalSpacing="8dp"
-        android:horizontalSpacing="8dp"/>
+    </RelativeLayout>
 
-</RelativeLayout>
-
+</androidx.core.widget.NestedScrollView>

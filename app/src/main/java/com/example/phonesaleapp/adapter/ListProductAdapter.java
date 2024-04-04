@@ -1,54 +1,73 @@
 package com.example.phonesaleapp.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.phonesaleapp.R;
 import com.example.phonesaleapp.api.RetrofitClient;
-import com.example.phonesaleapp.api.service.ProductService;
-import com.example.phonesaleapp.model.Product;
+import com.example.phonesaleapp.model.Product_Detail;
 
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.ViewHolder> {
+    private Context context;
+    private List<Product_Detail> productList;
 
-public class ListProductAdapter extends ArrayAdapter<Product> {
-    public ListProductAdapter(@NonNull Context context, int resource, @NonNull List<Product> objects) {
-        super(context, resource, objects);
+    public ListProductAdapter(Context context, List<Product_Detail> productList) {
+        this.context = context;
+        this.productList = productList;
     }
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View view= convertView;
-        if (view==null){
-            LayoutInflater inflater= LayoutInflater.from(getContext());
-            view =inflater.inflate(R.layout.item_product,null);
-        }
-        Product product= getItem(position);
-        if (product!=null){
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_product, parent, false);
+        return new ViewHolder(view);
+    }
 
-            TextView priceProduct= view.findViewById(R.id.textViewProductPrice);
-            ImageView imgProduct= view.findViewById(R.id.imageViewProduct);
-            TextView nameProduct= view.findViewById(R.id.textViewProductName);
-            nameProduct.setText(product.getProductName());
-            priceProduct.setText(String.valueOf(product.getPrice()));
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Product_Detail product = productList.get(position);
+        holder.bind(product);
+    }
+
+    @Override
+    public int getItemCount() {
+        return productList.size();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView nameProduct;
+        public TextView priceProduct;
+        public ImageView imgProduct;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            nameProduct = itemView.findViewById(R.id.textViewProductName);
+            priceProduct = itemView.findViewById(R.id.textViewProductPrice);
+            imgProduct = itemView.findViewById(R.id.imageViewProduct);
+        }
+
+        public void bind(Product_Detail product) {
+            nameProduct.setText(product.productName);
+            priceProduct.setText(String.valueOf(product.price));
             String baseUrl = RetrofitClient.getBaseUrl();
-            String imageUrl = baseUrl.replace("/api/", "/Assets/Images/") + product.getImg();
-            Glide.with(getContext()).load(imageUrl).into(imgProduct);
-        }
+            String imageUrl = baseUrl.replace("/api/", "/Assets/Images/") + product.productId + "/" + product.imagePath;
+            Glide.with(context).load(imageUrl).into(imgProduct);
 
-        return view;
+            ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
+            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT; // Set the width to match parent
+            layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT; // Set the height to wrap content
+            itemView.setLayoutParams(layoutParams);
+        }
     }
 }
