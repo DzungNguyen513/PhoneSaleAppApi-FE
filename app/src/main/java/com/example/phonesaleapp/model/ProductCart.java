@@ -9,7 +9,6 @@ public class ProductCart {
     private int storageGB;
     private int amount;
     private String img;
-
     private boolean isSelected;
 
     public ProductCart(String shoppingCartId, String productId, String productName, int price, String colorName, int storageGB, int amount, String img) {
