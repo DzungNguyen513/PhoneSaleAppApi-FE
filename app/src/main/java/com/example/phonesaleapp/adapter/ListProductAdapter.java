@@ -15,16 +15,22 @@ import com.bumptech.glide.Glide;
 import com.example.phonesaleapp.R;
 import com.example.phonesaleapp.api.RetrofitClient;
 import com.example.phonesaleapp.model.Product_Detail;
+import com.example.phonesaleapp.view.home.Event.ProductClickListener;
 
 import java.util.List;
 
 public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.ViewHolder> {
     private Context context;
     private List<Product_Detail> productList;
+    private ProductClickListener clickItemProduct;
 
     public ListProductAdapter(Context context, List<Product_Detail> productList) {
         this.context = context;
         this.productList = productList;
+    }
+
+    public void setOnProductClickListener(ProductClickListener listener) {
+        this.clickItemProduct = listener;
     }
 
     @NonNull
@@ -38,6 +44,15 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Product_Detail product = productList.get(position);
         holder.bind(product);
+        int i=position;
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                 if (clickItemProduct!=null){
+                     clickItemProduct.onClickProduct(i);
+                 }
+            }
+        });
     }
 
     @Override

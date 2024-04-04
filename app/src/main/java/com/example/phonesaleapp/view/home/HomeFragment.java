@@ -13,6 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,6 +31,7 @@ import com.example.phonesaleapp.model.Category;
 import com.example.phonesaleapp.model.Product;
 import com.example.phonesaleapp.model.ProductImage;
 import com.example.phonesaleapp.model.Product_Detail;
+import com.example.phonesaleapp.view.home.Event.ProductClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +59,16 @@ public class HomeFragment extends Fragment {
         // adapter của listProduct
         recyclerViewProduct.setLayoutManager(new GridLayoutManager(getContext(), 2));
         productAdapter= new ListProductAdapter(getContext(), arrayListProduct);
+        productAdapter.setOnProductClickListener(new ProductClickListener() {
+            @Override
+            public void onClickProduct(int position) {
+                Product_Detail product = arrayListProduct.get(position);
+                String pro_id= product.productId;
+                Product_Detail(pro_id);
+            }
+        });
         recyclerViewProduct.setAdapter(productAdapter);
+
         return view;
     }
     @Override
@@ -85,6 +97,15 @@ public class HomeFragment extends Fragment {
 
         LoadCategory();
         LoadProduct();
+
+    }
+    private void Product_Detail(String productId){
+        Product_DetailFragment productDetailFragment= Product_DetailFragment.newInstance(productId);
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.fragment_container, productDetailFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
 
     }
     private  void LoadCategory(){
