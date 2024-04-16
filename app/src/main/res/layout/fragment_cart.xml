@@ -30,7 +30,7 @@
             android:textColor="@color/black"
             android:textSize="25sp" />
         <ImageView
-            android:id="@+id/message_icon"
+            android:id="@+id/img_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/messageicon"
@@ -40,28 +40,8 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <RelativeLayout
-        android:id="@+id/rl_cartEmpty"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
-        <ImageView
-            android:id="@+id/img_cart_empty"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_centerInParent="true"
-            android:src="@drawable/emptycart" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Không Có Sản Phẩm Trong Giỏ Hàng"
-            android:textSize="20sp"
-            android:textColor="@color/text_color"
-            android:layout_below="@id/img_cart_empty"
-            android:layout_centerHorizontal="true" />
-    </RelativeLayout>
-
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize">
@@ -72,6 +52,27 @@
             android:orientation="vertical"
             android:paddingBottom="16dp">
 
+            <RelativeLayout
+                android:id="@+id/rl_cartEmpty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+                <ImageView
+                    android:id="@+id/img_cart_empty"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/emptycart" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Không Có Sản Phẩm Trong Giỏ Hàng"
+                    android:textSize="20sp"
+                    android:textColor="@color/text_color"
+                    android:layout_below="@id/img_cart_empty"
+                    android:layout_centerHorizontal="true" />
+            </RelativeLayout>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvCartItems"
                 android:layout_width="match_parent"
@@ -79,7 +80,7 @@
                 tools:listitem="@layout/item_shopping_cart" />
 
             <LinearLayout
-                android:id="@+id/ln_muaHang"
+                android:id="@+id/ln_shopping"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -94,7 +95,7 @@
                     android:layout_marginEnd="16dp" />
 
                 <LinearLayout
-                    android:id="@+id/ln_thanhToan"
+                    android:id="@+id/ln_payment"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -127,6 +128,40 @@
                     android:textColor="@color/white"
                     android:layout_gravity="center_vertical" />
             </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ln_coTheBanCungThich"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/line" />
+                <TextView
+                    android:id="@+id/tv_suggestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Có thể bạn cũng thích"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textColor="@color/black" />
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/line" />
+
+            </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_productSuggest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ln_coTheBanCungThich"
+                android:layout_marginTop="2dp" />
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 </FrameLayout>

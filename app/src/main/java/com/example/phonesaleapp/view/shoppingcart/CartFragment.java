@@ -12,22 +12,29 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.phonesaleapp.MainActivity;
 import com.example.phonesaleapp.R;
+import com.example.phonesaleapp.adapter.ListProductAdapter;
 import com.example.phonesaleapp.adapter.ProductCartAdapter;
 import com.example.phonesaleapp.api.RetrofitClient;
 import com.example.phonesaleapp.api.request.customer.CustomerResponse;
+import com.example.phonesaleapp.api.service.ProductService;
 import com.example.phonesaleapp.api.service.ShoppingCartService;
+import com.example.phonesaleapp.model.Product;
 import com.example.phonesaleapp.model.ProductCart;
+import com.example.phonesaleapp.model.ProductImage;
+import com.example.phonesaleapp.model.Product_Detail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,12 +47,15 @@ public class CartFragment extends Fragment {
     CheckBox cb_allProductCart;
     TextView tv_totalCheck;
     Button btn_buy;
-    ImageView img_Back;
-    private RecyclerView rvCartItems;
+    ImageView img_Back, img_message;
+    private RecyclerView rvCartItems, rcv_productSuggest;
     private RelativeLayout rl_cartEmpty;
-    private LinearLayout ln_muaHang;
+    private LinearLayout ln_shopping;
+    ScrollView scrollView;
     private ProductCartAdapter adapter;
+    ListProductAdapter productAdapter;
     private List<ProductCart> productList = new ArrayList<>();
+    ArrayList<Product_Detail> arrayListProduct= new ArrayList<>();
     private static final String ARG_EMAIL = "email";
     private String customerEmail;
 
@@ -97,7 +107,63 @@ public class CartFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        img_message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ChatMessageActivity.class);
+                intent.putExtra("email", customerEmail);
+                startActivity(intent);
+            }
+        });
+        productAdapter= new ListProductAdapter(getContext(), arrayListProduct);
+        rcv_productSuggest.setAdapter(productAdapter);
+        LoadProduct();
         return view;
+    }
+    private  void LoadProduct(){
+        ProductService productService= RetrofitClient.getClient().create(ProductService.class);
+        Call<List<Product>> callListProduct= productService.GetProducts();
+
+        callListProduct.enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<Product>> call, @NonNull Response<List<Product>> response) {
+                if(response.isSuccessful() && response.body()!=null){
+                    List<Product> products= response.body();
+
+                    for (Product pd: products){
+                        Product_Detail productDetail= new Product_Detail(pd.getProductId(),pd.getProductName(),pd.getColorName(), pd.getPrice(), "");
+
+                        Call<List<ProductImage>> callListImage= productService.GetProductImages(pd.getProductId());
+                        callListImage.enqueue(new Callback<List<ProductImage>>() {
+                            @Override
+                            public void onResponse(@NonNull Call<List<ProductImage>> call, @NonNull Response<List<ProductImage>> response) {
+                                if(response.isSuccessful() && response.body()!=null) {
+                                    List<ProductImage> productImages = response.body();
+                                    for (ProductImage pro : productImages) {
+                                        if (pro.isPrimary()) {
+                                            productDetail.imagePath= pro.getImagePath();
+                                            arrayListProduct.add(productDetail);
+                                            productAdapter.notifyDataSetChanged();
+                                            break;
+                                        }
+                                    }
+
+                                }
+                            }
+                            @Override
+                            public void onFailure(@NonNull Call<List<ProductImage>> call, @NonNull Throwable t) {
+
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<Product>> call, @NonNull Throwable t) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     private void updateTotalCart() {
         double total = 0;
@@ -106,7 +172,7 @@ public class CartFragment extends Fragment {
                 total += product.getPrice() * product.getAmount();
             }
         }
-        tv_totalCheck.setText(String.format("%,d VND", (int) total));
+        tv_totalCheck.setText(String.format("%,d.000 VND", (int) total));
     }
     private void loadCustomerProducts() {
         ShoppingCartService service = RetrofitClient.getClient().create(ShoppingCartService.class);
@@ -128,14 +194,14 @@ public class CartFragment extends Fragment {
                                 adapter.notifyDataSetChanged();
                                 if (productList.isEmpty()) {
                                     rl_cartEmpty.setVisibility(View.VISIBLE);
-                                    ln_muaHang.setVisibility(View.GONE);
+                                    ln_shopping.setVisibility(View.GONE);
                                 } else {
                                     rl_cartEmpty.setVisibility(View.GONE);
-                                    ln_muaHang.setVisibility(View.VISIBLE);
+                                    ln_shopping.setVisibility(View.VISIBLE);
                                 }
                             } else {
                                 rl_cartEmpty.setVisibility(View.VISIBLE);
-                                ln_muaHang.setVisibility(View.GONE);
+                                ln_shopping.setVisibility(View.GONE);
                             }
                         }
                         @Override
@@ -155,7 +221,7 @@ public class CartFragment extends Fragment {
                 Log.e("CartFragment", "Lỗi: ", t);
                 Toast.makeText(getContext(), "Lỗi: " + t.getMessage(), Toast.LENGTH_LONG).show();
                 rl_cartEmpty.setVisibility(View.VISIBLE);
-                ln_muaHang.setVisibility(View.GONE);
+                ln_shopping.setVisibility(View.GONE);
             }
         });
     }
@@ -165,11 +231,14 @@ public class CartFragment extends Fragment {
         rvCartItems = view.findViewById(R.id.rvCartItems);
         rvCartItems.setAdapter(adapter);
         rvCartItems.setLayoutManager(new LinearLayoutManager(getContext()));
+        rcv_productSuggest = view.findViewById(R.id.rcv_productSuggest);
+        rcv_productSuggest.setLayoutManager(new GridLayoutManager(getContext(), 2));
         cb_allProductCart = view.findViewById(R.id.cb_allProductCart);
         tv_totalCheck = view.findViewById(R.id.tv_TotalCheck);
         btn_buy = view.findViewById(R.id.btn_buy);
         rl_cartEmpty = view.findViewById(R.id.rl_cartEmpty);
         img_Back = view.findViewById(R.id.img_Back);
-        ln_muaHang = view.findViewById(R.id.ln_muaHang);
+        ln_shopping = view.findViewById(R.id.ln_shopping);
+        img_message = view.findViewById(R.id.img_message);
     }
 }
