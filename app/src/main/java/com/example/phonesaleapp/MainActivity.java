@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         email = getIntent().getStringExtra("email");
         bottomNav = this.findViewById(R.id.bottomnav);
-        getSupportFragmentManager().beginTransaction().replace(R.id.layout_app, new HomeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
         bottomNav.setSelectedItemId(R.id.action_Home);
         bottomNav.setOnItemSelectedListener(item -> {
             Fragment fragment = null;
@@ -39,12 +39,13 @@ public class MainActivity extends AppCompatActivity {
                 fragment = AccountFragment.newInstance(email);
             }
             if (fragment != null) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.layout_app, fragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
                 item.setChecked(true);
             }
             return true;
         });
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void showAccountFragment() {
         Fragment accountFragment = AccountFragment.newInstance(email);
-        getSupportFragmentManager().beginTransaction().replace(R.id.layout_app, accountFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, accountFragment).commit();
         bottomNav.setSelectedItemId(R.id.action_MyPage);
     }
 }

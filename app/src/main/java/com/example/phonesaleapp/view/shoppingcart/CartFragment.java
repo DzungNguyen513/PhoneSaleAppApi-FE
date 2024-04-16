@@ -1,5 +1,6 @@
 package com.example.phonesaleapp.view.shoppingcart;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.phonesaleapp.MainActivity;
 import com.example.phonesaleapp.R;
 import com.example.phonesaleapp.adapter.ProductCartAdapter;
 import com.example.phonesaleapp.api.RetrofitClient;
@@ -35,7 +40,10 @@ public class CartFragment extends Fragment {
     CheckBox cb_allProductCart;
     TextView tv_totalCheck;
     Button btn_buy;
+    ImageView img_Back;
     private RecyclerView rvCartItems;
+    private RelativeLayout rl_cartEmpty;
+    private LinearLayout ln_muaHang;
     private ProductCartAdapter adapter;
     private List<ProductCart> productList = new ArrayList<>();
     private static final String ARG_EMAIL = "email";
@@ -81,7 +89,14 @@ public class CartFragment extends Fragment {
             BottomDialogCartFragment bottomSheetDialog = new BottomDialogCartFragment(total);
             bottomSheetDialog.show(getChildFragmentManager(), bottomSheetDialog.getTag());
         });
-
+        img_Back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                intent.putExtra("email", customerEmail);
+                startActivity(intent);
+            }
+        });
         return view;
     }
     private void updateTotalCart() {
@@ -111,17 +126,27 @@ public class CartFragment extends Fragment {
                                 productList.clear();
                                 productList.addAll(products);
                                 adapter.notifyDataSetChanged();
+                                if (productList.isEmpty()) {
+                                    rl_cartEmpty.setVisibility(View.VISIBLE);
+                                    ln_muaHang.setVisibility(View.GONE);
+                                } else {
+                                    rl_cartEmpty.setVisibility(View.GONE);
+                                    ln_muaHang.setVisibility(View.VISIBLE);
+                                }
                             } else {
-                                Toast.makeText(getContext(), "Không thể lấy sản phẩm từ giỏ hàng !", Toast.LENGTH_SHORT).show();
+                                rl_cartEmpty.setVisibility(View.VISIBLE);
+                                ln_muaHang.setVisibility(View.GONE);
                             }
                         }
                         @Override
                         public void onFailure(Call<List<ProductCart>> call, Throwable t) {
                             Toast.makeText(getContext(), "Lỗi Logic", Toast.LENGTH_SHORT).show();
+                            rl_cartEmpty.setVisibility(View.VISIBLE);
                         }
                     });
                 } else {
                     Toast.makeText(getContext(), "Không tìm thấy CustomerID", Toast.LENGTH_SHORT).show();
+                    rl_cartEmpty.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -129,9 +154,12 @@ public class CartFragment extends Fragment {
             public void onFailure(Call<CustomerResponse> call, Throwable t) {
                 Log.e("CartFragment", "Lỗi: ", t);
                 Toast.makeText(getContext(), "Lỗi: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                rl_cartEmpty.setVisibility(View.VISIBLE);
+                ln_muaHang.setVisibility(View.GONE);
             }
         });
     }
+
     private void AnhXa(View view){
         adapter = new ProductCartAdapter(getContext(), productList);
         rvCartItems = view.findViewById(R.id.rvCartItems);
@@ -140,5 +168,8 @@ public class CartFragment extends Fragment {
         cb_allProductCart = view.findViewById(R.id.cb_allProductCart);
         tv_totalCheck = view.findViewById(R.id.tv_TotalCheck);
         btn_buy = view.findViewById(R.id.btn_buy);
+        rl_cartEmpty = view.findViewById(R.id.rl_cartEmpty);
+        img_Back = view.findViewById(R.id.img_Back);
+        ln_muaHang = view.findViewById(R.id.ln_muaHang);
     }
 }
