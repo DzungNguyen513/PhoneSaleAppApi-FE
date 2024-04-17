@@ -21,7 +21,7 @@ import java.util.List;
 public class CheckoutActivity extends AppCompatActivity {
     ImageView img_back;
     Button btn_checkOut;
-    TextView tv_TotalCheck;
+    TextView tv_TotalCheck, tv_TotalCheck1, tv_TotalCheck2;
     RecyclerView rvCheckoutItems;
     private CheckoutProductAdapter adapter;
     List<ProductCart> checkoutItems;
@@ -41,6 +41,8 @@ public class CheckoutActivity extends AppCompatActivity {
         rvCheckoutItems.setAdapter(adapter);
         String totalPayment = getIntent().getStringExtra("totalPayment");
         tv_TotalCheck.setText(totalPayment);
+        tv_TotalCheck1.setText(totalPayment);
+        tv_TotalCheck2.setText(totalPayment);
     }
     private void AnhXa(){
         img_back = this.findViewById(R.id.img_back);
@@ -48,5 +50,7 @@ public class CheckoutActivity extends AppCompatActivity {
         rvCheckoutItems.setLayoutManager(new LinearLayoutManager(this));
         btn_checkOut = this.findViewById(R.id.btn_checkOut);
         tv_TotalCheck = this.findViewById(R.id.tv_TotalCheck);
+        tv_TotalCheck1 = this.findViewById(R.id.tv_TotalCheck1);
+        tv_TotalCheck2 = this.findViewById(R.id.tv_TotalCheck2);
     }
 }
