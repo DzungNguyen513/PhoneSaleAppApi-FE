@@ -1,7 +1,6 @@
 package com.example.phonesaleapp.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,18 +19,17 @@ import com.example.phonesaleapp.view.home.Event.ProductClickListener;
 import java.util.List;
 
 public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.ViewHolder> {
-    private Context context;
-    private List<Product_Detail> productList;
+    private final Context context;
+    private final List<Product_Detail> productList;
     private ProductClickListener clickItemProduct;
 
-    public ListProductAdapter(Context context, List<Product_Detail> productList) {
+    public ListProductAdapter(Context context, List<Product_Detail> productList, ProductClickListener clickItemProduct) {
         this.context = context;
         this.productList = productList;
+        this.clickItemProduct=clickItemProduct;
     }
 
-    public void setOnProductClickListener(ProductClickListener listener) {
-        this.clickItemProduct = listener;
-    }
+
 
     @NonNull
     @Override
@@ -44,13 +42,12 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Product_Detail product = productList.get(position);
         holder.bind(product);
-        int i=position;
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 if (clickItemProduct!=null){
-                     clickItemProduct.onClickProduct(i);
-                 }
+                if (clickItemProduct!=null){
+                    clickItemProduct.onClickProduct(product.productId);
+                }
             }
         });
     }

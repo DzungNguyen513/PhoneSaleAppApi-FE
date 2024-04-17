@@ -43,5 +43,6 @@
     <color name="material_amber">#FFC107</color>
 
     <color name="text_color">#212121</color>
+    <color name="blue_light">#ADC4CE</color>
 
 </resources>

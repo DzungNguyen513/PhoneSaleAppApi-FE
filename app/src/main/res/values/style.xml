@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="MenuItemStyle">
+
+        <item name="android:background">@drawable/button_border_rectangle</item>
+    </style>
+
+    <style name="BottomNavigationTextInactive">
+        <item name="android:textSize">15sp</item> <!-- Kích thước văn bản cho mục chưa được chọn -->
+    </style>
+
+    <style name="BottomNavigationTextActive">
+        <item name="android:textSize">18sp</item> <!-- Kích thước văn bản cho mục đã được chọn -->
+    </style>
+
+
+</resources>

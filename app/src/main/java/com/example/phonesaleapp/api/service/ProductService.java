@@ -1,6 +1,7 @@
 package com.example.phonesaleapp.api.service;
 
 import com.example.phonesaleapp.model.Product;
+import com.example.phonesaleapp.model.ProductDetail;
 import com.example.phonesaleapp.model.ProductImage;
 
 import java.util.List;
@@ -15,6 +16,13 @@ public interface ProductService {
     Call<List<Product>> GetProducts();
     @GET("Product/GetProductImages/{productId}")
     Call<List<ProductImage>> GetProductImages(@Path("productId") String productId);
+    
+    @GET("Product/GetProduct/{productId}")
+    Call<Product> GetProduct(@Path("productId") String productId);
+
+
+    @GET("Product/GetProductDetails/{productId}")
+    Call<List<ProductDetail>> GetProductDetails(@Path("productId") String productId);
 
 
 }
