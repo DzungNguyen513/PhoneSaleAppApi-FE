@@ -18,6 +18,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".view.account.AccountInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.shoppingcart.CheckoutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.shoppingcart.ChatMessageActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.account.EditAccountActivity"
             android:exported="false" />
         <activity android:name=".view.home.ProductDetail_Activity" />

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,73 +8,160 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        android:elevation="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title="Giỏ hàng"
-        app:titleTextColor="@color/white" />
+        android:background="@drawable/toolbar_background"
+        android:elevation="4dp">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvCartItems"
-        android:layout_width="414dp"
-        android:layout_height="420dp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_tongThanhToan"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        tools:listitem="@layout/item_shopping_cart" />
+        <ImageView
+            android:id="@+id/img_Back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/backicon"
+            android:layout_gravity="start"
+            android:paddingStart="0dp"
+            android:paddingLeft="16dp" />
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Giỏ hàng"
+            android:textColor="@color/black"
+            android:textSize="25sp" />
+        <ImageView
+            android:id="@+id/img_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/messageicon"
+            android:layout_gravity="end"
+            android:paddingEnd="16dp"
+            android:paddingRight="16dp" />
 
-    <CheckBox
-        android:id="@+id/cb_allProductCart"
-        android:layout_width="77dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="Tất cả"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvCartItems" />
+    </androidx.appcompat.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/tv_tongThanhToan"
-        android:layout_width="149dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="56dp"
-        android:text="Tổng thanh toán: "
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rvCartItems" />
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize">
 
-    <Button
-        android:id="@+id/btn_buy"
-        android:layout_width="124dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:text="Mua hàng"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_tongThanhToan" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="16dp">
 
-    <TextView
-        android:id="@+id/tv_TotalCheck"
-        android:layout_width="88dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="56dp"
-        android:text="0 VNĐ"
-        android:textColor="@color/earth_red"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/tv_tongThanhToan"
-        app:layout_constraintTop_toBottomOf="@+id/rvCartItems" />
+            <RelativeLayout
+                android:id="@+id/rl_cartEmpty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+                <ImageView
+                    android:id="@+id/img_cart_empty"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/emptycart" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Không Có Sản Phẩm Trong Giỏ Hàng"
+                    android:textSize="20sp"
+                    android:textColor="@color/text_color"
+                    android:layout_below="@id/img_cart_empty"
+                    android:layout_centerHorizontal="true" />
+            </RelativeLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCartItems"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/item_shopping_cart" />
+
+            <LinearLayout
+                android:id="@+id/ln_shopping"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:gravity="center_vertical">
+
+                <CheckBox
+                    android:id="@+id/cb_allProductCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tất cả"
+                    android:layout_marginEnd="16dp" />
+
+                <LinearLayout
+                    android:id="@+id/ln_payment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical">
+                    <TextView
+                        android:id="@+id/tv_tongThanhToan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tổng thanh toán: "
+                        android:textSize="18sp"
+                        android:layout_gravity="center_vertical"/>
+                    <TextView
+                        android:id="@+id/tv_TotalCheck"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0 VNĐ"
+                        android:textColor="@color/earth_red"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:layout_gravity="center_vertical"/>
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_buy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:backgroundTint="@color/colorPrimaryDark"
+                    android:text="Mua hàng"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center_vertical" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ln_coTheBanCungThich"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/line" />
+                <TextView
+                    android:id="@+id/tv_suggestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Có thể bạn cũng thích"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textColor="@color/black" />
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/line" />
+
+            </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_productSuggest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ln_coTheBanCungThich"
+                android:layout_marginTop="2dp" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</FrameLayout>

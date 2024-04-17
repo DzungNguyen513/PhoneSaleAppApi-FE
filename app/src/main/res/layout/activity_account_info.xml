@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".view.account.EditAccountActivity">
+    tools:context=".view.account.AccountInfoActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -21,13 +21,23 @@
             android:layout_gravity="start"
             android:paddingStart="0dp"
             android:src="@drawable/backicon" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Cập nhật tài khoản"
+            android:text="Thông tin"
             android:textColor="@color/black"
             android:textSize="25sp" />
+
+        <ImageView
+            android:id="@+id/img_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/setting"
+            android:layout_gravity="end"
+            android:paddingEnd="16dp"
+            android:paddingRight="16dp" />
     </androidx.appcompat.widget.Toolbar>
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -100,15 +110,6 @@
             android:inputType="text"
             android:textSize="20sp"/>
 
-        <Button
-            android:id="@+id/btn_saveAccount"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
-            android:backgroundTint="@color/neutral_blue_gray"
-            android:text="Lưu"
-            android:textSize="20sp" />
     </LinearLayout>
+
 </RelativeLayout>

@@ -59,7 +59,7 @@ public class ProductCartAdapter extends RecyclerView.Adapter<ProductCartAdapter.
     public void onBindViewHolder(@NonNull ProductCartAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         ProductCart product = productList.get(position);
         holder.tv_ProductCartName.setText(product.getProductName());
-        holder.tv_ProductCartPrice.setText(String.format("%,d VND", product.getPrice()));
+        holder.tv_ProductCartPrice.setText(String.format("%,d.000 VND", product.getPrice()));
         holder.tv_ProductCartColor.setText(product.getColorName());
         holder.tv_ProductCartStorage.setText(String.valueOf(product.getStorageGB()));
         holder.tvCount.setText(String.valueOf(product.getAmount()));

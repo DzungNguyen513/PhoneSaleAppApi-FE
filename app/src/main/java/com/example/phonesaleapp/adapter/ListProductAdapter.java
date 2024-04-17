@@ -29,7 +29,10 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
         this.clickItemProduct=clickItemProduct;
     }
 
-
+    public ListProductAdapter(Context context, List<Product_Detail> productList) {
+        this.context = context;
+        this.productList = productList;
+    }
 
     @NonNull
     @Override
