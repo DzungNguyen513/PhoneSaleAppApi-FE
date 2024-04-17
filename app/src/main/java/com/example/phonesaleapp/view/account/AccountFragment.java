@@ -69,8 +69,8 @@ public class AccountFragment extends Fragment {
         AccountOption option = mOptionList.get(position);
         switch (option.getTitle()) {
             case "Chỉnh sửa trang cá nhân":
-                Intent intent1 = new Intent(getContext(), EditAccountActivity.class);
-                startActivityForResult(intent1, -99);
+                Intent intent1 = new Intent(getContext(), AccountInfoActivity.class);
+                startActivity(intent1);
                 break;
             case "Địa chỉ giao hàng":
                 break;
