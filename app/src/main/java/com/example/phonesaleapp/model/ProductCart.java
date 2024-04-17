@@ -1,6 +1,8 @@
 package com.example.phonesaleapp.model;
 
-public class ProductCart {
+import java.io.Serializable;
+
+public class ProductCart implements Serializable {
     private String shoppingCartId;
     private String productID;
     private String productName;

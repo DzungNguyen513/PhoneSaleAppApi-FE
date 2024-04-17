@@ -51,7 +51,6 @@ public class CartFragment extends Fragment {
     private RecyclerView rvCartItems, rcv_productSuggest;
     private RelativeLayout rl_cartEmpty;
     private LinearLayout ln_shopping;
-    ScrollView scrollView;
     private ProductCartAdapter adapter;
     ListProductAdapter productAdapter;
     private List<ProductCart> productList = new ArrayList<>();
@@ -90,8 +89,21 @@ public class CartFragment extends Fragment {
             }
         });
         btn_buy.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), CheckoutActivity.class);
-            startActivity(intent);
+            ArrayList<ProductCart> selectedItems = new ArrayList<>();
+            for (ProductCart productCart: productList){
+                if (productCart.isSelected()){
+                    selectedItems.add(productCart);
+                }
+            }
+            if (!selectedItems.isEmpty()) {
+                String totalPayment = tv_totalCheck.getText().toString().trim();
+                Intent intent = new Intent(getContext(), CheckoutActivity.class);
+                intent.putExtra("totalPayment", totalPayment);
+                intent.putExtra("selectedItems", selectedItems);
+                startActivity(intent);
+            } else {
+                Toast.makeText(getContext(), "Vui lòng chọn sản phẩm !", Toast.LENGTH_SHORT).show();
+            }
         });
         img_Back.setOnClickListener(new View.OnClickListener() {
             @Override
