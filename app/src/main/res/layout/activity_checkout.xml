@@ -73,7 +73,7 @@
                 android:inputType="text"
                 android:padding="15dp"
                 android:textColor="@color/black"
-                android:textSize="20sp"/>
+                android:textSize="15sp"/>
 
             <EditText
                 android:id="@+id/edt_deliveryAddress"
@@ -85,7 +85,7 @@
                 android:inputType="text"
                 android:padding="15dp"
                 android:textColor="@color/black"
-                android:textSize="20sp"/>
+                android:textSize="15sp"/>
 
             <EditText
                 android:id="@+id/edt_phoneNumber"
@@ -98,7 +98,7 @@
                 android:inputType="text"
                 android:padding="15dp"
                 android:textColor="@color/black"
-                android:textSize="20sp"/>
+                android:textSize="15sp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -253,7 +253,7 @@
                         android:layout_height="wrap_content"
                         android:text="0 VNĐ"
                         android:textColor="@color/earth_red"
-                        android:textSize="18sp"
+                        android:textSize="20sp"
                         android:textStyle="bold"
                         android:layout_gravity="center_vertical"/>
                 </LinearLayout>
