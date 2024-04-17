@@ -90,14 +90,8 @@ public class CartFragment extends Fragment {
             }
         });
         btn_buy.setOnClickListener(v -> {
-            double total = 0;
-            for (ProductCart product : productList) {
-                if (product.isSelected()) {
-                    total += product.getPrice() * product.getAmount();
-                }
-            }
-            BottomDialogCartFragment bottomSheetDialog = new BottomDialogCartFragment(total);
-            bottomSheetDialog.show(getChildFragmentManager(), bottomSheetDialog.getTag());
+            Intent intent = new Intent(getContext(), CheckoutActivity.class);
+            startActivity(intent);
         });
         img_Back.setOnClickListener(new View.OnClickListener() {
             @Override
