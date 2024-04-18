@@ -6,18 +6,19 @@ public class ProductCart implements Serializable {
     private String shoppingCartId;
     private String productID;
     private String productName;
-    private int price;
+    private int discountedPrice;
+    private int originalPrice;
     private String colorName;
     private int storageGB;
     private int amount;
     private String img;
     private boolean isSelected;
 
-    public ProductCart(String shoppingCartId, String productId, String productName, int price, String colorName, int storageGB, int amount, String img) {
+    public ProductCart(String shoppingCartId, String productId, String productName, int discountedPrice, String colorName, int storageGB, int amount, String img) {
         this.shoppingCartId = shoppingCartId;
         this.productID = productId;
         this.productName = productName;
-        this.price = price;
+        this.discountedPrice = discountedPrice;
         this.colorName = colorName;
         this.storageGB = storageGB;
         this.amount = amount;
@@ -40,13 +41,21 @@ public class ProductCart implements Serializable {
         this.productName = productName;
     }
 
-    public int getPrice() {
-        return price;
+    public int getDiscountedPrice() {
+        return discountedPrice;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setDiscountedPrice(int discountedPrice) {
+        this.discountedPrice = discountedPrice;
     }
+    public int getOriginalPrice() {
+        return originalPrice;
+    }
+
+    public void setOriginalPrice(int originalPrice) {
+        this.originalPrice = originalPrice;
+    }
+
 
     public String getColorName() {
         return colorName;

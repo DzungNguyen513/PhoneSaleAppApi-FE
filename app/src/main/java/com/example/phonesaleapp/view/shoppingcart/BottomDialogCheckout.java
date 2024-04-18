@@ -10,14 +10,13 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import com.example.phonesaleapp.R;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-public class BottomDialogCartFragment extends BottomSheetDialogFragment {
+public class BottomDialogCheckout extends BottomSheetDialogFragment {
     private TextView tv_total;
     private Button btn_ConfirmBuy;
     private double totalAmount;
-    public BottomDialogCartFragment(double totalAmount){
+    public BottomDialogCheckout(double totalAmount){
         this.totalAmount = totalAmount;
     }
     @Nullable

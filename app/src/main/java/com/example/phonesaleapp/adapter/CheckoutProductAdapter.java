@@ -34,7 +34,7 @@ public class CheckoutProductAdapter extends RecyclerView.Adapter<CheckoutProduct
         holder.tv_ProductCheckoutName.setText(product.getProductName());
         holder.tv_ProductCheckoutColor.setText(product.getColorName());
         holder.tv_ProductCartStorage.setText(product.getStorageGB() + "GB");
-        holder.tv_ProductCheckoutPrice.setText(String.format("%,d.000 VND", product.getPrice()));
+        holder.tv_ProductCheckoutPrice.setText(String.format("đ%,d.000", product.getDiscountedPrice()));
         holder.tv_itemCount.setText(String.valueOf(product.getAmount()));
         String baseUrl = RetrofitClient.getBaseUrl();
         String imageUrl = baseUrl.replace("/api/", "/Assets/Images/"+product.getProductID()+"/") + product.getImg();

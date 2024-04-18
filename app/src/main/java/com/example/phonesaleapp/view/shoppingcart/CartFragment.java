@@ -12,7 +12,6 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -176,10 +175,10 @@ public class CartFragment extends Fragment {
         double total = 0;
         for (ProductCart product : productList) {
             if (product.isSelected()) {
-                total += product.getPrice() * product.getAmount();
+                total += product.getDiscountedPrice() * product.getAmount();
             }
         }
-        tv_totalCheck.setText(String.format("%,d.000 VND", (int) total));
+        tv_totalCheck.setText(String.format("đ%,d.000", (int) total));
     }
     private void loadCustomerProducts() {
         CustomerService customerService = RetrofitClient.getClient().create(CustomerService.class);
