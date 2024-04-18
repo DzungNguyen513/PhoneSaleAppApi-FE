@@ -9,10 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <FrameLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar2"
@@ -32,21 +29,14 @@
             android:layout_width="match_parent"
             android:layout_height="138dp"
             android:layout_below="@+id/toolbar2"
-            android:layout_marginTop="6dp" />
+            android:layout_marginTop="1dp" />
 
-        <TextView
-            android:id="@+id/textViewDanhMuc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/viewPagerImage"
-            android:layout_marginTop="22dp"
-            android:text="Danh mục hàng đầu"
-            android:textSize="18sp" />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="80dp"
             android:layout_below="@id/textViewDanhMuc"
             android:layout_marginTop="2dp" />
 
@@ -57,16 +47,30 @@
             android:layout_below="@id/viewPagerImage"
             android:layout_centerHorizontal="true"
             android:layout_gravity="bottom"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="1dp"
             app:tabIndicator="@drawable/tab_indicator_circle"
             app:tabMode="scrollable" />
+        <TextView
+            android:id="@+id/textViewDanhMuc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tabLayout"
+            android:layout_marginTop="4dp"
+            android:text="Danh mục hàng đầu"
+            android:textSize="18sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewProduct"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/recyclerView"
-            android:layout_marginTop="2dp" />
+            android:layout_marginTop="5dp"
+            android:paddingBottom="74dp"/>
+
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </RelativeLayout>
 

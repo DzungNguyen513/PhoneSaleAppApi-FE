@@ -1,20 +1,15 @@
 package com.example.phonesaleapp.view.home;
 
-import static android.content.ContentValues.TAG;
-
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,7 +34,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements ProductClickListener  {
     ArrayList<String> arrayListCatName= new ArrayList<>();;
     RecyclerView recyclerView, recyclerViewProduct;
     ViewPager viewPager;
@@ -58,15 +53,8 @@ public class HomeFragment extends Fragment {
         recyclerView.setAdapter(adapterCat);
         // adapter của listProduct
         recyclerViewProduct.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        productAdapter= new ListProductAdapter(getContext(), arrayListProduct);
-        productAdapter.setOnProductClickListener(new ProductClickListener() {
-            @Override
-            public void onClickProduct(int position) {
-                Product_Detail product = arrayListProduct.get(position);
-                String pro_id= product.productId;
-                Product_Detail(pro_id);
-            }
-        });
+        productAdapter= new ListProductAdapter(getContext(), arrayListProduct, this);
+
         recyclerViewProduct.setAdapter(productAdapter);
 
         return view;
@@ -99,15 +87,7 @@ public class HomeFragment extends Fragment {
         LoadProduct();
 
     }
-    private void Product_Detail(String productId){
-        Product_DetailFragment productDetailFragment= Product_DetailFragment.newInstance(productId);
-        FragmentManager fragmentManager = getChildFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.fragment_container, productDetailFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
 
-    }
     private  void LoadCategory(){
         CategoryService categoryService= RetrofitClient.getClient().create(CategoryService.class);
         Call<List<Category>> callCat= categoryService.GetCategories();
@@ -140,7 +120,7 @@ public class HomeFragment extends Fragment {
                     List<Product> products= response.body();
 
                     for (Product pd: products){
-                        Product_Detail productDetail= new Product_Detail(pd.getProductId(),pd.getProductName(),pd.getColorName(), pd.getPrice(), "");
+                        Product_Detail productDetail= new Product_Detail(pd.getProductId(),pd.getProductName(), pd.getPrice(), "");
 
                         Call<List<ProductImage>> callListImage= productService.GetProductImages(pd.getProductId());
                         callListImage.enqueue(new Callback<List<ProductImage>>() {
@@ -184,5 +164,12 @@ public class HomeFragment extends Fragment {
         viewPager= view.findViewById(R.id.viewPagerImage);
         tabLayout= view.findViewById(R.id.tabLayout);
         recyclerViewProduct= view.findViewById(R.id.recyclerViewProduct);
+    }
+
+    @Override
+    public void onClickProduct(String productID) {
+        Intent intent= new Intent(getContext(), ProductDetail_Activity.class);
+        intent.putExtra("productId", productID);
+        startActivity(intent);
     }
 }

@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         email = getIntent().getStringExtra("email");
+        UserInfo.getInstance().setEmail(email);
         bottomNav = this.findViewById(R.id.bottomnav);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
         bottomNav.setSelectedItemId(R.id.action_Home);
@@ -53,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
             showAccountFragment();
         }
     }
-
     public void showAccountFragment() {
         Fragment accountFragment = AccountFragment.newInstance(email);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, accountFragment).commit();

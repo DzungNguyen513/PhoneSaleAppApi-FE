@@ -7,8 +7,6 @@ import java.util.List;
 public class Product {
     private String productId;
     private String productName;
-    private int storageGb;
-    private String colorName;
     private int amount;
     private double price;
     private String categoryId;
@@ -17,8 +15,7 @@ public class Product {
     private String img;
     private int status;
     private Category category;
-    private Color colorNameNavigation;
-    private StorageGb storageGbNavigation;
+
     private Vendor vendor;
     private List<BillDetails> billDetails;
     private List<ShoppingCartDetail> shoppingCartDetails;
@@ -48,21 +45,7 @@ public class Product {
         this.productName = productName;
     }
 
-    public int getStorageGb() {
-        return storageGb;
-    }
 
-    public void setStorageGb(int storageGb) {
-        this.storageGb = storageGb;
-    }
-
-    public String getColorName() {
-        return colorName;
-    }
-
-    public void setColorName(String colorName) {
-        this.colorName = colorName;
-    }
 
     public int getAmount() {
         return amount;
@@ -128,21 +111,7 @@ public class Product {
         this.category = category;
     }
 
-    public Color getColorNameNavigation() {
-        return colorNameNavigation;
-    }
 
-    public void setColorNameNavigation(Color colorNameNavigation) {
-        this.colorNameNavigation = colorNameNavigation;
-    }
-
-    public StorageGb getStorageGbNavigation() {
-        return storageGbNavigation;
-    }
-
-    public void setStorageGbNavigation(StorageGb storageGbNavigation) {
-        this.storageGbNavigation = storageGbNavigation;
-    }
 
     public Vendor getVendor() {
         return vendor;

@@ -137,7 +137,7 @@ public class CartFragment extends Fragment {
                     List<Product> products= response.body();
 
                     for (Product pd: products){
-                        Product_Detail productDetail= new Product_Detail(pd.getProductId(),pd.getProductName(),pd.getColorName(), pd.getPrice(), "");
+                        Product_Detail productDetail= new Product_Detail(pd.getProductId(),pd.getProductName(), pd.getPrice(), "");
 
                         Call<List<ProductImage>> callListImage= productService.GetProductImages(pd.getProductId());
                         callListImage.enqueue(new Callback<List<ProductImage>>() {

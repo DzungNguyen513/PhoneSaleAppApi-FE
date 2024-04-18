@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="74dp"
+        tools:ignore="MissingConstraints">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarProductDetail"
+                android:layout_width="409dp"
+                android:layout_height="wrap_content"
+                android:background="#9BB0C1"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                app:title=""
+                app:titleTextColor="@color/black"
+                tools:layout_editor_absoluteX="1dp"
+                tools:layout_editor_absoluteY="6dp" />
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPagerListProductImage"
+                android:layout_width="match_parent"
+                android:layout_height="244dp"
+                android:layout_below="@+id/toolbarProductDetail"
+                android:layout_alignParentStart="true"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="432dp" />
+
+            <com.example.phonesaleapp.view.home.CircleTabLayout
+                android:id="@+id/tabLayoutProduct"
+                android:layout_width="168dp"
+                android:layout_height="7dp"
+                android:layout_below="@id/viewPagerListProductImage"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="1dp"
+                app:tabIndicator="@drawable/tab_indicator_circle"
+                app:tabMode="scrollable" />
+
+            <TextView
+                android:id="@+id/textViewProductDetail_Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewProductDetail_Price"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginRight="10dp"
+                android:textSize="18sp"
+                android:text="Iphone 12"/>
+
+<!--            <TextView-->
+<!--                android:id="@+id/textViewText"-->
+<!--                android:layout_width="56dp"-->
+<!--                android:layout_height="43dp"-->
+<!--                android:layout_below="@id/tabLayoutProduct"-->
+<!--                android:layout_marginLeft="44dp"-->
+<!--                android:layout_marginTop="7dp"-->
+<!--                android:layout_marginRight="10dp"-->
+<!--                android:layout_toRightOf="@+id/textViewProductDetail_Price"-->
+<!--                android:text="Tồn"-->
+<!--                android:textSize="18sp" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/textViewProductAmount"-->
+<!--                android:layout_width="129dp"-->
+<!--                android:layout_height="39dp"-->
+<!--                android:layout_below="@id/tabLayoutProduct"-->
+<!--                android:layout_marginTop="7dp"-->
+<!--                android:layout_marginRight="10dp"-->
+<!--                android:layout_toRightOf="@+id/textViewText"-->
+<!--                android:textSize="18sp"-->
+<!--                android:text="12"/>-->
+
+            <TextView
+                android:id="@+id/textViewProductDetail_Price"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/tabLayoutProduct"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="10dp"
+                android:textSize="18sp"
+                android:text="12 000 000"
+                android:textColor="@color/earth_red"/>
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="146dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/earth_red"
+                android:layout_below="@+id/textViewProductDetail_Name"
+                android:contentDescription="Mô tả sản phẩm"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="16dp"
+                android:text="Mô tả sản phẩm"
+                android:textSize="16dp"/>
+
+            <TextView
+                android:id="@+id/textViewDetailOfProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:textSize="18sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="3dp"
+                android:layout_below="@+id/textViewProductDetail_Price"
+                android:background="@color/blue_light" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="0dp"
+                android:layout_below="@+id/tabLayoutProduct"
+                android:background="@color/blue_light" />
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomnavOrder"
+        style="@style/MenuItemStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_border_rectangle"
+        app:itemHorizontalTranslationEnabled="false"
+        app:itemIconTint="@color/black"
+        app:itemTextColor="@color/black"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_order"
+        app:itemTextAppearanceActive="@style/BottomNavigationTextActive"
+        app:itemTextAppearanceInactive="@style/BottomNavigationTextInactive"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
