@@ -16,8 +16,6 @@ import retrofit2.http.Path;
 public interface ShoppingCartService {
     @GET("ShoppingCartDetail/GetCartItems/{customerId}")
     Call<List<ProductCart>> getCartProducts(@Path("customerId") String customerId);
-    @GET("Customer/GetCustomerIDByEmail/{email}")
-    Call<CustomerResponse> getCustomerIDByEmail(@Path("email") String email);
     @DELETE("ShoppingCartDetail/{shoppingCartId}/{productId}")
     Call<Void> deleteProductFromCart(@Path("shoppingCartId") String shoppingCartId, @Path("productId") String productId);
     @PUT("ShoppingCartDetail/UpdateAmount")

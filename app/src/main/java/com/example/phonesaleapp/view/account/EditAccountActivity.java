@@ -74,8 +74,8 @@ public class EditAccountActivity extends AppCompatActivity {
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent intent = new Intent(EditAccountActivity.this, AccountInfoActivity.class);
-                startActivity(intent);*/
+                Intent intent = new Intent(EditAccountActivity.this, AccountInfoActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -104,7 +104,7 @@ public class EditAccountActivity extends AppCompatActivity {
         }
     }
     private void updateCustomer(String customerName, String phoneNumber, String emailAddress, String address, int gender) {
-        ShoppingCartService service = RetrofitClient.getClient().create(ShoppingCartService.class);
+        CustomerService service = RetrofitClient.getClient().create(CustomerService.class);
         service.getCustomerIDByEmail(email).enqueue(new Callback<CustomerResponse>() {
             @Override
             public void onResponse(Call<CustomerResponse> call, Response<CustomerResponse> response) {
@@ -131,6 +131,9 @@ public class EditAccountActivity extends AppCompatActivity {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(EditAccountActivity.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(EditAccountActivity.this, AccountInfoActivity.class);
+                    startActivity(intent);
+                    finish();
                 } else {
                     Toast.makeText(EditAccountActivity.this, "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
                 }

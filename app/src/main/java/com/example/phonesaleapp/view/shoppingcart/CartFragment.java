@@ -29,6 +29,7 @@ import com.example.phonesaleapp.adapter.ListProductAdapter;
 import com.example.phonesaleapp.adapter.ProductCartAdapter;
 import com.example.phonesaleapp.api.RetrofitClient;
 import com.example.phonesaleapp.api.request.customer.CustomerResponse;
+import com.example.phonesaleapp.api.service.CustomerService;
 import com.example.phonesaleapp.api.service.ProductService;
 import com.example.phonesaleapp.api.service.ShoppingCartService;
 import com.example.phonesaleapp.model.Product;
@@ -181,15 +182,16 @@ public class CartFragment extends Fragment {
         tv_totalCheck.setText(String.format("%,d.000 VND", (int) total));
     }
     private void loadCustomerProducts() {
-        ShoppingCartService service = RetrofitClient.getClient().create(ShoppingCartService.class);
-        Call<CustomerResponse> customerIdCall = service.getCustomerIDByEmail(customerEmail);
+        CustomerService customerService = RetrofitClient.getClient().create(CustomerService.class);
+        ShoppingCartService shoppingCartService = RetrofitClient.getClient().create(ShoppingCartService.class);
+        Call<CustomerResponse> customerIdCall = customerService.getCustomerIDByEmail(customerEmail);
         customerIdCall.enqueue(new Callback<CustomerResponse>() {
             @Override
             public void onResponse(Call<CustomerResponse> call, Response<CustomerResponse> response) {
                 if (response.isSuccessful()) {
                     CustomerResponse customerResponse = response.body();
                     String customerId = customerResponse.getCustomerId();
-                    Call<List<ProductCart>> cartProductsCall = service.getCartProducts(customerId);
+                    Call<List<ProductCart>> cartProductsCall = shoppingCartService.getCartProducts(customerId);
                     cartProductsCall.enqueue(new Callback<List<ProductCart>>() {
                         @Override
                         public void onResponse(Call<List<ProductCart>> call, Response<List<ProductCart>> response) {

@@ -1,6 +1,7 @@
 package com.example.phonesaleapp.api.service;
 
 import com.example.phonesaleapp.api.request.customer.CustomerByEmailDTO;
+import com.example.phonesaleapp.api.request.customer.CustomerResponse;
 import com.example.phonesaleapp.api.request.customer.CustomerUpdateDTO;
 
 import retrofit2.Call;
@@ -10,6 +11,8 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface CustomerService {
+    @GET("Customer/GetCustomerIDByEmail/{email}")
+    Call<CustomerResponse> getCustomerIDByEmail(@Path("email") String email);
     @PUT("Customer/UpdateCustomer/{customerId}")
     Call<Void> updateCustomer(@Path("customerId") String customerId, @Body CustomerUpdateDTO request);
     @GET("Customer/GetCustomerByEmail/{email}")

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.phonesaleapp.MainActivity;
 import com.example.phonesaleapp.R;
 import com.example.phonesaleapp.UserInfo;
 import com.example.phonesaleapp.api.RetrofitClient;
@@ -33,7 +34,9 @@ public class AccountInfoActivity extends AppCompatActivity {
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setResult(Activity.RESULT_OK);
+                Intent intent = new Intent(AccountInfoActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
                 finish();
             }
         });
