@@ -71,58 +71,68 @@ public class CheckoutActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Vui lòng nhập đủ thông tin thanh toán", Toast.LENGTH_LONG).show();
                     return;
                 }
-                List<BillDetailDTO> billDetails = new ArrayList<>();
-                for (ProductCart product : checkoutItems){
-                    BillDetailDTO detail = new BillDetailDTO();
-                    detail.setProductID(product.getProductID());
-                    detail.setColorName(product.getColorName());
-                    detail.setStorageGB(product.getStorageGB());
-                    detail.setPrice(product.getDiscountedPrice());
-                    detail.setAmount(product.getAmount());
-                    billDetails.add(detail);
-                }
-                BillDTO bill = new BillDTO();
-                bill.setCustomerName(customerName);
-                bill.setDeliveryAddress(deliveryAddress);
-                bill.setCustomerPhone(phoneNumber);
-                bill.setNote(note);
-                bill.setBillDetails(billDetails);
-                CustomerService customerService = RetrofitClient.getClient().create(CustomerService.class);
-                Call<CustomerResponse> customerIdCall = customerService.getCustomerIDByEmail(email);
-                customerIdCall.enqueue(new Callback<CustomerResponse>() {
+                BottomDialogCheckout bottomDialog = new BottomDialogCheckout(totalPayment);
+                bottomDialog.show(getSupportFragmentManager(), "BottomDialogCheckout");
+                bottomDialog.setOnConfirmListener(new BottomDialogCheckout.OnConfirmListener() {
                     @Override
-                    public void onResponse(Call<CustomerResponse> call, Response<CustomerResponse> response) {
-                        if(response.isSuccessful()){
-                            CustomerResponse customerResponse = response.body();
-                            String customerId = customerResponse.getCustomerId();
-                            bill.setCustomerId(customerId);
-
-                            BillService service = RetrofitClient.getClient().create(BillService.class);
-                            Call<BillResponse> billCall = service.createBill(bill);
-                            billCall.enqueue(new Callback<BillResponse>() {
-                                @Override
-                                public void onResponse(Call<BillResponse> call, Response<BillResponse> response) {
-                                    if (response.isSuccessful() && response.body() != null) {
-                                        Toast.makeText(CheckoutActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
-                                        Intent intent = new Intent(CheckoutActivity.this, BillActivity.class);
-                                        startActivity(intent);
-                                        finish();
-                                    } else {
-                                        Toast.makeText(getApplicationContext(), "Tạo đơn hàng thất bại", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                                @Override
-                                public void onFailure(Call<BillResponse> call, Throwable throwable) {
-
-                                }
-                            });
-                        }
-                    }
-                    @Override
-                    public void onFailure(Call<CustomerResponse> call, Throwable throwable) {
-
+                    public void onConfirm() {
+                        createBill(customerName,deliveryAddress, phoneNumber, note);
                     }
                 });
+            }
+        });
+    }
+    private void createBill(String customerName, String deliveryAddress, String phoneNumber, String note){
+        List<BillDetailDTO> billDetails = new ArrayList<>();
+        for (ProductCart product : checkoutItems){
+            BillDetailDTO detail = new BillDetailDTO();
+            detail.setProductID(product.getProductID());
+            detail.setColorName(product.getColorName());
+            detail.setStorageGB(product.getStorageGB());
+            detail.setPrice(product.getDiscountedPrice());
+            detail.setAmount(product.getAmount());
+            billDetails.add(detail);
+        }
+        BillDTO bill = new BillDTO();
+        bill.setCustomerName(customerName);
+        bill.setDeliveryAddress(deliveryAddress);
+        bill.setCustomerPhone(phoneNumber);
+        bill.setNote(note);
+        bill.setBillDetails(billDetails);
+        CustomerService customerService = RetrofitClient.getClient().create(CustomerService.class);
+        Call<CustomerResponse> customerIdCall = customerService.getCustomerIDByEmail(email);
+        customerIdCall.enqueue(new Callback<CustomerResponse>() {
+            @Override
+            public void onResponse(Call<CustomerResponse> call, Response<CustomerResponse> response) {
+                if(response.isSuccessful()){
+                    CustomerResponse customerResponse = response.body();
+                    String customerId = customerResponse.getCustomerId();
+                    bill.setCustomerId(customerId);
+
+                    BillService service = RetrofitClient.getClient().create(BillService.class);
+                    Call<BillResponse> billCall = service.createBill(bill);
+                    billCall.enqueue(new Callback<BillResponse>() {
+                        @Override
+                        public void onResponse(Call<BillResponse> call, Response<BillResponse> response) {
+                            if (response.isSuccessful() && response.body() != null) {
+                                Toast.makeText(CheckoutActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(CheckoutActivity.this, BillActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Tạo đơn hàng thất bại", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<BillResponse> call, Throwable throwable) {
+
+                        }
+                    });
+                }
+            }
+            @Override
+            public void onFailure(Call<CustomerResponse> call, Throwable throwable) {
+
             }
         });
     }

@@ -48,12 +48,12 @@ public class CartFragment extends Fragment {
     TextView tv_totalCheck;
     Button btn_buy;
     ImageView img_Back, img_message;
-    private RecyclerView rvCartItems, rcv_productSuggest;
-    private RelativeLayout rl_cartEmpty;
-    private LinearLayout ln_shopping;
-    private ProductCartAdapter adapter;
+    RecyclerView rvCartItems, rcv_productSuggest;
+    RelativeLayout rl_cartEmpty;
+    LinearLayout ln_shopping;
+    ProductCartAdapter adapter;
     ListProductAdapter productAdapter;
-    private List<ProductCart> productList = new ArrayList<>();
+    List<ProductCart> productList = new ArrayList<>();
     ArrayList<Product_Detail> arrayListProduct= new ArrayList<>();
     private static final String ARG_EMAIL = "email";
     private String customerEmail;

@@ -21,10 +21,10 @@ import java.util.List;
 
 public class AccountFragment extends Fragment {
     private static final String ARG_EMAIL = "email";
-    private String email;
-    private RecyclerView mRecyclerView;
-    private AccountOptionsAdapter mAdapter;
-    private List<AccountOption> mOptionList;
+    String email;
+    RecyclerView mRecyclerView;
+    AccountOptionsAdapter mAdapter;
+    List<AccountOption> mOptionList;
     public AccountFragment() {
 
     }

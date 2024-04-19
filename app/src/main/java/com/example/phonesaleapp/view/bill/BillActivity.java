@@ -18,9 +18,9 @@ import androidx.viewpager2.widget.ViewPager2;
 
 public class BillActivity extends AppCompatActivity {
 
-    private ImageView img_Back;
-    private TabLayout tabLayout;
-    private ViewPager2 viewPager;
+    ImageView img_Back;
+    TabLayout tabLayout;
+    ViewPager2 viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
