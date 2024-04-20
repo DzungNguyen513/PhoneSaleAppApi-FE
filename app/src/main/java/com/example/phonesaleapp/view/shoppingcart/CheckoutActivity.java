@@ -71,7 +71,7 @@ public class CheckoutActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Vui lòng nhập đủ thông tin thanh toán", Toast.LENGTH_LONG).show();
                     return;
                 }
-                BottomDialogCheckout bottomDialog = new BottomDialogCheckout(totalPayment);
+                BottomDialogCheckout bottomDialog = new BottomDialogCheckout(totalPayment, customerName, deliveryAddress, phoneNumber, note);
                 bottomDialog.show(getSupportFragmentManager(), "BottomDialogCheckout");
                 bottomDialog.setOnConfirmListener(new BottomDialogCheckout.OnConfirmListener() {
                     @Override

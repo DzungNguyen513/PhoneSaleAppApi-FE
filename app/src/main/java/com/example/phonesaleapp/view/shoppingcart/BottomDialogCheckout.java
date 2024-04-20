@@ -13,11 +13,15 @@ import com.example.phonesaleapp.R;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class BottomDialogCheckout extends BottomSheetDialogFragment {
-    TextView tv_total;
+    TextView tv_total, tv_customerName, tv_deliveryAddress, tv_phoneNumber, tv_note;
     Button btn_ConfirmBuy;
-    String totalBill;
-    public BottomDialogCheckout(String totalBill){
+    String totalBill, customerName, deliveryAddress, phoneNumber, note;
+    public BottomDialogCheckout(String totalBill, String customerName, String deliveryAddress, String phoneNumber, String note) {
         this.totalBill = totalBill;
+        this.customerName = customerName;
+        this.deliveryAddress = deliveryAddress;
+        this.phoneNumber = phoneNumber;
+        this.note = note;
     }
     public interface OnConfirmListener {
         void onConfirm();
@@ -32,11 +36,13 @@ public class BottomDialogCheckout extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.bottomdialog_checkout, container, false);
-
-        tv_total = view.findViewById(R.id.tv_total);
-        btn_ConfirmBuy = view.findViewById(R.id.btn_ConfirmBuy);
+        AnhXa(view);
 
         tv_total.setText(String.format(totalBill));
+        tv_customerName.setText(customerName);
+        tv_deliveryAddress.setText(deliveryAddress);
+        tv_phoneNumber.setText(phoneNumber);
+        tv_note.setText(note);
 
         btn_ConfirmBuy.setOnClickListener(v -> {
             if (onConfirmListener != null) {
@@ -46,5 +52,13 @@ public class BottomDialogCheckout extends BottomSheetDialogFragment {
         });
 
         return view;
+    }
+    private void AnhXa(View view){
+        tv_total = view.findViewById(R.id.tv_total);
+        btn_ConfirmBuy = view.findViewById(R.id.btn_ConfirmBuy);
+        tv_customerName = view.findViewById(R.id.tv_customerName);
+        tv_deliveryAddress = view.findViewById(R.id.tv_deliveryAddress);
+        tv_phoneNumber = view.findViewById(R.id.tv_phoneNumber);
+        tv_note = view.findViewById(R.id.tv_note);
     }
 }
