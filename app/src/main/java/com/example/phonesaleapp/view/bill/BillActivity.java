@@ -11,13 +11,11 @@ import android.widget.ImageView;
 import com.example.phonesaleapp.MainActivity;
 import com.example.phonesaleapp.R;
 
-import com.example.phonesaleapp.adapter.BillPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import androidx.viewpager2.widget.ViewPager2;
 
 public class BillActivity extends AppCompatActivity {
-
     ImageView img_Back;
     TabLayout tabLayout;
     ViewPager2 viewPager;
@@ -62,8 +60,8 @@ public class BillActivity extends AppCompatActivity {
     }
     private void AnhXa(){
         img_Back = this.findViewById(R.id.img_Back);
-        viewPager = findViewById(R.id.view_pager);
-        tabLayout = findViewById(R.id.tabs);
+        viewPager = this.findViewById(R.id.view_pager);
+        tabLayout = this.findViewById(R.id.tabs);
         viewPager.setAdapter(new BillPagerAdapter(this));
     }
 }

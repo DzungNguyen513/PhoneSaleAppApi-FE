@@ -155,7 +155,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="0.000 VND"
+                        android:text="đ0.000"
                         android:textSize="15sp"
                         android:gravity="right"/>
                 </LinearLayout>
@@ -175,7 +175,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="0.000 VND"
+                        android:text="đ0.000"
                         android:textSize="15sp"
                         android:gravity="right"/>
                 </LinearLayout>
@@ -195,7 +195,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="0.000 VND"
+                        android:text="đ0.000"
                         android:textSize="15sp"
                         android:gravity="right"/>
                 </LinearLayout>
@@ -217,7 +217,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="0.000 VND"
+                        android:text="đ0.000"
                         android:textSize="18sp"
                         android:textColor="@color/material_red"
                         android:gravity="right"/>

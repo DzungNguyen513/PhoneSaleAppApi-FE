@@ -11,9 +11,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.phonesaleapp.R;
 
-public class ConfirmBillFragment extends Fragment {
+public class FinishBillFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_confirm_bill, container, false);
+        View view = inflater.inflate(R.layout.fragment_finish_bill, container, false);
         return view;
     }
 }
