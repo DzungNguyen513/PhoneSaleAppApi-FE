@@ -12,7 +12,6 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +28,7 @@ import com.example.phonesaleapp.adapter.ListProductAdapter;
 import com.example.phonesaleapp.adapter.ProductCartAdapter;
 import com.example.phonesaleapp.api.RetrofitClient;
 import com.example.phonesaleapp.api.request.customer.CustomerResponse;
+import com.example.phonesaleapp.api.service.CustomerService;
 import com.example.phonesaleapp.api.service.ProductService;
 import com.example.phonesaleapp.api.service.ShoppingCartService;
 import com.example.phonesaleapp.model.Product;
@@ -48,12 +48,12 @@ public class CartFragment extends Fragment {
     TextView tv_totalCheck;
     Button btn_buy;
     ImageView img_Back, img_message;
-    private RecyclerView rvCartItems, rcv_productSuggest;
-    private RelativeLayout rl_cartEmpty;
-    private LinearLayout ln_shopping;
-    private ProductCartAdapter adapter;
+    RecyclerView rvCartItems, rcv_productSuggest;
+    RelativeLayout rl_cartEmpty;
+    LinearLayout ln_shopping;
+    ProductCartAdapter adapter;
     ListProductAdapter productAdapter;
-    private List<ProductCart> productList = new ArrayList<>();
+    List<ProductCart> productList = new ArrayList<>();
     ArrayList<Product_Detail> arrayListProduct= new ArrayList<>();
     private static final String ARG_EMAIL = "email";
     private String customerEmail;
@@ -175,21 +175,22 @@ public class CartFragment extends Fragment {
         double total = 0;
         for (ProductCart product : productList) {
             if (product.isSelected()) {
-                total += product.getPrice() * product.getAmount();
+                total += product.getDiscountedPrice() * product.getAmount();
             }
         }
-        tv_totalCheck.setText(String.format("%,d.000 VND", (int) total));
+        tv_totalCheck.setText(String.format("đ%,d.000", (int) total));
     }
     private void loadCustomerProducts() {
-        ShoppingCartService service = RetrofitClient.getClient().create(ShoppingCartService.class);
-        Call<CustomerResponse> customerIdCall = service.getCustomerIDByEmail(customerEmail);
+        CustomerService customerService = RetrofitClient.getClient().create(CustomerService.class);
+        ShoppingCartService shoppingCartService = RetrofitClient.getClient().create(ShoppingCartService.class);
+        Call<CustomerResponse> customerIdCall = customerService.getCustomerIDByEmail(customerEmail);
         customerIdCall.enqueue(new Callback<CustomerResponse>() {
             @Override
             public void onResponse(Call<CustomerResponse> call, Response<CustomerResponse> response) {
                 if (response.isSuccessful()) {
                     CustomerResponse customerResponse = response.body();
                     String customerId = customerResponse.getCustomerId();
-                    Call<List<ProductCart>> cartProductsCall = service.getCartProducts(customerId);
+                    Call<List<ProductCart>> cartProductsCall = shoppingCartService.getCartProducts(customerId);
                     cartProductsCall.enqueue(new Callback<List<ProductCart>>() {
                         @Override
                         public void onResponse(Call<List<ProductCart>> call, Response<List<ProductCart>> response) {

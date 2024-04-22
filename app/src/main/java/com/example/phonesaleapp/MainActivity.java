@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         email = getIntent().getStringExtra("email");
+        UserInfo.getInstance().setEmail(email);
         bottomNav = this.findViewById(R.id.bottomnav);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
         bottomNav.setSelectedItemId(R.id.action_Home);
@@ -44,20 +45,6 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         });
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == -99) {
-            showAccountFragment();
-        }
-    }
-
-    public void showAccountFragment() {
-        Fragment accountFragment = AccountFragment.newInstance(email);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, accountFragment).commit();
-        bottomNav.setSelectedItemId(R.id.action_MyPage);
     }
 }
 

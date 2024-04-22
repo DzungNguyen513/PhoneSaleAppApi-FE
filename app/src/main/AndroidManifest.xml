@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -17,6 +16,12 @@
         android:theme="@style/Theme.PhoneSaleApp"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".view.account.ChangePassActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.bill.BillActivity"
+            android:exported="false" />
         <activity
             android:name=".view.account.AccountInfoActivity"
             android:exported="false" />

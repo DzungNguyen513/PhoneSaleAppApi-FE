@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".view.account.EditAccountActivity">
+    tools:context=".view.account.ChangePassActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Cập nhật tài khoản"
+            android:text="Đổi mật khẩu"
             android:textColor="@color/black"
             android:textSize="25sp" />
     </androidx.appcompat.widget.Toolbar>
@@ -48,25 +48,6 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Họ và tên:"
-            android:textSize="20sp"/>
-
-        <EditText
-            android:id="@+id/edt_customerName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Nhập họ và tên"
-            android:inputType="textPersonName"
-            android:textSize="20sp"/>
-    </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -74,53 +55,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Số điện thoại:"
+                android:text="Địa chỉ Email:"
                 android:textSize="20sp"/>
 
             <EditText
-                android:id="@+id/edt_phoneNumber"
+                android:id="@+id/edt_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nhập số điện thoại"
-                android:inputType="phone"
-                android:textSize="20sp"/>
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Email:"
-                android:textSize="20sp"/>
-
-            <EditText
-                android:id="@+id/edt_emailAddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Nhập email"
-                android:inputType="textEmailAddress"
-                android:textSize="20sp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Địa chỉ:"
-                android:textSize="20sp"/>
-
-            <EditText
-                android:id="@+id/edt_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint=""
-                android:inputType="text"
+                android:hint="Username"
+                android:inputType="textPersonName"
                 android:textSize="20sp"/>
         </LinearLayout>
 
@@ -131,41 +74,39 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Giới tính:"
+                android:text="Mật khẩu cũ:"
                 android:textSize="20sp"/>
 
-            <RadioGroup
-                android:id="@+id/rdGroup"
+            <EditText
+                android:id="@+id/edt_oldPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <RadioButton
-                    android:id="@+id/rdb_male"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Nam"
-                    android:textSize="18sp" />
+                android:hint="Old Password"
+                android:inputType="textPassword"
+                android:textSize="20sp"/>
+        </LinearLayout>
 
-                <RadioButton
-                    android:id="@+id/rdb_female"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Nữ"
-                    android:textSize="18sp" />
-                <RadioButton
-                    android:id="@+id/rdb_other"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Khác"
-                    android:textSize="18sp" />
-            </RadioGroup>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mật khẩu mới:"
+                android:textSize="20sp"/>
+
+            <EditText
+                android:id="@+id/edt_newPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="New Password"
+                android:inputType="textPassword"
+                android:textSize="20sp"/>
         </LinearLayout>
 
         <Button
-            android:id="@+id/btn_saveAccount"
+            android:id="@+id/btn_updatePass"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_gravity="center"

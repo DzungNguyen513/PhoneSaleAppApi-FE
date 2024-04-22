@@ -3,6 +3,7 @@ package com.example.phonesaleapp.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Paint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,9 +60,10 @@ public class ProductCartAdapter extends RecyclerView.Adapter<ProductCartAdapter.
     public void onBindViewHolder(@NonNull ProductCartAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         ProductCart product = productList.get(position);
         holder.tv_ProductCartName.setText(product.getProductName());
-        holder.tv_ProductCartPrice.setText(String.format("%,d.000 VND", product.getPrice()));
+        holder.tv_ProductCartPrice.setText(String.format("đ%,d.000", product.getDiscountedPrice()));
+        holder.tv_priceOrigin.setText(String.format("đ%,d.000", product.getOriginalPrice()));
         holder.tv_ProductCartColor.setText(product.getColorName());
-        holder.tv_ProductCartStorage.setText(String.valueOf(product.getStorageGB()));
+        holder.tv_ProductCartStorage.setText(String.valueOf(product.getStorageGB()+"GB"));
         holder.tvCount.setText(String.valueOf(product.getAmount()));
 
         String baseUrl = RetrofitClient.getBaseUrl();
@@ -169,7 +171,7 @@ public class ProductCartAdapter extends RecyclerView.Adapter<ProductCartAdapter.
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public CheckBox cb_productCart;
         public ImageView img_ProductCart, imgMinus, imgPlus, imgRemove;
-        public TextView tv_ProductCartName, tv_ProductCartPrice, tvCount, tv_ProductCartColor, tv_ProductCartStorage;
+        public TextView tv_ProductCartName, tv_ProductCartPrice, tvCount, tv_ProductCartColor, tv_ProductCartStorage, tv_priceOrigin;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -177,6 +179,8 @@ public class ProductCartAdapter extends RecyclerView.Adapter<ProductCartAdapter.
             img_ProductCart = itemView.findViewById(R.id.img_ProductCart);
             tv_ProductCartName = itemView.findViewById(R.id.tv_ProductCartName);
             tv_ProductCartPrice = itemView.findViewById(R.id.tv_ProductCartPrice);
+            tv_priceOrigin = itemView.findViewById(R.id.tv_priceOrigin);
+            tv_priceOrigin.setPaintFlags(tv_priceOrigin.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             tv_ProductCartColor = itemView.findViewById(R.id.tv_ProductCartColor);
             tv_ProductCartStorage = itemView.findViewById(R.id.tv_ProductCartStorage);
             imgMinus = itemView.findViewById(R.id.img_minusProductCart);

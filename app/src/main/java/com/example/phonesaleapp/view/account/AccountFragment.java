@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.phonesaleapp.R;
 import com.example.phonesaleapp.adapter.AccountOptionsAdapter;
 import com.example.phonesaleapp.model.AccountOption;
+import com.example.phonesaleapp.view.bill.BillActivity;
 import com.example.phonesaleapp.view.login.LoginActivity;
 
 import java.util.ArrayList;
@@ -20,10 +21,10 @@ import java.util.List;
 
 public class AccountFragment extends Fragment {
     private static final String ARG_EMAIL = "email";
-    private String email;
-    private RecyclerView mRecyclerView;
-    private AccountOptionsAdapter mAdapter;
-    private List<AccountOption> mOptionList;
+    String email;
+    RecyclerView mRecyclerView;
+    AccountOptionsAdapter mAdapter;
+    List<AccountOption> mOptionList;
     public AccountFragment() {
 
     }
@@ -75,8 +76,12 @@ public class AccountFragment extends Fragment {
             case "Địa chỉ giao hàng":
                 break;
             case "Lịch sử mua hàng":
+                Intent intent3 = new Intent(getContext(), BillActivity.class);
+                startActivity(intent3);
                 break;
             case "Đổi Mật Khẩu":
+                Intent intent4 = new Intent(getContext(), ChangePassActivity.class);
+                startActivity(intent4);
                 break;
             case "Đăng xuất":
                 Intent intent = new Intent(getContext(), LoginActivity.class);

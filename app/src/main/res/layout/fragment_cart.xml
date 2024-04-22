@@ -49,8 +49,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="16dp">
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:id="@+id/rl_cartEmpty"
@@ -76,8 +75,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvCartItems"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:listitem="@layout/item_shopping_cart" />
+                android:layout_height="wrap_content"/>
 
             <LinearLayout
                 android:id="@+id/ln_shopping"
@@ -112,7 +110,7 @@
                         android:id="@+id/tv_TotalCheck"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0 VNĐ"
+                        android:text="đ0"
                         android:textColor="@color/earth_red"
                         android:textSize="18sp"
                         android:textStyle="bold"

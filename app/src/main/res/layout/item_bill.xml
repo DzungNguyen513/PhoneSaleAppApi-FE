@@ -13,11 +13,11 @@
         android:padding="8dp">
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/img_ProductCheckout"
                 android:layout_width="85dp"
-                android:layout_height="match_parent"
+                android:layout_height="115dp"
                 android:layout_marginEnd="16dp"
                 android:src="@drawable/iphone12promax" />
         </LinearLayout>
@@ -28,15 +28,34 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_ProductCheckoutName"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Iphone 12"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal"
+                android:weightSum="2">
+                <TextView
+                    android:id="@+id/tv_ProductCheckoutName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Iphone 12"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/tv_statusBill"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Chờ xác nhận"
+                    android:textColor="@color/earth_green"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:gravity="right"/>
+
+            </LinearLayout>
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
