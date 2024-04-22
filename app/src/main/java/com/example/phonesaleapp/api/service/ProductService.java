@@ -24,5 +24,13 @@ public interface ProductService {
     @GET("Product/GetProductDetails/{productId}")
     Call<List<ProductDetail>> GetProductDetails(@Path("productId") String productId);
 
+    @GET("Product/CalculateProductDetailPrice/{productId}/{colorName}/{storageGb}")
+    Call<Double> CalculateProductDetailPrice(
+            @Path("productId") String productId,
+            @Path("colorName") String colorName,
+            @Path("storageGb") Integer storageGb
+    );
+
+
 
 }

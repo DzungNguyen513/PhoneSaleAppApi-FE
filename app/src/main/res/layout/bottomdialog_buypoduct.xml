@@ -9,21 +9,24 @@
         android:id="@+id/textViewColor"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:layout_weight="3"
         android:text="Vui lòng chọn màu: "
         android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.051"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewProduct2" />
 
     <GridView
         android:id="@+id/gridViewSelectColor"
-        android:layout_width="366dp"
-        android:layout_height="62dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="392dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:horizontalSpacing="8dp"
         android:numColumns="3"
+        android:verticalSpacing="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewColor" />
 
@@ -31,8 +34,8 @@
         android:id="@+id/textViewStorage"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
         android:layout_weight="3"
         android:text="Vui lòng chọn dung lượng: "
         android:textSize="20dp"
@@ -41,11 +44,12 @@
 
     <GridView
         android:id="@+id/gridViewSelectStorage"
-        android:layout_width="360dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="378dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
         android:numColumns="3"
+        android:layout_gravity="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewStorage" />
 
@@ -54,9 +58,53 @@
         android:layout_width="236dp"
         android:layout_height="48dp"
         android:layout_marginStart="84dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="12dp"
         android:text="Thêm vào giỏ hàng"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gridViewSelectStorage" />
+
+    <ImageView
+        android:id="@+id/imageViewProduct2"
+        android:layout_width="130dp"
+        android:layout_height="124dp"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ip14" />
+
+    <TextView
+        android:id="@+id/TextViewPrice_PRDD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="12000000"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.241"
+        app:layout_constraintStart_toEndOf="@+id/imageViewProduct2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewAmount_PRDD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Kho: 10"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.211"
+        app:layout_constraintStart_toEndOf="@+id/imageViewProduct2"
+        app:layout_constraintTop_toBottomOf="@+id/TextViewPrice_PRDD" />
+
+    <View
+        android:id="@+id/viewLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/imageViewProduct2"
+        android:background="@color/blue_light"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="148dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

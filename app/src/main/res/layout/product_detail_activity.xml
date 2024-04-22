@@ -132,23 +132,37 @@
 
     </androidx.core.widget.NestedScrollView>
 
+        <Button
+            android:id="@+id/buttonAddtoCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thêm vào giỏ hàng"
+            android:drawableLeft="@drawable/shopping_cart"
+            android:background="@drawable/button_border_rectangle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/buttonOrderNow"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintHorizontal_bias="0" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomnavOrder"
-        style="@style/MenuItemStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_border_rectangle"
-        app:itemHorizontalTranslationEnabled="false"
-        app:itemIconTint="@color/black"
-        app:itemTextColor="@color/black"
-        app:labelVisibilityMode="labeled"
+    <Button
+        android:id="@+id/buttonOrderNow"
+        android:layout_width="208dp"
+        android:layout_height="48dp"
+        android:background="@drawable/button_border_color"
+        android:drawableLeft="@drawable/ordernow"
+        android:text="Mua ngay"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/menu_order"
-        app:itemTextAppearanceActive="@style/BottomNavigationTextActive"
-        app:itemTextAppearanceInactive="@style/BottomNavigationTextInactive"/>
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/buttonAddtoCart"
+
+        app:layout_constrainedWidth="true"/>
+
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

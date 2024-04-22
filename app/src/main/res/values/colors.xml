@@ -44,5 +44,6 @@
 
     <color name="text_color">#212121</color>
     <color name="blue_light">#ADC4CE</color>
+    <color name="light_blue_t">#BED7DC</color>
 
 </resources>
