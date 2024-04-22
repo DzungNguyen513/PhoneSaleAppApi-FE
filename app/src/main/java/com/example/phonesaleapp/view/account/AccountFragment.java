@@ -80,6 +80,8 @@ public class AccountFragment extends Fragment {
                 startActivity(intent3);
                 break;
             case "Đổi Mật Khẩu":
+                Intent intent4 = new Intent(getContext(), ChangePassActivity.class);
+                startActivity(intent4);
                 break;
             case "Đăng xuất":
                 Intent intent = new Intent(getContext(), LoginActivity.class);
