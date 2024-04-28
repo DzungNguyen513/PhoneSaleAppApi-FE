@@ -104,6 +104,24 @@
                 android:inputType="textPassword"
                 android:textSize="20sp"/>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Xác nhận mật khẩu:"
+                android:textSize="20sp"/>
+
+            <EditText
+                android:id="@+id/edt_confirmNewPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="New Password"
+                android:inputType="textPassword"
+                android:textSize="20sp"/>
+        </LinearLayout>
 
         <Button
             android:id="@+id/btn_updatePass"

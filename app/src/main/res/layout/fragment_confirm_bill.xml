@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <LinearLayout
-                android:id="@+id/topPanel"
+                android:id="@+id/ln_notBill"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -37,6 +37,7 @@
                     android:textSize="15sp"/>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/ln_lstConfirmBill"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">

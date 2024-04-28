@@ -1,6 +1,6 @@
 package com.example.phonesaleapp.api.service;
 
-import com.example.phonesaleapp.api.request.customer.ChangePassRequest;
+import com.example.phonesaleapp.api.request.customer.ChangePassDTO;
 import com.example.phonesaleapp.api.request.customer.CustomerByEmailDTO;
 import com.example.phonesaleapp.api.request.customer.CustomerResponse;
 import com.example.phonesaleapp.api.request.customer.CustomerUpdateDTO;
@@ -20,5 +20,5 @@ public interface CustomerService {
     @GET("Customer/GetCustomerByEmail/{email}")
     Call<CustomerByEmailDTO> getCustomerByEmail(@Path("email") String email);
     @POST("Customer/ChangePassword")
-    Call<Void> changePassWord(@Body ChangePassRequest request);
+    Call<Void> changePassWord(@Body ChangePassDTO request);
 }

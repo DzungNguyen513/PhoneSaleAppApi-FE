@@ -1,14 +1,16 @@
 package com.example.phonesaleapp.api.request.customer;
 
-public class ChangePassRequest {
+public class ChangePassDTO {
     public String email;
     public String oldPassword;
     public String newPassword;
+    public String confirmNewPassword;
 
-    public ChangePassRequest(String email, String oldPassword, String newPassword) {
+    public ChangePassDTO(String email, String oldPassword, String newPassword, String confirmNewPassword) {
         this.email = email;
         this.oldPassword = oldPassword;
         this.newPassword = newPassword;
+        this.confirmNewPassword = confirmNewPassword;
     }
 
     public String getEmail() {
@@ -33,5 +35,13 @@ public class ChangePassRequest {
 
     public void setNewPassword(String newPassword) {
         this.newPassword = newPassword;
+    }
+
+    public String getConfirmNewPassword() {
+        return confirmNewPassword;
+    }
+
+    public void setConfirmNewPassword(String confirmNewPassword) {
+        this.confirmNewPassword = confirmNewPassword;
     }
 }
