@@ -16,9 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.phonesaleapp.R;
-import com.example.phonesaleapp.adapter.HorizontalListAdapter;
-import com.example.phonesaleapp.adapter.ImagePagerAdapter;
-import com.example.phonesaleapp.adapter.ListProductAdapter;
+import com.example.phonesaleapp.adapter.product.HorizontalListAdapter;
+import com.example.phonesaleapp.adapter.product.ImagePagerAdapter;
+import com.example.phonesaleapp.adapter.product.ListProductAdapter;
 import com.example.phonesaleapp.api.RetrofitClient;
 import com.example.phonesaleapp.api.service.CategoryService;
 import com.example.phonesaleapp.api.service.ProductService;

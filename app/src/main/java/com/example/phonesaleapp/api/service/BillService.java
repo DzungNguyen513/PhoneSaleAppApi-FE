@@ -3,7 +3,7 @@ package com.example.phonesaleapp.api.service;
 import com.example.phonesaleapp.api.request.bill.BillDTO;
 import com.example.phonesaleapp.api.request.bill.BillResponse;
 import com.example.phonesaleapp.model.Bill;
-import com.example.phonesaleapp.view.bill.BillStatus;
+import com.example.phonesaleapp.adapter.bill.BillStatus;
 
 import java.util.List;
 

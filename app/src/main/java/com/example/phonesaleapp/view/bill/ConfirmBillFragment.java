@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.phonesaleapp.R;
 import com.example.phonesaleapp.UserInfo;
+import com.example.phonesaleapp.adapter.bill.BillItemAdapter;
+import com.example.phonesaleapp.adapter.bill.BillStatus;
 import com.example.phonesaleapp.api.RetrofitClient;
 import com.example.phonesaleapp.api.request.customer.CustomerResponse;
 import com.example.phonesaleapp.api.service.BillService;
@@ -51,7 +53,7 @@ public class ConfirmBillFragment extends Fragment {
                 if(response.isSuccessful()){
                     CustomerResponse customerResponse = response.body();
                     String customerId = customerResponse.getCustomerId();
-                    Call<List<Bill>> billCall = billService.getBillOfCustomerID(customerId,BillStatus.ChoXacNhan);
+                    Call<List<Bill>> billCall = billService.getBillOfCustomerID(customerId, BillStatus.ChoXacNhan);
                     billCall.enqueue(new Callback<List<Bill>>() {
                         @Override
                         public void onResponse(Call<List<Bill>> call, Response<List<Bill>> response) {

@@ -162,7 +162,7 @@
                 android:gravity="center">
 
                 <TextView
-                    android:id="@+id/tv_detail"
+                    android:id="@+id/tv_viewDetail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Xem chi tiết đơn hàng"

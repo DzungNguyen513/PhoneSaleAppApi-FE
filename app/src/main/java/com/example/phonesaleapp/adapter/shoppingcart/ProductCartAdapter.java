@@ -1,4 +1,4 @@
-package com.example.phonesaleapp.adapter;
+package com.example.phonesaleapp.adapter.shoppingcart;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

@@ -24,8 +24,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.phonesaleapp.MainActivity;
 import com.example.phonesaleapp.R;
-import com.example.phonesaleapp.adapter.ListProductAdapter;
-import com.example.phonesaleapp.adapter.ProductCartAdapter;
+import com.example.phonesaleapp.adapter.product.ListProductAdapter;
+import com.example.phonesaleapp.adapter.shoppingcart.ProductCartAdapter;
 import com.example.phonesaleapp.api.RetrofitClient;
 import com.example.phonesaleapp.api.request.customer.CustomerResponse;
 import com.example.phonesaleapp.api.service.CustomerService;

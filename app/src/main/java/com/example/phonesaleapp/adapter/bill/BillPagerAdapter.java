@@ -1,4 +1,4 @@
-package com.example.phonesaleapp.view.bill;
+package com.example.phonesaleapp.adapter.bill;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

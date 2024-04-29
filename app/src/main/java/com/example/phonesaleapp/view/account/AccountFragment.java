@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.phonesaleapp.R;
-import com.example.phonesaleapp.adapter.AccountOptionsAdapter;
+import com.example.phonesaleapp.adapter.account.AccountOptionsAdapter;
 import com.example.phonesaleapp.model.AccountOption;
 import com.example.phonesaleapp.view.bill.BillActivity;
 import com.example.phonesaleapp.view.login.LoginActivity;

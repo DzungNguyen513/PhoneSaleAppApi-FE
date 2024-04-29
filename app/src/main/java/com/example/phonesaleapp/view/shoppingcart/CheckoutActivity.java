@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.example.phonesaleapp.R;
 import com.example.phonesaleapp.UserInfo;
-import com.example.phonesaleapp.adapter.CheckoutProductAdapter;
+import com.example.phonesaleapp.adapter.shoppingcart.CheckoutProductAdapter;
 import com.example.phonesaleapp.api.RetrofitClient;
 import com.example.phonesaleapp.api.request.bill.BillDTO;
 import com.example.phonesaleapp.api.request.bill.BillDetailDTO;

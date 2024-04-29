@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import com.example.phonesaleapp.MainActivity;
 import com.example.phonesaleapp.R;
 
+import com.example.phonesaleapp.adapter.bill.BillPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import androidx.viewpager2.widget.ViewPager2;

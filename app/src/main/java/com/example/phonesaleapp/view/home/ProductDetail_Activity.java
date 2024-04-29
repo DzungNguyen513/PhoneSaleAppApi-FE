@@ -1,19 +1,8 @@
 package com.example.phonesaleapp.view.home;
 
 import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
-import android.graphics.drawable.Drawable;
-import android.nfc.Tag;
 import android.os.Bundle;
-import android.text.Layout;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.AlignmentSpan;
-import android.text.style.ForegroundColorSpan;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -21,25 +10,21 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.example.phonesaleapp.R;
-import com.example.phonesaleapp.adapter.Grid_Adapter;
-import com.example.phonesaleapp.adapter.ListProductImagesAdapter;
+import com.example.phonesaleapp.adapter.product.Grid_Adapter;
+import com.example.phonesaleapp.adapter.product.ListProductImagesAdapter;
 import com.example.phonesaleapp.api.RetrofitClient;
 import com.example.phonesaleapp.api.service.ProductService;
 import com.example.phonesaleapp.model.Product;
 import com.example.phonesaleapp.model.ProductDetail;
 import com.example.phonesaleapp.model.ProductImage;
-import com.example.phonesaleapp.model.Product_Detail;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;

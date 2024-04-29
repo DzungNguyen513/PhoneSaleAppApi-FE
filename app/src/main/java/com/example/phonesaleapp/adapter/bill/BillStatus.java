@@ -1,4 +1,4 @@
-package com.example.phonesaleapp.view.bill;
+package com.example.phonesaleapp.adapter.bill;
 
 public enum BillStatus {
     ChoXacNhan("0"),

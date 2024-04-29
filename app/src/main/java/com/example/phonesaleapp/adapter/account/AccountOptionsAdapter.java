@@ -1,4 +1,4 @@
-package com.example.phonesaleapp.adapter;
+package com.example.phonesaleapp.adapter.account;
 
 import android.view.LayoutInflater;
 import android.view.View;
