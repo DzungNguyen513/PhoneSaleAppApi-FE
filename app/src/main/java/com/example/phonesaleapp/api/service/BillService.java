@@ -4,6 +4,8 @@ import com.example.phonesaleapp.api.request.bill.BillDTO;
 import com.example.phonesaleapp.api.request.bill.BillResponse;
 import com.example.phonesaleapp.model.Bill;
 import com.example.phonesaleapp.adapter.bill.BillStatus;
+import com.example.phonesaleapp.model.BillSummaryDTO;
+import com.example.phonesaleapp.model.ProductBill;
 
 import java.util.List;
 
@@ -19,4 +21,6 @@ public interface BillService {
     Call<BillResponse> createBill(@Body BillDTO bill);
     @GET("Bill/GetBillInfo/{customerId}")
     Call<List<Bill>> getBillOfCustomerID(@Path("customerId") String customerId, @Query("status") BillStatus status);
+    @GET("Bill/GetBillDetails/{billId}")
+    Call<BillSummaryDTO> getBillDetail(@Path("billId") String billId);
 }

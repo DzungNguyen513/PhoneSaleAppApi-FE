@@ -41,7 +41,13 @@ public class BillItemAdapter extends RecyclerView.Adapter<BillItemAdapter.ViewHo
         holder.tv_viewDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String statusBill = holder.tv_statusBill.getText().toString().trim();
+                String dateBill = holder.tv_dateBill.getText().toString().trim();
+                String billId = holder.tv_billId.getText().toString().trim();
                 Intent intent = new Intent(context, BillDetailActivity.class);
+                intent.putExtra("statusBill", statusBill);
+                intent.putExtra("dateBill", dateBill);
+                intent.putExtra("billId", billId);
                 context.startActivity(intent);
             }
         });

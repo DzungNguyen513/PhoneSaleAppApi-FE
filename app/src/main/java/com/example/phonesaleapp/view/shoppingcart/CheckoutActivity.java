@@ -39,7 +39,7 @@ public class CheckoutActivity extends AppCompatActivity {
     TextView tv_TotalCheck, tv_TotalCheck1, tv_TotalCheck2;
     EditText edt_customerName, edt_deliveryAddress, edt_phoneNumber, edt_note;
     RecyclerView rvCheckoutItems;
-    private CheckoutProductAdapter adapter;
+    CheckoutProductAdapter adapter;
     List<ProductCart> checkoutItems;
     String email = UserInfo.getInstance().getEmail();
     @Override

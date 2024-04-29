@@ -36,9 +36,9 @@ public class ProductBillAdapter extends RecyclerView.Adapter<ProductBillAdapter.
         ProductCart product = lstProductBill.get(position);
         holder.tv_ProductCheckoutName.setText(product.getProductName());
         holder.tv_ProductCheckoutColor.setText(product.getColorName());
-        holder.tv_ProductCartStorage.setText(product.getStorageGB() + "GB");
+        holder.tv_ProductCartStorage.setText(product.getStorageGB() + " GB");
         holder.tv_ProductCheckoutPrice.setText(String.format("đ%,d.000", product.getDiscountedPrice()));
-        holder.tv_itemCount.setText(String.valueOf(product.getAmount()));
+        holder.tv_itemCount.setText(String.valueOf("x"+product.getAmount()));
         String baseUrl = RetrofitClient.getBaseUrl();
         String imageUrl = baseUrl.replace("/api/", "/Assets/Images/"+product.getProductID()+"/") + product.getImg();
         Glide.with(context).load(imageUrl).into(holder.img_ProductCheckout);
