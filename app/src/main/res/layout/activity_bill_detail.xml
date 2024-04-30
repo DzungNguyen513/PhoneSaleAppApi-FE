@@ -260,8 +260,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="2"
-                android:layout_marginBottom="15sp">
+                android:weightSum="2">
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -277,6 +276,30 @@
                     android:layout_weight="1"
                     android:text="26-02-03 00:00"
                     android:textSize="18sp"
+                    android:gravity="right"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginBottom="15sp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Tổng tiền"
+                    android:textSize="18sp"
+                    android:textColor="@color/black">
+                </TextView>
+                <TextView
+                    android:id="@+id/tv_totalBill"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="dd40.000.000"
+                    android:textSize="18sp"
+                    android:textColor="@color/earth_red"
                     android:gravity="right"/>
             </LinearLayout>
             <LinearLayout

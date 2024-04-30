@@ -1,5 +1,7 @@
 package com.example.phonesaleapp.model;
 
+import com.example.phonesaleapp.adapter.bill.BillStatus;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,14 +12,14 @@ public class Bill {
     private String dateBill;
     private int totalProducts;
     private int totalBill;
-    private String statusBill;
+    private int status;
 
-    public Bill(String billId, String dateBill, int totalProducts, int totalBill, String statusBill) {
+    public Bill(String billId, String dateBill, int totalProducts, int totalBill, int status) {
         this.billId = billId;
         this.dateBill = dateBill;
         this.totalProducts = totalProducts;
         this.totalBill = totalBill;
-        this.statusBill = statusBill;
+        this.status = status;
     }
 
     public String getBillId() {
@@ -61,11 +63,11 @@ public class Bill {
         this.totalBill = totalBill;
     }
 
-    public String getStatusBill() {
-        return statusBill;
+    public BillStatus getStatusBill() {
+        return BillStatus.fromInt(status);
     }
 
-    public void setStatusBill(String statusBill) {
-        this.statusBill = statusBill;
+    public void setStatusBill(BillStatus statusBill) {
+        this.status = statusBill.getValue();
     }
 }

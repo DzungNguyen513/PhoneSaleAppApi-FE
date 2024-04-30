@@ -33,7 +33,8 @@ public class BillItemAdapter extends RecyclerView.Adapter<BillItemAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull BillItemAdapter.ViewHolder holder, int position) {
         Bill bill = lstBill.get(position);
-        holder.tv_statusBill.setText("Chờ xác nhận");
+        BillStatus status = bill.getStatusBill();
+        holder.tv_statusBill.setText(status.getDisplayName());
         holder.tv_dateBill.setText(bill.getDateBill());
         holder.tv_billId.setText(bill.getBillId());
         holder.tv_amountProduct.setText(String.format("x"+bill.getTotalProducts()));
@@ -44,10 +45,12 @@ public class BillItemAdapter extends RecyclerView.Adapter<BillItemAdapter.ViewHo
                 String statusBill = holder.tv_statusBill.getText().toString().trim();
                 String dateBill = holder.tv_dateBill.getText().toString().trim();
                 String billId = holder.tv_billId.getText().toString().trim();
+                String totalBill = holder.tv_totalBill.getText().toString().trim();
                 Intent intent = new Intent(context, BillDetailActivity.class);
                 intent.putExtra("statusBill", statusBill);
                 intent.putExtra("dateBill", dateBill);
                 intent.putExtra("billId", billId);
+                intent.putExtra("totalBill", totalBill);
                 context.startActivity(intent);
             }
         });

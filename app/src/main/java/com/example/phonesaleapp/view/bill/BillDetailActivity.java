@@ -32,7 +32,7 @@ import retrofit2.Response;
 
 public class BillDetailActivity extends AppCompatActivity {
     ImageView img_Back;
-    TextView tv_statusBill, tv_billId, tv_dateBill, tv_customerName, tv_phoneNumber, tv_deliveryAddress, tv_note;
+    TextView tv_statusBill, tv_billId, tv_dateBill, tv_customerName, tv_phoneNumber, tv_deliveryAddress, tv_note, tv_totalBill;
     RecyclerView rcv_lstBillDetail;
     ProductBillAdapter adapter;
     List<ProductBill> lstProduct = new ArrayList<>();
@@ -45,6 +45,7 @@ public class BillDetailActivity extends AppCompatActivity {
         tv_statusBill.setText(intent.getStringExtra("statusBill"));
         tv_billId.setText(intent.getStringExtra("billId"));
         tv_dateBill.setText(intent.getStringExtra("dateBill"));
+        tv_totalBill.setText(intent.getStringExtra("totalBill"));
         loadCustomer();
         img_Back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,15 +72,9 @@ public class BillDetailActivity extends AppCompatActivity {
                     tv_deliveryAddress.setText(billSummary.getDeliveryAddress());
                     tv_note.setText(billSummary.getNote());
                     List<ProductBill> productBills = billSummary.getLstProductBill();
-                    if (productBills != null) {
-                        lstProduct.clear();
-                        lstProduct.addAll(productBills);
-                        adapter.notifyDataSetChanged();
-                    } else {
-                        Log.e("BillDetailActivity", "Product bills list is null");
-                    }
-                } else {
-                    Log.e("BillDetailActivity", "Response not successful or body is null");
+                    lstProduct.clear();
+                    lstProduct.addAll(productBills);
+                    adapter.notifyDataSetChanged();
                 }
             }
             @Override
@@ -102,5 +97,6 @@ public class BillDetailActivity extends AppCompatActivity {
         tv_phoneNumber = this.findViewById(R.id.tv_phoneNumber);
         tv_deliveryAddress = this.findViewById(R.id.tv_deliveryAddress);
         tv_note = this.findViewById(R.id.tv_note);
+        tv_totalBill = this.findViewById(R.id.tv_totalBill);
     }
 }
