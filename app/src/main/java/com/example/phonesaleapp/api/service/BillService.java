@@ -21,6 +21,8 @@ public interface BillService {
     Call<BillResponse> createBill(@Body BillDTO bill);
     @GET("Bill/GetBillInfo/{customerId}")
     Call<List<Bill>> getBillOfCustomerID(@Path("customerId") String customerId, @Query("status") BillStatus status);
-    @GET("Bill/GetBillDetails/{billId}")
+    @GET("Bill/GetBillDetail/{billId}")
     Call<BillSummaryDTO> getBillDetail(@Path("billId") String billId);
+    @GET("Bill/GetBillByID")
+    Call<List<Bill>> getBillByID(@Query("customerId") String customerId, @Query("query") String query);
 }

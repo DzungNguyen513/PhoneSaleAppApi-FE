@@ -17,7 +17,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import androidx.viewpager2.widget.ViewPager2;
 
 public class BillActivity extends AppCompatActivity {
-    ImageView img_Back;
+    ImageView img_Back, img_searchBill;
     TabLayout tabLayout;
     ViewPager2 viewPager;
 
@@ -58,9 +58,17 @@ public class BillActivity extends AppCompatActivity {
                 finish();
             }
         });
+        img_searchBill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BillActivity.this, SearchBillActivity.class);
+                startActivity(intent);
+            }
+        });
     }
     private void AnhXa(){
         img_Back = this.findViewById(R.id.img_Back);
+        img_searchBill = this.findViewById(R.id.img_searchBill);
         viewPager = this.findViewById(R.id.view_pager);
         tabLayout = this.findViewById(R.id.tabs);
         viewPager.setAdapter(new BillPagerAdapter(this));
