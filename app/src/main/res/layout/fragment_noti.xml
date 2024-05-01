@@ -35,7 +35,5 @@
                 android:paddingEnd="16dp"
                 android:paddingRight="16dp" />
         </androidx.appcompat.widget.Toolbar>
-
-
     </FrameLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -35,6 +35,8 @@ import com.example.phonesaleapp.model.product.Product;
 import com.example.phonesaleapp.model.shoppingcart.ProductCart;
 import com.example.phonesaleapp.model.product.ProductImage;
 import com.example.phonesaleapp.model.product.Product_Detail;
+import com.example.phonesaleapp.view.home.ProductDetail_Activity;
+import com.example.phonesaleapp.view.home.Event.ProductClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +45,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CartFragment extends Fragment {
+public class CartFragment extends Fragment implements ProductClickListener{
     CheckBox cb_allProductCart;
     TextView tv_totalCheck;
     Button btn_buy;
@@ -121,7 +123,7 @@ public class CartFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        productAdapter= new ListProductAdapter(getContext(), arrayListProduct);
+        productAdapter= new ListProductAdapter(getContext(), arrayListProduct, this);
         rcv_productSuggest.setAdapter(productAdapter);
         LoadProduct();
         return view;
@@ -129,7 +131,6 @@ public class CartFragment extends Fragment {
     private  void LoadProduct(){
         ProductService productService= RetrofitClient.getClient().create(ProductService.class);
         Call<List<Product>> callListProduct= productService.GetProducts();
-
         callListProduct.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(@NonNull Call<List<Product>> call, @NonNull Response<List<Product>> response) {
@@ -153,7 +154,6 @@ public class CartFragment extends Fragment {
                                             break;
                                         }
                                     }
-
                                 }
                             }
                             @Override
@@ -247,5 +247,11 @@ public class CartFragment extends Fragment {
         img_Back = view.findViewById(R.id.img_Back);
         ln_shopping = view.findViewById(R.id.ln_shopping);
         img_message = view.findViewById(R.id.img_message);
+    }
+    @Override
+    public void onClickProduct(String productID) {
+        Intent intent= new Intent(getContext(), ProductDetail_Activity.class);
+        intent.putExtra("productId", productID);
+        startActivity(intent);
     }
 }

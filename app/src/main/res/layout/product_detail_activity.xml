@@ -18,7 +18,7 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbarProductDetail"
-                android:layout_width="409dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#9BB0C1"
                 android:minHeight="?attr/actionBarSize"
@@ -146,17 +146,17 @@
             app:layout_constrainedWidth="true"
             app:layout_constraintHorizontal_bias="0" />
 
-    <Button
-        android:id="@+id/buttonOrderNow"
-        android:layout_width="208dp"
-        android:layout_height="48dp"
-        android:background="@drawable/button_border_color"
-        android:drawableLeft="@drawable/ordernow"
-        android:text="Mua ngay"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toEndOf="@+id/buttonAddtoCart"
+        <Button
+            android:id="@+id/buttonOrderNow"
+            android:layout_width="208dp"
+            android:layout_height="48dp"
+            android:background="@drawable/button_border_color"
+            android:drawableLeft="@drawable/ordernow"
+            android:text="Mua ngay"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@+id/buttonAddtoCart"
 
         app:layout_constrainedWidth="true"/>
 

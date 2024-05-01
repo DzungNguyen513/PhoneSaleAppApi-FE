@@ -51,10 +51,6 @@ public class ChangePassActivity extends AppCompatActivity {
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         if (response.isSuccessful()){
                             Toast.makeText(ChangePassActivity.this, "Đổi mật khẩu thành công !", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(ChangePassActivity.this, MainActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                            startActivity(intent);
-                            finish();
                         } else {
                             try {
                                 String errorMessage = response.errorBody().string();

@@ -18,7 +18,7 @@ import retrofit2.http.Query;
 public interface BillService {
     @POST("Bill/CreateBill")
     Call<BillIdResponse> createBill(@Body BillCreateDTO bill);
-    @GET("Bill/GetBillInfo/{customerId}")
+    @GET("Bill/GetBillOfCustomer/{customerId}")
     Call<List<Bill>> getBillOfCustomerID(@Path("customerId") String customerId, @Query("status") BillStatus status);
     @GET("Bill/GetBillDetail/{billId}")
     Call<BillSummaryDTO> getBillDetail(@Path("billId") String billId);

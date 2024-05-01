@@ -13,7 +13,7 @@ import com.example.phonesaleapp.model.account.AccountOption;
 
 import java.util.List;
 
-public class AccountOptionsAdapter extends RecyclerView.Adapter<AccountOptionsAdapter.ViewHolder> {
+public class AccountOptionAdapter extends RecyclerView.Adapter<AccountOptionAdapter.ViewHolder> {
 
     private List<AccountOption> mOptions;
     private static OnItemClickListener mListener;
@@ -22,7 +22,7 @@ public class AccountOptionsAdapter extends RecyclerView.Adapter<AccountOptionsAd
         mListener = listener;
     }
 
-    public AccountOptionsAdapter(List<AccountOption> options) {
+    public AccountOptionAdapter(List<AccountOption> options) {
         mOptions = options;
     }
 

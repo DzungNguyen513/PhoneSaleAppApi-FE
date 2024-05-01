@@ -144,7 +144,6 @@ public class EditAccountActivity extends AppCompatActivity {
         });
     }
 
-
     private void AnhXa(){
         img_back = this.findViewById(R.id.img_back);
         edt_customerName = this.findViewById(R.id.edt_customerName);
