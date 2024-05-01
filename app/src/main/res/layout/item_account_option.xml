@@ -32,12 +32,12 @@
         app:layout_constraintEnd_toStartOf="@id/ivArrow" />
 
     <ImageView
-    android:id="@+id/ivArrow"
-    android:layout_width="24dp"
-    android:layout_height="24dp"
-    android:src="@drawable/ic_baseline_chevron_right_24"
-    app:layout_constraintBottom_toBottomOf="@id/tvOption"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toTopOf="@id/tvOption" />
+        android:id="@+id/ivArrow"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_baseline_chevron_right_24"
+        app:layout_constraintBottom_toBottomOf="@id/tvOption"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvOption" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

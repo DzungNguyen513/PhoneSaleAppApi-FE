@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.phonesaleapp.R;
@@ -32,9 +34,10 @@ import retrofit2.Response;
 
 public class SearchBillActivity extends AppCompatActivity {
     ImageView img_Back;
+    TextView tv_keyword;
     EditText edt_searchBill;
-    Button btn_searchBill;
     RecyclerView rcv_searchBill;
+    LinearLayout ln_notBill;
     BillItemAdapter adapter;
     List<Bill> lstBill = new ArrayList<>();
     String email = UserInfo.getInstance().getEmail();
@@ -48,17 +51,6 @@ public class SearchBillActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(SearchBillActivity.this, BillActivity.class);
                 startActivity(intent);
-            }
-        });
-        btn_searchBill.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String query = edt_searchBill.getText().toString().trim();
-                if (query.equals("")){
-                    Toast.makeText(SearchBillActivity.this, "Vui lòng nhập từ khóa tìm kiếm", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                searchBill(query);
             }
         });
         edt_searchBill.addTextChangedListener(new TextWatcher() {
@@ -96,9 +88,21 @@ public class SearchBillActivity extends AppCompatActivity {
                                 lstBill.clear();
                                 lstBill.addAll(bills);
                                 adapter.notifyDataSetChanged();
+                                if (lstBill.isEmpty()){
+                                    ln_notBill.setVisibility(View.VISIBLE);
+                                    rcv_searchBill.setVisibility(View.GONE);
+                                    tv_keyword.setText("Vui lòng nhập từ khóa tìm kiếm");
+                                } else {
+                                    ln_notBill.setVisibility(View.GONE);
+                                    rcv_searchBill.setVisibility(View.VISIBLE);
+                                    tv_keyword.setText("Đơn hàng tìm thấy với từ khóa '"+query+"'");
+                                }
+                            } else {
+                                ln_notBill.setVisibility(View.VISIBLE);
+                                rcv_searchBill.setVisibility(View.GONE);
+                                tv_keyword.setText("Vui lòng nhập từ khóa tìm kiếm");
                             }
                         }
-
                         @Override
                         public void onFailure(Call<List<Bill>> call, Throwable throwable) {
 
@@ -116,9 +120,10 @@ public class SearchBillActivity extends AppCompatActivity {
         adapter = new BillItemAdapter(this, lstBill);
         img_Back = this.findViewById(R.id.img_Back);
         edt_searchBill = this.findViewById(R.id.edt_searchBill);
-        btn_searchBill = this.findViewById(R.id.btn_searchBill);
+        tv_keyword = this.findViewById(R.id.tv_keyword);
         rcv_searchBill = this.findViewById(R.id.rcv_searchBill);
         rcv_searchBill.setLayoutManager(new LinearLayoutManager(this));
         rcv_searchBill.setAdapter(adapter);
+        ln_notBill = this.findViewById(R.id.ln_notBill);
     }
 }
