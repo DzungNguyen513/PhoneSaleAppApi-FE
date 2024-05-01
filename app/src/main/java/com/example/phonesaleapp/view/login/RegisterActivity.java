@@ -10,8 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.phonesaleapp.R;
 import com.example.phonesaleapp.api.RetrofitClient;
-import com.example.phonesaleapp.api.request.register.RegisterRequest;
-import com.example.phonesaleapp.api.request.register.RegisterResponse;
+import com.example.phonesaleapp.model.register.RegisterRequest;
+import com.example.phonesaleapp.model.register.RegisterResponse;
 import com.example.phonesaleapp.api.service.RegisterService;
 
 import retrofit2.Call;

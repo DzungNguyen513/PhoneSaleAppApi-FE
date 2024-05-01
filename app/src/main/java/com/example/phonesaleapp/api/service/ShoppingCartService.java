@@ -1,9 +1,7 @@
 package com.example.phonesaleapp.api.service;
 
-import com.example.phonesaleapp.api.request.customer.CustomerResponse;
-import com.example.phonesaleapp.api.request.customer.CustomerUpdateDTO;
-import com.example.phonesaleapp.api.request.shoppingcartitems.UpdateAmountRequest;
-import com.example.phonesaleapp.model.ProductCart;
+import com.example.phonesaleapp.model.shoppingcart.UpdateAmountRequest;
+import com.example.phonesaleapp.model.shoppingcart.ProductCart;
 
 import java.util.List;
 import retrofit2.Call;

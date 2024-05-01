@@ -17,13 +17,13 @@ import com.example.phonesaleapp.R;
 import com.example.phonesaleapp.UserInfo;
 import com.example.phonesaleapp.adapter.shoppingcart.CheckoutProductAdapter;
 import com.example.phonesaleapp.api.RetrofitClient;
-import com.example.phonesaleapp.api.request.bill.BillDTO;
-import com.example.phonesaleapp.api.request.bill.BillDetailDTO;
-import com.example.phonesaleapp.api.request.bill.BillResponse;
-import com.example.phonesaleapp.api.request.customer.CustomerResponse;
+import com.example.phonesaleapp.model.bill.BillCreateDTO;
+import com.example.phonesaleapp.model.bill.BillDetailDTO;
+import com.example.phonesaleapp.model.bill.BillIdResponse;
+import com.example.phonesaleapp.model.customer.CustomerIdResponse;
 import com.example.phonesaleapp.api.service.BillService;
 import com.example.phonesaleapp.api.service.CustomerService;
-import com.example.phonesaleapp.model.ProductCart;
+import com.example.phonesaleapp.model.shoppingcart.ProductCart;
 import com.example.phonesaleapp.view.bill.BillActivity;
 
 import java.util.ArrayList;
@@ -93,27 +93,27 @@ public class CheckoutActivity extends AppCompatActivity {
             detail.setAmount(product.getAmount());
             billDetails.add(detail);
         }
-        BillDTO bill = new BillDTO();
+        BillCreateDTO bill = new BillCreateDTO();
         bill.setCustomerName(customerName);
         bill.setDeliveryAddress(deliveryAddress);
         bill.setCustomerPhone(phoneNumber);
         bill.setNote(note);
         bill.setBillDetails(billDetails);
         CustomerService customerService = RetrofitClient.getClient().create(CustomerService.class);
-        Call<CustomerResponse> customerIdCall = customerService.getCustomerIDByEmail(email);
-        customerIdCall.enqueue(new Callback<CustomerResponse>() {
+        Call<CustomerIdResponse> customerIdCall = customerService.getCustomerIDByEmail(email);
+        customerIdCall.enqueue(new Callback<CustomerIdResponse>() {
             @Override
-            public void onResponse(Call<CustomerResponse> call, Response<CustomerResponse> response) {
+            public void onResponse(Call<CustomerIdResponse> call, Response<CustomerIdResponse> response) {
                 if(response.isSuccessful()){
-                    CustomerResponse customerResponse = response.body();
+                    CustomerIdResponse customerResponse = response.body();
                     String customerId = customerResponse.getCustomerId();
                     bill.setCustomerId(customerId);
 
                     BillService service = RetrofitClient.getClient().create(BillService.class);
-                    Call<BillResponse> billCall = service.createBill(bill);
-                    billCall.enqueue(new Callback<BillResponse>() {
+                    Call<BillIdResponse> billCall = service.createBill(bill);
+                    billCall.enqueue(new Callback<BillIdResponse>() {
                         @Override
-                        public void onResponse(Call<BillResponse> call, Response<BillResponse> response) {
+                        public void onResponse(Call<BillIdResponse> call, Response<BillIdResponse> response) {
                             if (response.isSuccessful() && response.body() != null) {
                                 Toast.makeText(CheckoutActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(CheckoutActivity.this, BillActivity.class);
@@ -124,14 +124,14 @@ public class CheckoutActivity extends AppCompatActivity {
                             }
                         }
                         @Override
-                        public void onFailure(Call<BillResponse> call, Throwable throwable) {
+                        public void onFailure(Call<BillIdResponse> call, Throwable throwable) {
 
                         }
                     });
                 }
             }
             @Override
-            public void onFailure(Call<CustomerResponse> call, Throwable throwable) {
+            public void onFailure(Call<CustomerIdResponse> call, Throwable throwable) {
 
             }
         });

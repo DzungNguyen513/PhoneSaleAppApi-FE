@@ -9,21 +9,19 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.phonesaleapp.R;
 import com.example.phonesaleapp.UserInfo;
 import com.example.phonesaleapp.adapter.bill.BillItemAdapter;
 import com.example.phonesaleapp.api.RetrofitClient;
-import com.example.phonesaleapp.api.request.customer.CustomerResponse;
+import com.example.phonesaleapp.model.customer.CustomerIdResponse;
 import com.example.phonesaleapp.api.service.BillService;
 import com.example.phonesaleapp.api.service.CustomerService;
-import com.example.phonesaleapp.model.Bill;
+import com.example.phonesaleapp.model.bill.Bill;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,10 +70,10 @@ public class SearchBillActivity extends AppCompatActivity {
     }
     private void searchBill(String query){
         CustomerService customerService = RetrofitClient.getClient().create(CustomerService.class);
-        Call<CustomerResponse> customerIdCall = customerService.getCustomerIDByEmail(email);
-        customerIdCall.enqueue(new Callback<CustomerResponse>() {
+        Call<CustomerIdResponse> customerIdCall = customerService.getCustomerIDByEmail(email);
+        customerIdCall.enqueue(new Callback<CustomerIdResponse>() {
             @Override
-            public void onResponse(Call<CustomerResponse> call, Response<CustomerResponse> response) {
+            public void onResponse(Call<CustomerIdResponse> call, Response<CustomerIdResponse> response) {
                 if(response.isSuccessful()){
                     String customerId = response.body().getCustomerId();
                     BillService billService = RetrofitClient.getClient().create(BillService.class);
@@ -111,7 +109,7 @@ public class SearchBillActivity extends AppCompatActivity {
                 }
             }
             @Override
-            public void onFailure(Call<CustomerResponse> call, Throwable throwable) {
+            public void onFailure(Call<CustomerIdResponse> call, Throwable throwable) {
 
             }
         });

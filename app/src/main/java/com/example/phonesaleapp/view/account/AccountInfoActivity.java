@@ -2,7 +2,6 @@ package com.example.phonesaleapp.view.account;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,8 +12,7 @@ import com.example.phonesaleapp.MainActivity;
 import com.example.phonesaleapp.R;
 import com.example.phonesaleapp.UserInfo;
 import com.example.phonesaleapp.api.RetrofitClient;
-import com.example.phonesaleapp.api.request.customer.CustomerByEmailDTO;
-import com.example.phonesaleapp.api.request.customer.CustomerUpdateDTO;
+import com.example.phonesaleapp.model.customer.CustomerByEmailDTO;
 import com.example.phonesaleapp.api.service.CustomerService;
 
 import retrofit2.Call;

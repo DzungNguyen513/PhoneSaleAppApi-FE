@@ -18,10 +18,10 @@ import com.example.phonesaleapp.UserInfo;
 import com.example.phonesaleapp.adapter.bill.BillItemAdapter;
 import com.example.phonesaleapp.adapter.bill.BillStatus;
 import com.example.phonesaleapp.api.RetrofitClient;
-import com.example.phonesaleapp.api.request.customer.CustomerResponse;
+import com.example.phonesaleapp.model.customer.CustomerIdResponse;
 import com.example.phonesaleapp.api.service.BillService;
 import com.example.phonesaleapp.api.service.CustomerService;
-import com.example.phonesaleapp.model.Bill;
+import com.example.phonesaleapp.model.bill.Bill;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,12 +46,12 @@ public class ConfirmBillFragment extends Fragment {
     private void loadBill() {
         CustomerService customerService = RetrofitClient.getClient().create(CustomerService.class);
         BillService billService = RetrofitClient.getClient().create(BillService.class);
-        Call<CustomerResponse> customerIdCall = customerService.getCustomerIDByEmail(email);
-        customerIdCall.enqueue(new Callback<CustomerResponse>() {
+        Call<CustomerIdResponse> customerIdCall = customerService.getCustomerIDByEmail(email);
+        customerIdCall.enqueue(new Callback<CustomerIdResponse>() {
             @Override
-            public void onResponse(Call<CustomerResponse> call, Response<CustomerResponse> response) {
+            public void onResponse(Call<CustomerIdResponse> call, Response<CustomerIdResponse> response) {
                 if(response.isSuccessful()){
-                    CustomerResponse customerResponse = response.body();
+                    CustomerIdResponse customerResponse = response.body();
                     String customerId = customerResponse.getCustomerId();
                     Call<List<Bill>> billCall = billService.getBillOfCustomerID(customerId, BillStatus.ChoXacNhan);
                     billCall.enqueue(new Callback<List<Bill>>() {
@@ -85,7 +85,7 @@ public class ConfirmBillFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<CustomerResponse> call, Throwable throwable) {
+            public void onFailure(Call<CustomerIdResponse> call, Throwable throwable) {
                 ln_notBill.setVisibility(View.VISIBLE);
                 rcv_confirmBill.setVisibility(View.GONE);
             }

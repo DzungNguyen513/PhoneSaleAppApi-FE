@@ -1,11 +1,10 @@
 package com.example.phonesaleapp.api.service;
 
-import com.example.phonesaleapp.api.request.bill.BillDTO;
-import com.example.phonesaleapp.api.request.bill.BillResponse;
-import com.example.phonesaleapp.model.Bill;
+import com.example.phonesaleapp.model.bill.BillCreateDTO;
+import com.example.phonesaleapp.model.bill.BillIdResponse;
+import com.example.phonesaleapp.model.bill.Bill;
 import com.example.phonesaleapp.adapter.bill.BillStatus;
-import com.example.phonesaleapp.model.BillSummaryDTO;
-import com.example.phonesaleapp.model.ProductBill;
+import com.example.phonesaleapp.model.bill.BillSummaryDTO;
 
 import java.util.List;
 
@@ -18,7 +17,7 @@ import retrofit2.http.Query;
 
 public interface BillService {
     @POST("Bill/CreateBill")
-    Call<BillResponse> createBill(@Body BillDTO bill);
+    Call<BillIdResponse> createBill(@Body BillCreateDTO bill);
     @GET("Bill/GetBillInfo/{customerId}")
     Call<List<Bill>> getBillOfCustomerID(@Path("customerId") String customerId, @Query("status") BillStatus status);
     @GET("Bill/GetBillDetail/{billId}")

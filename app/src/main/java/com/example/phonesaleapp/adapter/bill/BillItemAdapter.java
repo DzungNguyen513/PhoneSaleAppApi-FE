@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.phonesaleapp.R;
-import com.example.phonesaleapp.model.Bill;
+import com.example.phonesaleapp.model.bill.Bill;
 import com.example.phonesaleapp.view.bill.BillDetailActivity;
 
 import java.util.List;

@@ -27,14 +27,14 @@ import com.example.phonesaleapp.R;
 import com.example.phonesaleapp.adapter.product.ListProductAdapter;
 import com.example.phonesaleapp.adapter.shoppingcart.ProductCartAdapter;
 import com.example.phonesaleapp.api.RetrofitClient;
-import com.example.phonesaleapp.api.request.customer.CustomerResponse;
+import com.example.phonesaleapp.model.customer.CustomerIdResponse;
 import com.example.phonesaleapp.api.service.CustomerService;
 import com.example.phonesaleapp.api.service.ProductService;
 import com.example.phonesaleapp.api.service.ShoppingCartService;
-import com.example.phonesaleapp.model.Product;
-import com.example.phonesaleapp.model.ProductCart;
-import com.example.phonesaleapp.model.ProductImage;
-import com.example.phonesaleapp.model.Product_Detail;
+import com.example.phonesaleapp.model.product.Product;
+import com.example.phonesaleapp.model.shoppingcart.ProductCart;
+import com.example.phonesaleapp.model.product.ProductImage;
+import com.example.phonesaleapp.model.product.Product_Detail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -183,12 +183,12 @@ public class CartFragment extends Fragment {
     private void loadCustomerProducts() {
         CustomerService customerService = RetrofitClient.getClient().create(CustomerService.class);
         ShoppingCartService shoppingCartService = RetrofitClient.getClient().create(ShoppingCartService.class);
-        Call<CustomerResponse> customerIdCall = customerService.getCustomerIDByEmail(customerEmail);
-        customerIdCall.enqueue(new Callback<CustomerResponse>() {
+        Call<CustomerIdResponse> customerIdCall = customerService.getCustomerIDByEmail(customerEmail);
+        customerIdCall.enqueue(new Callback<CustomerIdResponse>() {
             @Override
-            public void onResponse(Call<CustomerResponse> call, Response<CustomerResponse> response) {
+            public void onResponse(Call<CustomerIdResponse> call, Response<CustomerIdResponse> response) {
                 if (response.isSuccessful()) {
-                    CustomerResponse customerResponse = response.body();
+                    CustomerIdResponse customerResponse = response.body();
                     String customerId = customerResponse.getCustomerId();
                     Call<List<ProductCart>> cartProductsCall = shoppingCartService.getCartProducts(customerId);
                     cartProductsCall.enqueue(new Callback<List<ProductCart>>() {
@@ -224,7 +224,7 @@ public class CartFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<CustomerResponse> call, Throwable t) {
+            public void onFailure(Call<CustomerIdResponse> call, Throwable t) {
                 Log.e("CartFragment", "Lỗi: ", t);
                 Toast.makeText(getContext(), "Lỗi: " + t.getMessage(), Toast.LENGTH_LONG).show();
                 rl_cartEmpty.setVisibility(View.VISIBLE);

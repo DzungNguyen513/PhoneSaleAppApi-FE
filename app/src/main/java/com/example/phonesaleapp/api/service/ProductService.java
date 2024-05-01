@@ -1,8 +1,8 @@
 package com.example.phonesaleapp.api.service;
 
-import com.example.phonesaleapp.model.Product;
-import com.example.phonesaleapp.model.ProductDetail;
-import com.example.phonesaleapp.model.ProductImage;
+import com.example.phonesaleapp.model.product.Product;
+import com.example.phonesaleapp.model.product.ProductDetail;
+import com.example.phonesaleapp.model.product.ProductImage;
 
 import java.util.List;
 

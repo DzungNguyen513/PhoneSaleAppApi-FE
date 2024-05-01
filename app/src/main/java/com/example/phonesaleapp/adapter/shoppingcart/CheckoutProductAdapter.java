@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.phonesaleapp.R;
 import com.example.phonesaleapp.api.RetrofitClient;
-import com.example.phonesaleapp.model.ProductCart;
+import com.example.phonesaleapp.model.shoppingcart.ProductCart;
 
 import java.util.List;
 

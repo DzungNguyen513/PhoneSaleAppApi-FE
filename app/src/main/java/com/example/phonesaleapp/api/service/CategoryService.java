@@ -1,6 +1,6 @@
 package com.example.phonesaleapp.api.service;
 
-import com.example.phonesaleapp.model.Category;
+import com.example.phonesaleapp.model.category.Category;
 
 import java.util.List;
 

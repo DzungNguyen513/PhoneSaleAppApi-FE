@@ -15,7 +15,7 @@ import com.example.phonesaleapp.MainActivity;
 import com.example.phonesaleapp.R;
 import com.example.phonesaleapp.UserInfo;
 import com.example.phonesaleapp.api.RetrofitClient;
-import com.example.phonesaleapp.api.request.customer.ChangePassDTO;
+import com.example.phonesaleapp.model.customer.ChangePassDTO;
 import com.example.phonesaleapp.api.service.CustomerService;
 
 import org.json.JSONException;

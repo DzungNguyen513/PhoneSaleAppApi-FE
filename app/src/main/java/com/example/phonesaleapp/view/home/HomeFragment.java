@@ -22,10 +22,10 @@ import com.example.phonesaleapp.adapter.product.ListProductAdapter;
 import com.example.phonesaleapp.api.RetrofitClient;
 import com.example.phonesaleapp.api.service.CategoryService;
 import com.example.phonesaleapp.api.service.ProductService;
-import com.example.phonesaleapp.model.Category;
-import com.example.phonesaleapp.model.Product;
-import com.example.phonesaleapp.model.ProductImage;
-import com.example.phonesaleapp.model.Product_Detail;
+import com.example.phonesaleapp.model.category.Category;
+import com.example.phonesaleapp.model.product.Product;
+import com.example.phonesaleapp.model.product.ProductImage;
+import com.example.phonesaleapp.model.product.Product_Detail;
 import com.example.phonesaleapp.view.home.Event.ProductClickListener;
 
 import java.util.ArrayList;

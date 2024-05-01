@@ -22,9 +22,9 @@ import com.example.phonesaleapp.adapter.product.Grid_Adapter;
 import com.example.phonesaleapp.adapter.product.ListProductImagesAdapter;
 import com.example.phonesaleapp.api.RetrofitClient;
 import com.example.phonesaleapp.api.service.ProductService;
-import com.example.phonesaleapp.model.Product;
-import com.example.phonesaleapp.model.ProductDetail;
-import com.example.phonesaleapp.model.ProductImage;
+import com.example.phonesaleapp.model.product.Product;
+import com.example.phonesaleapp.model.product.ProductDetail;
+import com.example.phonesaleapp.model.product.ProductImage;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;

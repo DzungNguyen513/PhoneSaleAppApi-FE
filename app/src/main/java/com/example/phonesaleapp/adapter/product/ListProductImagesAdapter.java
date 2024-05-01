@@ -12,11 +12,9 @@ import androidx.viewpager.widget.PagerAdapter;
 import com.bumptech.glide.Glide;
 import com.example.phonesaleapp.R;
 import com.example.phonesaleapp.api.RetrofitClient;
-import com.example.phonesaleapp.model.ProductImage;
+import com.example.phonesaleapp.model.product.ProductImage;
 
 import java.util.List;
-
-import retrofit2.Callback;
 
 public class ListProductImagesAdapter extends PagerAdapter {
 

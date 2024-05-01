@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.phonesaleapp.R;
-import com.example.phonesaleapp.model.AccountOption;
+import com.example.phonesaleapp.model.account.AccountOption;
 
 import java.util.List;
 

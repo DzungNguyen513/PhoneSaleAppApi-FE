@@ -6,22 +6,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.phonesaleapp.MainActivity;
 import com.example.phonesaleapp.R;
-import com.example.phonesaleapp.UserInfo;
-import com.example.phonesaleapp.adapter.bill.BillItemAdapter;
 import com.example.phonesaleapp.adapter.bill.ProductBillAdapter;
-import com.example.phonesaleapp.adapter.shoppingcart.CheckoutProductAdapter;
 import com.example.phonesaleapp.api.RetrofitClient;
 import com.example.phonesaleapp.api.service.BillService;
-import com.example.phonesaleapp.model.BillSummaryDTO;
-import com.example.phonesaleapp.model.ProductBill;
-import com.example.phonesaleapp.model.ProductCart;
+import com.example.phonesaleapp.model.bill.BillSummaryDTO;
+import com.example.phonesaleapp.model.bill.ProductBill;
 
 import java.util.ArrayList;
 import java.util.List;
