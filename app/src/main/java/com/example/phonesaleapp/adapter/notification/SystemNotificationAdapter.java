@@ -1,6 +1,7 @@
 package com.example.phonesaleapp.adapter.notification;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.phonesaleapp.R;
+import com.example.phonesaleapp.view.notification.NotificationDetailActivity;
 import com.example.phonesaleapp.model.systemnotification.SystemNotification;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -36,8 +36,16 @@ public class SystemNotificationAdapter extends RecyclerView.Adapter<SystemNotifi
     public void onBindViewHolder(@NonNull SystemNotificationAdapter.ViewHolder holder, int position) {
         SystemNotification noti = lstNoti.get(position);
         holder.tv_notiTitle.setText(noti.getTitle());
-        holder.tv_notiContent.setText(noti.getMessage());
+        holder.tv_notiDescription.setText(noti.getDescription());
         holder.tv_dateNoti.setText(noti.getCreatedAt());
+        holder.tv_viewDetailNoti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, NotificationDetailActivity.class);
+                intent.putExtra("notification", noti);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -46,11 +54,11 @@ public class SystemNotificationAdapter extends RecyclerView.Adapter<SystemNotifi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_notiTitle, tv_notiContent, tv_dateNoti, tv_viewDetailNoti;
+        TextView tv_notiTitle, tv_notiDescription, tv_dateNoti, tv_viewDetailNoti;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_notiTitle = itemView.findViewById(R.id.tv_notiTitle);
-            tv_notiContent = itemView.findViewById(R.id.tv_notiContent);
+            tv_notiDescription = itemView.findViewById(R.id.tv_notiDescription);
             tv_dateNoti = itemView.findViewById(R.id.tv_dateNoti);
             tv_viewDetailNoti = itemView.findViewById(R.id.tv_viewDetailNoti);
         }
