@@ -154,8 +154,10 @@ int amount=0;
     GridView gridViewColor, gridViewStorage;
     ArrayList<String > arrayListColor= new ArrayList<>();
     ArrayList<String > arrayListStorage= new ArrayList<>();
+    String color;
+    String prdID;
     private void ShowOptionProduct(String productID){
-
+        prdID=productID;
         // Use BottomSheetDialog
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ProductDetail_Activity.this);
         View view = getLayoutInflater().inflate(R.layout.bottomdialog_buypoduct, null);
@@ -180,7 +182,7 @@ int amount=0;
                     Product product = (Product) response.body();
 
 
-                    // Load image
+                    // Load image chung
 
                     Call<List<ProductImage>> callListImage= productService.GetProductImages(productID);
                     callListImage.enqueue(new Callback<List<ProductImage>>() {
@@ -252,36 +254,40 @@ int amount=0;
         gridViewColor.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String color= arrayListColor.get(position);
-                String storageStr= arrayListStorage.get(position);
-                String storageNumberStr = storageStr.replaceAll("[^\\d.]", "");
-                Integer storage = Integer.parseInt(storageNumberStr);
+                color= arrayListColor.get(position);
+                Toast.makeText(ProductDetail_Activity.this, color, Toast.LENGTH_SHORT).show();
+//                String storageStr= arrayListStorage.get(position);
+//                String storageNumberStr = storageStr.replaceAll("[^\\d.]", "");
+//                Integer storage = Integer.parseInt(storageNumberStr);
 
+                ProductService productService= RetrofitClient.getClient().create(ProductService.class);
 
                 // get price by color and storage
-                Call<Double> callprice= productService.CalculateProductDetailPrice(productID,color,storage);
+                Call<Double> callprice= productService.calculateProductDetailPrice(prdID,color,null);
                 callprice.enqueue(new Callback<Double>() {
                     @Override
                     public void onResponse(Call<Double> call, Response<Double> response) {
                         if (response.isSuccessful() && response.body()!=null){
                             double totalprice= response.body();
                             txtPriceProduct.setText(String.valueOf(totalprice));
+                            Toast.makeText(ProductDetail_Activity.this, "Thành công", Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<Double> call, Throwable t) {
+                    public void onFailure(Call<Double> call, Throwable throwable) {
 
                     }
                 });
 
                 // Load image by color
-                Call<List<ProductImage>> callistColor= productService.GetProductImages(productID);
-                callistColor.enqueue(new Callback<List<ProductImage>>() {
+                Call<List<ProductImage>> callListColor= productService.GetProductImages(prdID);
+                callListColor.enqueue(new Callback<List<ProductImage>>() {
                     @Override
                     public void onResponse(Call<List<ProductImage>> call, Response<List<ProductImage>> response) {
                         if (response.isSuccessful() && response.body()!=null){
                             List<ProductImage> productImages= response.body();
+                            Log.d("Color_I", color);
                             for(ProductImage pr: productImages){
                                 if (pr.getColorName()!=null && pr.getColorName().equals(color)){
                                     String baseUrl = RetrofitClient.getBaseUrl();

@@ -43,22 +43,22 @@ public class Grid_Adapter extends ArrayAdapter<String> {
         String t = String.valueOf(arrayList.get(position));
         txtT.setText(t);
 
-        if (position == selectedItem) {
-            view.setBackgroundColor(ContextCompat.getColor(context, R.color.light_blue_t));
-        } else {
-            view.setBackgroundColor(Color.TRANSPARENT);
-        }
-
-        // Thiết lập sự kiện click cho itemView
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Cập nhật chỉ mục của item được chọn
-                selectedItem = position;
-                // Thông báo cho adapter biết là dữ liệu đã thay đổi
-                notifyDataSetChanged();
-            }
-        });
+//        if (position == selectedItem) {
+//            view.setBackgroundColor(ContextCompat.getColor(context, R.color.light_blue_t));
+//        } else {
+//            view.setBackgroundColor(Color.TRANSPARENT);
+//        }
+//
+//         Thiết lập sự kiện click cho itemView
+//        view.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Cập nhật chỉ mục của item được chọn
+//                selectedItem = position;
+//                // Thông báo cho adapter biết là dữ liệu đã thay đổi
+//                notifyDataSetChanged();
+//            }
+//        });
         return view;
     }
 }
