@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.text.Html;
+import android.text.Spanned;
 
 import com.example.phonesaleapp.R;
 import com.example.phonesaleapp.model.systemnotification.SystemNotification;
@@ -34,9 +36,11 @@ public class NotificationDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         SystemNotification notification = (SystemNotification) intent.getSerializableExtra("notification");
         if (notification != null) {
-            tv_titleNoti.setText(notification.getTitle());
+            Spanned formattedTitle = Html.fromHtml(notification.getTitle(), Html.FROM_HTML_MODE_LEGACY);
+            tv_titleNoti.setText(formattedTitle);
             tv_dateNoti.setText(notification.getCreatedAt());
-            tv_contentNoti.setText(notification.getMessage());
+            Spanned formattedContent = Html.fromHtml(notification.getMessage(), Html.FROM_HTML_MODE_LEGACY);
+            tv_contentNoti.setText(formattedContent);
         }
     }
     private void AnhXa(){

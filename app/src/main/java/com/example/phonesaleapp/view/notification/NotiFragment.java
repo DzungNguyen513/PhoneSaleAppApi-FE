@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,7 +31,7 @@ import retrofit2.Response;
 public class NotiFragment extends Fragment {
     SystemNotificationAdapter adapter;
     List<SystemNotification> lstNoti = new ArrayList<>();
-    RecyclerView rcv_lstNoti;
+    ListView lv_lstNoti;
     String email = UserInfo.getInstance().getEmail();
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_noti, container, false);
@@ -75,9 +76,8 @@ public class NotiFragment extends Fragment {
 
     }
     private void AnhXa(View view){
-        adapter = new SystemNotificationAdapter(getContext(), lstNoti);
-        rcv_lstNoti = view.findViewById(R.id.rcv_lstNoti);
-        rcv_lstNoti.setLayoutManager(new LinearLayoutManager(getContext()));
-        rcv_lstNoti.setAdapter(adapter);
+        adapter = new SystemNotificationAdapter(getContext(), R.layout.item_notification, lstNoti);
+        lv_lstNoti = view.findViewById(R.id.lv_lstNoti);
+        lv_lstNoti.setAdapter(adapter);
     }
 }

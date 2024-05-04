@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -111,6 +110,8 @@ public class AccountFragment extends Fragment {
                 break;
             case "Địa chỉ giao hàng":
                 showSnackbar("Hệ thống đang phát triển");
+                /*Intent intent2 = new Intent(getContext(), AddressActivity.class);
+                startActivity(intent2);*/
                 break;
             case "Lịch sử mua hàng":
                 Intent intent3 = new Intent(getContext(), BillActivity.class);

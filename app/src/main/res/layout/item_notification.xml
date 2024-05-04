@@ -50,7 +50,7 @@
                     android:id="@+id/tv_notiDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nội dung thông báo"
+                    android:text="Nội dung mô tả"
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     android:maxLines="2"
