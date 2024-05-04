@@ -17,6 +17,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".view.bill.SearchBillActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.bill.BillDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.account.ChangePassActivity"
             android:exported="false" />
         <activity

@@ -13,13 +13,13 @@
         android:padding="8dp">
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
             <ImageView
                 android:id="@+id/img_ProductCheckout"
-                android:layout_width="85dp"
-                android:layout_height="115dp"
+                android:layout_width="75dp"
+                android:layout_height="match_parent"
                 android:layout_marginEnd="16dp"
-                android:src="@drawable/iphone12promax" />
+                android:src="@drawable/billimage" />
         </LinearLayout>
 
         <LinearLayout
@@ -34,108 +34,140 @@
                 android:orientation="horizontal"
                 android:weightSum="2">
                 <TextView
-                    android:id="@+id/tv_ProductCheckoutName"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Iphone 12"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:text="Trạng thái:"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:textColor="@color/black">
+                </TextView>
                 <TextView
                     android:id="@+id/tv_statusBill"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Chờ xác nhận"
-                    android:textColor="@color/earth_green"
-                    android:textSize="18sp"
+                    android:textColor="@color/material_red"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:gravity="right"/>
 
             </LinearLayout>
-
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
+                android:orientation="horizontal"
+                android:weightSum="2">
                 <TextView
-                    android:id="@+id/tv_color_label"
+                    android:id="@+id/tv_billIdlable"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Màu:"
-                    android:textSize="18sp"
+                    android:layout_weight="1"
+                    android:text="Mã vận đơn:"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
-
                 <TextView
-                    android:id="@+id/tv_ProductCheckoutColor"
+                    android:id="@+id/tv_billId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:text="Xanh Dương"
-                    android:textSize="18sp" />
+                    android:layout_weight="1"
+                    android:text="BILL001"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:gravity="right"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+                <TextView
+                    android:id="@+id/tv_timeLable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Thời gian đặt hàng:"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/tv_dateBill"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="26-02-2024"
+                    android:textSize="15sp"
+                    android:gravity="right"/>
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="2">
 
                 <TextView
-                    android:id="@+id/tv_storage_label"
+                    android:id="@+id/tv_amountLable"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Dung lượng:"
-                    android:textSize="18sp"
+                    android:layout_weight="1"
+                    android:text="Số lượng sản phẩm:"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_ProductCartStorage"
+                    android:id="@+id/tv_amountProduct"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:text="256GB"
-                    android:textSize="18sp" />
+                    android:layout_weight="1"
+                    android:text="0"
+                    android:textSize="16sp"
+                    android:gravity="right"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="2">
+
                 <TextView
-                    android:id="@+id/tv_ProductCheckoutPrice"
-                    android:layout_width="match_parent"
+                    android:id="@+id/tv_totalBill_label"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="đ12.000.000"
+                    android:layout_weight="1"
+                    android:text="Tổng tiền:"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_totalBill"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="đ10.000.000"
                     android:textColor="@color/material_red"
                     android:textSize="16sp" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:gravity="center">
 
                 <TextView
+                    android:id="@+id/tv_viewDetail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Số lượng:"
+                    android:text="Xem chi tiết đơn hàng"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_itemCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:text="0"
-                    android:textSize="18sp" />
+                    android:textStyle="italic"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.phonesaleapp.view.account.AccountFragment;
 import com.example.phonesaleapp.view.shoppingcart.CartFragment;
@@ -24,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
         email = getIntent().getStringExtra("email");
         UserInfo.getInstance().setEmail(email);
+
+
         bottomNav = this.findViewById(R.id.bottomnav);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
         bottomNav.setSelectedItemId(R.id.action_Home);

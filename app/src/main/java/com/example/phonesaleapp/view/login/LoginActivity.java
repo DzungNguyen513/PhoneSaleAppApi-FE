@@ -14,13 +14,10 @@ import com.example.phonesaleapp.MainActivity;
 import com.example.phonesaleapp.R;
 import com.example.phonesaleapp.api.service.LoginService;
 import com.example.phonesaleapp.api.RetrofitClient;
-import com.example.phonesaleapp.api.request.login.LoginRequest;
-import com.example.phonesaleapp.api.request.login.LoginResponse;
-import com.google.gson.Gson;
+import com.example.phonesaleapp.model.login.LoginRequest;
+import com.example.phonesaleapp.model.login.LoginResponse;
 
 import org.json.JSONObject;
-
-import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;

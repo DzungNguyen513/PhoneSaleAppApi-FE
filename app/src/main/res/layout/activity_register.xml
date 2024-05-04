@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_background"
+    android:background="@drawable/screenbackground"
     android:layout_gravity="center"
     android:padding="16dp"
     tools:context=".MainActivity">
@@ -30,7 +30,7 @@
         <ImageView
             android:layout_width="125dp"
             android:layout_height="113dp"
-            android:src="@drawable/icon_account_circle" />
+            android:src="@drawable/iconlogin" />
         <EditText
             android:id="@+id/edt_email"
             android:layout_width="match_parent"
@@ -40,8 +40,8 @@
             android:hint="Email"
             android:inputType="text"
             android:padding="18dp"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
+            android:textColor="@color/colorPrimaryDark"
+            android:textColorHint="@color/colorPrimaryDark"
             android:textSize="20sp"/>
 
         <EditText
@@ -53,19 +53,20 @@
             android:hint="Password"
             android:inputType="textPassword"
             android:padding="18dp"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
+            android:textColor="@color/colorPrimaryDark"
+            android:textColorHint="@color/colorPrimaryDark"
             android:textSize="20sp" />
         <Button
             android:id="@+id/btn_signup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Sign Up"
-            android:backgroundTint="@color/white"
-            android:textColor="#3b84f1"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:textColor="@color/white"
             android:padding="18dp"
             android:layout_marginTop="32dp"
             android:textSize="20sp"
+            android:textStyle="bold"
             />
 
 

@@ -15,10 +15,9 @@ import android.widget.Toast;
 import com.example.phonesaleapp.R;
 import com.example.phonesaleapp.UserInfo;
 import com.example.phonesaleapp.api.RetrofitClient;
-import com.example.phonesaleapp.api.request.customer.CustomerResponse;
-import com.example.phonesaleapp.api.request.customer.CustomerUpdateDTO;
+import com.example.phonesaleapp.model.customer.CustomerIdResponse;
+import com.example.phonesaleapp.model.customer.CustomerUpdateDTO;
 import com.example.phonesaleapp.api.service.CustomerService;
-import com.example.phonesaleapp.api.service.ShoppingCartService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -105,9 +104,9 @@ public class EditAccountActivity extends AppCompatActivity {
     }
     private void updateCustomer(String customerName, String phoneNumber, String emailAddress, String address, int gender) {
         CustomerService service = RetrofitClient.getClient().create(CustomerService.class);
-        service.getCustomerIDByEmail(email).enqueue(new Callback<CustomerResponse>() {
+        service.getCustomerIDByEmail(email).enqueue(new Callback<CustomerIdResponse>() {
             @Override
-            public void onResponse(Call<CustomerResponse> call, Response<CustomerResponse> response) {
+            public void onResponse(Call<CustomerIdResponse> call, Response<CustomerIdResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     String customerId = response.body().getCustomerId();
                     CustomerUpdateDTO customerUpdateDTO = new CustomerUpdateDTO(customerName, phoneNumber, emailAddress, address, gender);
@@ -118,7 +117,7 @@ public class EditAccountActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<CustomerResponse> call, Throwable t) {
+            public void onFailure(Call<CustomerIdResponse> call, Throwable t) {
                 Toast.makeText(EditAccountActivity.this, "Lỗi mạng", Toast.LENGTH_SHORT).show();
             }
         });
@@ -144,7 +143,6 @@ public class EditAccountActivity extends AppCompatActivity {
             }
         });
     }
-
 
     private void AnhXa(){
         img_back = this.findViewById(R.id.img_back);

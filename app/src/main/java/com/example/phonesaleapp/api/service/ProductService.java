@@ -1,8 +1,8 @@
 package com.example.phonesaleapp.api.service;
 
-import com.example.phonesaleapp.model.Product;
-import com.example.phonesaleapp.model.ProductDetail;
-import com.example.phonesaleapp.model.ProductImage;
+import com.example.phonesaleapp.model.product.Product;
+import com.example.phonesaleapp.model.product.ProductDetail;
+import com.example.phonesaleapp.model.product.ProductImage;
 
 import java.util.List;
 import retrofit2.Call;
@@ -22,13 +22,22 @@ public interface ProductService {
     @GET("Product/GetProductDetails/{productId}")
     Call<List<ProductDetail>> GetProductDetails(@Path("productId") String productId);
 
-    @GET("Product/CalculateProductDetailPrice/{productId}/{colorName}/{storageGb}")
-    Call<Double> calculateProductDetailPrice(
+    @GET("Product/CalculateProductDetailPrice/{productId}")
+    Call<Integer> calculateProductDetailPrice(
             @Path("productId") String productId,
             @Query("colorName") String colorName,
             @Query("storageGb") Integer storageGb
     );
 
+    @GET("Product/TotalAmountByProductId/{productId}")
+    Call<Integer> TotalAmountByProductId(@Path("productId") String productId);
+
+    @GET("Product/AmountByColorStorage/{productId}")
+    Call<Integer> AmountByColorStorage(
+            @Path("productId") String productId,
+            @Query("colorName") String colorName,
+            @Query("storageGb") Integer storageGb
+    );
 
 
 }

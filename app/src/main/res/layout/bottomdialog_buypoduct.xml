@@ -7,12 +7,12 @@
 
     <TextView
         android:id="@+id/textViewColor"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="182dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="13dp"
         android:layout_weight="3"
         android:text="Vui lòng chọn màu: "
-        android:textSize="20dp"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.051"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,10 +20,10 @@
 
     <GridView
         android:id="@+id/gridViewSelectColor"
-        android:layout_width="392dp"
-        android:layout_height="61dp"
+        android:layout_width="390dp"
+        android:layout_height="41dp"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:horizontalSpacing="8dp"
         android:numColumns="3"
         android:verticalSpacing="8dp"
@@ -32,24 +32,24 @@
 
     <TextView
         android:id="@+id/textViewStorage"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_width="194dp"
+        android:layout_height="30dp"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_weight="3"
         android:text="Vui lòng chọn dung lượng: "
-        android:textSize="20dp"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gridViewSelectColor" />
 
     <GridView
         android:id="@+id/gridViewSelectStorage"
         android:layout_width="378dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
-        android:numColumns="3"
+        android:layout_height="36dp"
         android:layout_gravity="center"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        android:numColumns="3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewStorage" />
 
@@ -57,11 +57,11 @@
         android:id="@+id/buttonOrder"
         android:layout_width="236dp"
         android:layout_height="48dp"
-        android:layout_marginStart="96dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="12dp"
         android:text="Thêm vào giỏ hàng"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gridViewSelectStorage" />
+        app:layout_constraintTop_toBottomOf="@+id/txtWarning" />
 
     <ImageView
         android:id="@+id/imageViewProduct2"
@@ -78,11 +78,11 @@
         android:id="@+id/TextViewPrice_PRDD"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:text="12000000"
+        android:layout_marginTop="32dp"
+        android:text="000"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.241"
+        app:layout_constraintHorizontal_bias="0.181"
         app:layout_constraintStart_toEndOf="@+id/imageViewProduct2"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -90,12 +90,13 @@
         android:id="@+id/textViewAmount_PRDD"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Kho: 10"
+        android:layout_marginTop="28dp"
+        android:layout_marginLeft="3dp"
+        android:text="10"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.211"
-        app:layout_constraintStart_toEndOf="@+id/imageViewProduct2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/TextViewPrice_PRDD" />
 
     <View
@@ -106,5 +107,94 @@
         android:background="@color/blue_light"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="148dp" />
+
+
+    <TextView
+        android:id="@+id/textViewColor1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="16dp"
+        android:textColor="@color/earth_blue"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/textViewStorage1"
+        app:layout_constraintHorizontal_bias="0.72"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gridViewSelectStorage" />
+
+    <TextView
+        android:id="@+id/textViewStorage1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="96dp"
+        android:textSize="16dp"
+        android:textColor="@color/earth_blue"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/linear_layout_right_of_storage"
+        app:layout_constraintTop_toBottomOf="@+id/gridViewSelectStorage" />
+
+    <LinearLayout
+        android:id="@+id/linear_layout_right_of_storage"
+        android:layout_width="103dp"
+        android:layout_height="28dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="20dp"
+        android:gravity="start|center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gridViewSelectStorage">
+
+        <ImageView
+            android:id="@+id/img_minusProductCart"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_baseline_remove_24" />
+
+        <TextView
+            android:id="@+id/tv_countProductCart"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="@color/text_color"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/img_plusProductCart"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_baseline_add_24" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtWarning"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="10dp"
+        android:layoutDirection="ltr"
+        android:text=""
+        android:textColor="@color/material_red"
+        android:textSize="16dp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.038"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear_layout_right_of_storage" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="28dp"
+        android:text="Kho :"
+        android:textSize="20dp"
+        app:layout_constraintStart_toEndOf="@+id/imageViewProduct2"
+        app:layout_constraintTop_toBottomOf="@+id/TextViewPrice_PRDD" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

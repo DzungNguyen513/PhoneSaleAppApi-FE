@@ -24,17 +24,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.phonesaleapp.MainActivity;
 import com.example.phonesaleapp.R;
-import com.example.phonesaleapp.adapter.ListProductAdapter;
-import com.example.phonesaleapp.adapter.ProductCartAdapter;
+import com.example.phonesaleapp.adapter.product.ListProductAdapter;
+import com.example.phonesaleapp.adapter.shoppingcart.ProductCartAdapter;
 import com.example.phonesaleapp.api.RetrofitClient;
-import com.example.phonesaleapp.api.request.customer.CustomerResponse;
+import com.example.phonesaleapp.model.customer.CustomerIdResponse;
 import com.example.phonesaleapp.api.service.CustomerService;
 import com.example.phonesaleapp.api.service.ProductService;
 import com.example.phonesaleapp.api.service.ShoppingCartService;
-import com.example.phonesaleapp.model.Product;
-import com.example.phonesaleapp.model.ProductCart;
-import com.example.phonesaleapp.model.ProductImage;
-import com.example.phonesaleapp.model.Product_Detail;
+import com.example.phonesaleapp.model.product.Product;
+import com.example.phonesaleapp.model.shoppingcart.ProductCart;
+import com.example.phonesaleapp.model.product.ProductImage;
+import com.example.phonesaleapp.model.product.Product_Detail;
+import com.example.phonesaleapp.view.home.ProductDetail_Activity;
+import com.example.phonesaleapp.view.home.Event.ProductClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +45,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CartFragment extends Fragment {
+public class CartFragment extends Fragment implements ProductClickListener{
     CheckBox cb_allProductCart;
     TextView tv_totalCheck;
     Button btn_buy;
@@ -121,7 +123,7 @@ public class CartFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        productAdapter= new ListProductAdapter(getContext(), arrayListProduct);
+        productAdapter= new ListProductAdapter(getContext(), arrayListProduct, this);
         rcv_productSuggest.setAdapter(productAdapter);
         LoadProduct();
         return view;
@@ -129,7 +131,6 @@ public class CartFragment extends Fragment {
     private  void LoadProduct(){
         ProductService productService= RetrofitClient.getClient().create(ProductService.class);
         Call<List<Product>> callListProduct= productService.GetProducts();
-
         callListProduct.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(@NonNull Call<List<Product>> call, @NonNull Response<List<Product>> response) {
@@ -153,7 +154,6 @@ public class CartFragment extends Fragment {
                                             break;
                                         }
                                     }
-
                                 }
                             }
                             @Override
@@ -183,12 +183,12 @@ public class CartFragment extends Fragment {
     private void loadCustomerProducts() {
         CustomerService customerService = RetrofitClient.getClient().create(CustomerService.class);
         ShoppingCartService shoppingCartService = RetrofitClient.getClient().create(ShoppingCartService.class);
-        Call<CustomerResponse> customerIdCall = customerService.getCustomerIDByEmail(customerEmail);
-        customerIdCall.enqueue(new Callback<CustomerResponse>() {
+        Call<CustomerIdResponse> customerIdCall = customerService.getCustomerIDByEmail(customerEmail);
+        customerIdCall.enqueue(new Callback<CustomerIdResponse>() {
             @Override
-            public void onResponse(Call<CustomerResponse> call, Response<CustomerResponse> response) {
+            public void onResponse(Call<CustomerIdResponse> call, Response<CustomerIdResponse> response) {
                 if (response.isSuccessful()) {
-                    CustomerResponse customerResponse = response.body();
+                    CustomerIdResponse customerResponse = response.body();
                     String customerId = customerResponse.getCustomerId();
                     Call<List<ProductCart>> cartProductsCall = shoppingCartService.getCartProducts(customerId);
                     cartProductsCall.enqueue(new Callback<List<ProductCart>>() {
@@ -224,7 +224,7 @@ public class CartFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<CustomerResponse> call, Throwable t) {
+            public void onFailure(Call<CustomerIdResponse> call, Throwable t) {
                 Log.e("CartFragment", "Lỗi: ", t);
                 Toast.makeText(getContext(), "Lỗi: " + t.getMessage(), Toast.LENGTH_LONG).show();
                 rl_cartEmpty.setVisibility(View.VISIBLE);
@@ -247,5 +247,11 @@ public class CartFragment extends Fragment {
         img_Back = view.findViewById(R.id.img_Back);
         ln_shopping = view.findViewById(R.id.ln_shopping);
         img_message = view.findViewById(R.id.img_message);
+    }
+    @Override
+    public void onClickProduct(String productID) {
+        Intent intent= new Intent(getContext(), ProductDetail_Activity.class);
+        intent.putExtra("productId", productID);
+        startActivity(intent);
     }
 }
