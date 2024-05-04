@@ -2,7 +2,7 @@ package com.example.phonesaleapp.adapter.bill;
 
 public enum BillStatus {
     ChoXacNhan(0, "Chờ Xác Nhận"),
-    ChoLayHang(1, "Chờ Lấy Hàng"),
+    ChoLayHang(1, "Chờ Thanh Toán"),
     ChoGiaoHang(2, "Chờ Giao Hàng"),
     DaGiao(3, "Hoàn thành"),
     DaHuy(4, "Đã Hủy");

@@ -9,7 +9,7 @@
         android:title="@string/action_fav" />
 s
     <item android:id="@+id/action_Noti"
-        android:icon="@drawable/notification"
+        android:icon="@drawable/iconnotification"
         android:title="Thông báo" />
 
     <item android:id="@+id/action_MyPage"

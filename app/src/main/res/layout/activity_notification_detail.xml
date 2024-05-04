@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".view.notification.NotificationDetailActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/toolbar_background"
+        android:elevation="4dp">
+        <ImageView
+            android:id="@+id/img_Back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:paddingStart="0dp"
+            android:paddingLeft="16dp"
+            android:src="@drawable/backicon" />
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:paddingStart="5dp"
+            android:text="Chi tiết thông báo"
+            android:textColor="@color/black"
+            android:textSize="22sp" />
+        <ImageView
+            android:id="@+id/img_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/messageicon"
+            android:layout_gravity="end"
+            android:paddingEnd="16dp"
+            android:paddingRight="16dp" />
+    </androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:padding="8dp">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/notidetail"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thông báo hệ thống"
+            android:gravity="center"
+            android:textSize="15sp"/>
+        <TextView
+            android:id="@+id/tv_titleNoti"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thông báo khuyến mãi"
+            android:textSize="25sp"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/tv_dateNoti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="02/05/2024"
+            android:textSize="15sp"
+            android:layout_marginBottom="15dp"/>
+        <TextView
+            android:id="@+id/tv_contentNoti"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nhân dịp kỷ niệm 10 năm thành lập, cửa hàng chúng tôi xin gửi đến quý khách hàng chương trình khuyến mãi hấp dẫn. Trong thời gian diễn ra chương trình, các sản phẩm điện thoại iPhone 12 Pro Max 128GB sẽ được giảm giá lên đến 8%. Chương trình có giới hạn thời gian, vui lòng tham gia sớm để không bỏ lỡ cơ hội sở hữu sản phẩm với giá ưu đãi. Chúng tôi rất hân hạnh được phục vụ quý khách!"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+</FrameLayout>

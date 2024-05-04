@@ -26,7 +26,7 @@ import retrofit2.Response;
 
 public class BillDetailActivity extends AppCompatActivity {
     ImageView img_Back;
-    TextView tv_statusBill, tv_billId, tv_dateBill, tv_customerName, tv_phoneNumber, tv_deliveryAddress, tv_note, tv_totalBill;
+    TextView tv_statusBill, tv_billId, tv_dateBill, tv_customerName, tv_phoneNumber, tv_deliveryAddress, tv_note, tv_totalBill, tv_tranferStatus;
     RecyclerView rcv_lstBillDetail;
     ProductBillAdapter adapter;
     List<ProductBill> lstProduct = new ArrayList<>();
@@ -36,7 +36,19 @@ public class BillDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bill_detail);
         AnhXa();
         Intent intent = getIntent();
-        tv_statusBill.setText(intent.getStringExtra("statusBill"));
+        String statusBill = intent.getStringExtra("statusBill");
+        tv_statusBill.setText(statusBill);
+        if(statusBill.equals("Chờ Xác Nhận")){
+            tv_tranferStatus.setText("Chờ người gửi xác nhận đơn hàng");
+        }else if(statusBill.equals("Chờ Thanh Toán")){
+            tv_tranferStatus.setText("Người gửi đang chuẩn bị hàng");
+        }else if(statusBill.equals("Chờ Giao Hàng")){
+            tv_tranferStatus.setText("Đơn hàng đang trên đường đến bạn");
+        }else if(statusBill.equals("Hoàn thành")){
+            tv_tranferStatus.setText("Giao hàng thành công");
+        }else if(statusBill.equals("Đã Hủy")){
+            tv_tranferStatus.setText("Đơn hàng đã bị hủy");
+        }
         tv_billId.setText(intent.getStringExtra("billId"));
         tv_dateBill.setText(intent.getStringExtra("dateBill"));
         tv_totalBill.setText(intent.getStringExtra("totalBill"));
@@ -89,5 +101,6 @@ public class BillDetailActivity extends AppCompatActivity {
         tv_deliveryAddress = this.findViewById(R.id.tv_deliveryAddress);
         tv_note = this.findViewById(R.id.tv_note);
         tv_totalBill = this.findViewById(R.id.tv_totalBill);
+        tv_tranferStatus = this.findViewById(R.id.tv_tranferStatus);
     }
 }
