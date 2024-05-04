@@ -6,12 +6,14 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.phonesaleapp.view.account.AccountFragment;
 import com.example.phonesaleapp.view.shoppingcart.CartFragment;
 import com.example.phonesaleapp.view.home.HomeFragment;
 import com.example.phonesaleapp.view.notification.NotiFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNav;
@@ -21,6 +23,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        FirebaseMessaging.getInstance().subscribeToTopic("com.example.phonesaleapp")
+                .addOnCompleteListener(task -> {
+                    String msg = "Thành công";
+                    if (!task.isSuccessful()) {
+                        msg = "Lỗi";
+                    }
+                    Log.d("TAG", msg);
+                });
 
         email = getIntent().getStringExtra("email");
         UserInfo.getInstance().setEmail(email);

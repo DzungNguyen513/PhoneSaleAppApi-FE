@@ -46,7 +46,7 @@ public class ProductDetail_Activity  extends AppCompatActivity {
     TextView txtAmountProductDetail, txtPriceProduct;
 
     Button btnAddToCart, btnOrderNow;
-    ImageView imgProduct_Dt;
+    ImageView imgProduct_Dt, img_Back;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,8 +62,12 @@ public class ProductDetail_Activity  extends AppCompatActivity {
                 ShowOptionProduct(productId);
             }
         });
-
-
+        img_Back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 String strColor=" ", strStorage=" ";
 int amount=0;
@@ -301,6 +305,6 @@ int amount=0;
         txtDetailOfProduct= findViewById(R.id.textViewDetailOfProduct);
         btnAddToCart= findViewById(R.id.buttonAddtoCart);
         btnOrderNow= findViewById(R.id.buttonOrderNow);
-
+        img_Back = findViewById(R.id.img_Back);
     }
 }

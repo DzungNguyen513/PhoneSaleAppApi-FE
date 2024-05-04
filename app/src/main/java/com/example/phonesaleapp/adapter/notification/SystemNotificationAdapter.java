@@ -21,6 +21,7 @@ import com.example.phonesaleapp.model.systemnotification.SystemNotification;
 import java.util.List;
 
 public class SystemNotificationAdapter extends ArrayAdapter<SystemNotification> {
+
     public SystemNotificationAdapter(@NonNull Context context, int resource, @NonNull List<SystemNotification> objects) {
         super(context, resource, objects);
     }
@@ -28,18 +29,12 @@ public class SystemNotificationAdapter extends ArrayAdapter<SystemNotification> 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View listItemView = convertView;
-        if (listItemView == null) {
-            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.item_notification, parent, false);
-        }
-
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_notification, parent, false);
         SystemNotification noti = getItem(position);
-
-        TextView tv_notiTitle = listItemView.findViewById(R.id.tv_notiTitle);
-        TextView tv_notiDescription = listItemView.findViewById(R.id.tv_notiDescription);
-        TextView tv_dateNoti = listItemView.findViewById(R.id.tv_dateNoti);
-        TextView tv_viewDetailNoti = listItemView.findViewById(R.id.tv_viewDetailNoti);
-
+        TextView tv_notiTitle = v.findViewById(R.id.tv_notiTitle);
+        TextView tv_notiDescription = v.findViewById(R.id.tv_notiDescription);
+        TextView tv_dateNoti = v.findViewById(R.id.tv_dateNoti);
+        TextView tv_viewDetailNoti = v.findViewById(R.id.tv_viewDetailNoti);
         if (noti != null) {
             Spanned formattedTitle = Html.fromHtml(noti.getTitle(), Html.FROM_HTML_MODE_LEGACY);
             tv_notiTitle.setText(formattedTitle);
@@ -47,7 +42,6 @@ public class SystemNotificationAdapter extends ArrayAdapter<SystemNotification> 
             tv_notiDescription.setText(formattedDescription);
             tv_dateNoti.setText(noti.getCreatedAt());
         }
-
         tv_viewDetailNoti.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,8 +50,7 @@ public class SystemNotificationAdapter extends ArrayAdapter<SystemNotification> 
                 getContext().startActivity(intent);
             }
         });
-
-        return listItemView;
+        return v;
     }
 }
 
