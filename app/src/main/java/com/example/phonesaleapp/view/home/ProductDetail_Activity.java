@@ -317,7 +317,7 @@ public class ProductDetail_Activity  extends AppCompatActivity {
                         if (!arrayListColor.contains(prd.getColorName())){
                             arrayListColor.add(prd.getColorName());
                         }
-                        if (!arrayListStorage.contains(String.valueOf(prd.getStorageGb()))){
+                        if (!arrayListStorage.contains(prd.getStorageGb()+"GB")){
                             arrayListStorage.add(String.valueOf(prd.getStorageGb() +"GB"));
                         }
                     }
@@ -393,10 +393,7 @@ public class ProductDetail_Activity  extends AppCompatActivity {
                                 txtWarning.setText("Sản phẩm này đã hết. Vui lòng chọn sản phẩm khác!");
                                 txtAmount_BuyProduct.setText("0");
                                 txtAmount_BuyProduct.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
-                            }else if (amount <=2){
-                                txtWarning.setText("Số lượng sản phẩm còn rất thấp!");
                             }
-
                             // sự kiện thay đổi số lượng
                             ChangeAmout(imgMinus, imgPlus, txtAmount_BuyProduct, txtWarning,amount, txtColor,txtStorage);
                         }
@@ -552,7 +549,6 @@ public class ProductDetail_Activity  extends AppCompatActivity {
                 }else if(amoutC==0){
                     txtAmount.setText("0");
                 }else if(amount>=amoutC){
-                    txtAmount.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
                     txtWarning.setText("Số lượng bạn chọn đã vượt quá số lượng của sản phẩm!");
                 }
                 else{
