@@ -1,5 +1,6 @@
 package com.example.phonesaleapp.api.service;
 
+import com.example.phonesaleapp.model.shoppingcart.ShoppingCart;
 import com.example.phonesaleapp.model.shoppingcart.ShoppingCartDetail;
 import com.example.phonesaleapp.model.shoppingcart.UpdateAmountRequest;
 import com.example.phonesaleapp.model.shoppingcart.ProductCart;
@@ -12,6 +13,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ShoppingCartService {
     @GET("ShoppingCartDetail/GetCartItems/{customerId}")
@@ -25,5 +27,8 @@ public interface ShoppingCartService {
     Call<String> GetShoppingCartIdByCustomerId(@Path("customerId") String customerId);
 
     @POST("ShoppingCartDetail/PostShoppingCartDetail")
-    Call<Integer> postShoppingCartDetail(@Body ShoppingCartDetail shoppingCartDetail);
+    Call<Integer> PostShoppingCartDetail(@Body ShoppingCartDetail parameters);
+
+    @GET("ShoppingCart/GetByCustomerId/{customerId}")
+    Call<ShoppingCart> GetByCustomerId(@Path("customerId") String customerId);
 }

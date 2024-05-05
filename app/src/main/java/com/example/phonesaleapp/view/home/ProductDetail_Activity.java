@@ -31,6 +31,7 @@ import com.example.phonesaleapp.model.customer.CustomerIdResponse;
 import com.example.phonesaleapp.model.product.Product;
 import com.example.phonesaleapp.model.product.ProductDetail;
 import com.example.phonesaleapp.model.product.ProductImage;
+import com.example.phonesaleapp.model.shoppingcart.ShoppingCart;
 import com.example.phonesaleapp.model.shoppingcart.ShoppingCartDetail;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -52,7 +53,7 @@ public class ProductDetail_Activity  extends AppCompatActivity {
     ArrayList<Integer> listStorage= new ArrayList<>();
     ArrayList<String> listColor= new ArrayList<>();
     Button btnAddToCart, btnOrderNow, buttonOrder;
-    ImageView imgProduct_Dt,imgMinus, imgPlus;
+    ImageView imgProduct_Dt,imgMinus, imgPlus, buttomCollapse;
     Grid_Adapter gridAdapterColor, gridAdapterStorage;
     GridView gridViewColor, gridViewStorage;
     ArrayList<String > arrayListColor= new ArrayList<>();
@@ -61,7 +62,7 @@ public class ProductDetail_Activity  extends AppCompatActivity {
     private  int storage=0;
 
 
-    String spc="";
+    private String spc="";
     String customerId;
 
     @Override
@@ -74,7 +75,6 @@ public class ProductDetail_Activity  extends AppCompatActivity {
 
 
 
-
         String email= intent.getStringExtra("email");
         CustomerService customerService = RetrofitClient.getClient().create(CustomerService.class);
         Call<CustomerIdResponse> customerIdResponseCall = customerService.getCustomerIDByEmail(email);
@@ -84,8 +84,23 @@ public class ProductDetail_Activity  extends AppCompatActivity {
             public void onResponse(Call<CustomerIdResponse> call, Response<CustomerIdResponse> response) {
                 if (response.isSuccessful() && response.body()!=null){
                     customerId = response.body().getCustomerId();
-                    Log.d("bbbbb", customerId);
 
+                    ShoppingCartService shoppingCartService = RetrofitClient.getClient().create(ShoppingCartService.class);
+                    Call<ShoppingCart> shoppingCartCall= shoppingCartService.GetByCustomerId(customerId);
+                    shoppingCartCall.enqueue(new Callback<ShoppingCart>() {
+                        @Override
+                        public void onResponse(Call<ShoppingCart> call, Response<ShoppingCart> response) {
+                            if (response.isSuccessful() && response.body()!=null){
+                                ShoppingCart shoppingCart= response.body();
+                                spc= shoppingCart.getShoppingCartId();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ShoppingCart> call, Throwable throwable) {
+
+                        }
+                    });
 
                 }
             }
@@ -95,31 +110,19 @@ public class ProductDetail_Activity  extends AppCompatActivity {
 
             }
         });
-        Log.d("bbbbb", customerId);
-        ShoppingCartService shoppingCartService = RetrofitClient.getClient().create(ShoppingCartService.class);
-        Call<String> SPCIdCall= shoppingCartService.GetShoppingCartIdByCustomerId(customerId);
-        SPCIdCall.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    String shoppingCartId = response.body();
-                    Log.d("ShoppingCartId", shoppingCartId); // Ghi log shopping cart ID
-                    // Thực hiện các hoạt động khác với shopping cart ID ở đây
-                }
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable throwable) {
-                Log.d("Lỗi ", String.valueOf(throwable));
-            }
-        });
 
         Load_Product_Detail(productId);
         btnAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("bbb", spc);
-                ShowOptionProduct(productId,spc);
+                ShowOptionProduct(productId,spc,0);
+            }
+        });
+        btnOrderNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShowOptionProduct(productId,spc,1);
             }
         });
 
@@ -213,7 +216,7 @@ public class ProductDetail_Activity  extends AppCompatActivity {
 
 
 
-    private void ShowOptionProduct(String productID,String ShoppingCartID){
+    private void ShowOptionProduct(String productID,String ShoppingCartID, int kt){
         // Use BottomSheetDialog
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ProductDetail_Activity.this);
         View view = getLayoutInflater().inflate(R.layout.bottomdialog_buypoduct, null);
@@ -221,6 +224,7 @@ public class ProductDetail_Activity  extends AppCompatActivity {
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
         layoutParams.height = 1500;
         view.setLayoutParams(layoutParams);
+        bottomSheetDialog.show();
 
 
         //ánh xạ
@@ -237,7 +241,7 @@ public class ProductDetail_Activity  extends AppCompatActivity {
         txtAmount_BuyProduct= view.findViewById(R.id.tv_countProductCart);
         txtWarning= view.findViewById(R.id.txtWarning);
         buttonOrder=view.findViewById(R.id.buttonOrder);
-
+        buttomCollapse= view.findViewById(R.id.buttonCollapse);
 
 
         // lời gọi dịch vụ
@@ -409,7 +413,6 @@ public class ProductDetail_Activity  extends AppCompatActivity {
 
                             // sự kiện thay đổi số lượng
                             ChangeAmout(imgMinus, imgPlus, txtAmount_BuyProduct, txtWarning,amount, txtColor,txtStorage);
-
                         }
                     }
 
@@ -422,6 +425,7 @@ public class ProductDetail_Activity  extends AppCompatActivity {
 
             }
         });
+        // lúc chọn dung lượng
         gridViewStorage.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -483,47 +487,66 @@ public class ProductDetail_Activity  extends AppCompatActivity {
             }
         });
 
-//        buttonOrder.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                if (txtColor.getText().toString().equals("")) {
-////                    txtWarning.setText("Vui lòng chọn màu!");
-////                } else if (txtStorage.getText().toString().equals("")) {
-////                    txtWarning.setText("Vui lòng chọn dung lượng!");
-////                } else if (txtWarning.getText().toString().equals("")){
-//                    int amount=Integer.parseInt( txtAmount_BuyProduct.getText().toString());
-//                    int price= Integer.parseInt(txtPriceProduct.getText().toString());
-//
-//
-//                    ShoppingCartService shoppingCartService= RetrofitClient.getClient().create(ShoppingCartService.class);
-//                    ShoppingCartDetail spcDetail= new ShoppingCartDetail(ShoppingCartID,productID,color,storage,amount,price);
-//                Log.d("jjj", ShoppingCartID +" "+productID+" "+color+" "+storage);
-//                    Call<Integer> postSPC= shoppingCartService.postShoppingCartDetail(spcDetail);
-//                    postSPC.enqueue(new Callback<Integer>() {
-//                        @Override
-//                        public void onResponse(Call<Integer> call, Response<Integer> response) {
-//                            if (response.isSuccessful() && response.body()!=null){
-//                                int result= response.body();
-//                                if (result==1){
-//                                    Toast.makeText(ProductDetail_Activity.this, "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show();
-//                                }
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onFailure(Call<Integer> call, Throwable throwable) {
-//
-//                        }
-//                    });
-//
-//                }
-////            }
-//        });
+        //nhấn nút thêm vào giỏ hàng
+        if (kt==1){
+            buttonOrder.setText("Mua ngay");
+        }
+        buttonOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (txtColor.getText().toString().equals("")) {
+                    txtWarning.setText("Vui lòng chọn màu!");
+                } else if (txtStorage.getText().toString().equals("")) {
+                    txtWarning.setText("Vui lòng chọn dung lượng!");
+                } else if (txtWarning.getText().toString().equals("")){
+                    int amount=Integer.parseInt( txtAmount_BuyProduct.getText().toString());
+                    int price= Integer.parseInt(txtPriceProduct.getText().toString()) * amount;
+
+                    ShoppingCartService shoppingCartService= RetrofitClient.getClient().create(ShoppingCartService.class);
+                    ShoppingCartDetail spcDetail= new ShoppingCartDetail(ShoppingCartID,productID,color,storage,amount,price);
+                Log.d("jjj", ShoppingCartID +" "+productID+" "+color+" "+storage);
+                    Call<Integer> postSPC= shoppingCartService.PostShoppingCartDetail(spcDetail);
+                    postSPC.enqueue(new Callback<Integer>() {
+                        @Override
+                        public void onResponse(Call<Integer> call, Response<Integer> response) {
+                            if(response.isSuccessful() && response.body()!=null){
+                                int i= response.body();
+                                if (i==1){
+                                    if (kt==0){
+                                        if (bottomSheetDialog.isShowing()) {
+                                            bottomSheetDialog.dismiss();
+                                        }
+                                        Toast.makeText(ProductDetail_Activity.this, "Thêm giỏ hàng Thành công", Toast.LENGTH_SHORT).show();
+                                    }else if(kt==1){
+                                        /////  code mua ngayy
+                                    }
+
+                                }
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Integer> call, Throwable throwable) {
+
+                        }
+                    });
+
+                }
+           }
+        });
+
+        // nhấn nút đóng dialog
+        buttomCollapse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (bottomSheetDialog.isShowing()) {
+                    bottomSheetDialog.dismiss();
+                }
+            }
+        });
 
 
-
-
-        bottomSheetDialog.show();
     }
 
 
