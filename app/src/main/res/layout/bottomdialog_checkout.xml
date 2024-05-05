@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@drawable/roundrect_corner">
+    android:background="@drawable/background_bottomsheet">
 
     <TextView
         android:layout_width="match_parent"
@@ -133,9 +133,9 @@
             android:id="@+id/btn_ConfirmBuy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Đặt hàng"
-            android:textColor="@color/white"
-            android:backgroundTint="#3F51B5"
+            android:text="Xác nhận"
+            android:textColor="@color/pastel_green"
+            android:backgroundTint="@color/colorPrimaryDark"
             android:textSize="20sp"
             android:textStyle="bold"/>
     </LinearLayout>

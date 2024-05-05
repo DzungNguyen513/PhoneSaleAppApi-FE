@@ -160,6 +160,7 @@ public class DestroyBillFragment extends Fragment implements ProductClickListene
     public void onClickProduct(String productID) {
         Intent intent= new Intent(getContext(), ProductDetail_Activity.class);
         intent.putExtra("productId", productID);
+        intent.putExtra("email", email);
         startActivity(intent);
     }
 }

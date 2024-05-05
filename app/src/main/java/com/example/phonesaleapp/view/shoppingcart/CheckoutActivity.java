@@ -60,6 +60,7 @@ public class CheckoutActivity extends AppCompatActivity {
         tv_TotalCheck.setText(totalPayment);
         tv_TotalCheck1.setText(totalPayment);
         tv_TotalCheck2.setText(totalPayment);
+
         btn_checkOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

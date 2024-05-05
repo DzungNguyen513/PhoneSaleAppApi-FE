@@ -33,9 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        initViews();
-
+        AnhXa();
         tvRegister.setOnClickListener(v -> gotoRegisterActivity());
         btnLogin.setOnClickListener(v -> {
             String email = edtUsername.getText().toString().trim();
@@ -43,7 +41,6 @@ public class LoginActivity extends AppCompatActivity {
             Login(email, password);
         });
     }
-
 
     private void Login(String email, String password) {
         LoginService loginService = RetrofitClient.getClient().create(LoginService.class);
@@ -95,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void initViews() {
+    private void AnhXa() {
         edtUsername = findViewById(R.id.edt_userName);
         edtPassword = findViewById(R.id.edt_password);
         btnLogin = findViewById(R.id.btn_signin);
