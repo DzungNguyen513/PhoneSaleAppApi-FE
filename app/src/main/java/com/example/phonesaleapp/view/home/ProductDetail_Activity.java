@@ -54,6 +54,7 @@ public class ProductDetail_Activity  extends AppCompatActivity {
     ArrayList<String> listColor= new ArrayList<>();
     Button btnAddToCart, btnOrderNow, buttonOrder;
     ImageView imgProduct_Dt,imgMinus, imgPlus, buttomCollapse;
+    ImageView  img_Back;
     Grid_Adapter gridAdapterColor, gridAdapterStorage;
     GridView gridViewColor, gridViewStorage;
     ArrayList<String > arrayListColor= new ArrayList<>();
@@ -64,7 +65,6 @@ public class ProductDetail_Activity  extends AppCompatActivity {
 
     private String spc="";
     String customerId;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,6 +110,24 @@ public class ProductDetail_Activity  extends AppCompatActivity {
 
             }
         });
+        //Log.d("bbbbb", customerId);
+        ShoppingCartService shoppingCartService = RetrofitClient.getClient().create(ShoppingCartService.class);
+        Call<String> SPCIdCall= shoppingCartService.GetShoppingCartIdByCustomerId(customerId);
+        SPCIdCall.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    String shoppingCartId = response.body();
+                    Log.d("ShoppingCartId", shoppingCartId); // Ghi log shopping cart ID
+                    // Thực hiện các hoạt động khác với shopping cart ID ở đây
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable throwable) {
+                Log.d("Lỗi ", String.valueOf(throwable));
+            }
+        });
 
         Load_Product_Detail(productId);
         btnAddToCart.setOnClickListener(new View.OnClickListener() {
@@ -125,8 +143,12 @@ public class ProductDetail_Activity  extends AppCompatActivity {
                 ShowOptionProduct(productId,spc,1);
             }
         });
-
-
+        img_Back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private  void Load_Product_Detail( String productId){
@@ -604,7 +626,7 @@ public class ProductDetail_Activity  extends AppCompatActivity {
         txtDetailOfProduct= findViewById(R.id.textViewDetailOfProduct);
         btnAddToCart= findViewById(R.id.buttonAddtoCart);
         btnOrderNow= findViewById(R.id.buttonOrderNow);
+        img_Back = findViewById(R.id.img_Back);
         txtAmountProduct= findViewById(R.id.tv_AmountProduct_Detail);
-
     }
 }

@@ -16,7 +16,6 @@ public class RetrofitClient {
     public static String getBaseUrl() {
         return BASE_URL;
     }
-
     public static Retrofit getClient() {
         if (retrofit == null) {
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();

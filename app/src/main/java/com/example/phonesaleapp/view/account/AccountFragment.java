@@ -2,6 +2,7 @@ package com.example.phonesaleapp.view.account;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.example.phonesaleapp.api.RetrofitClient;
 import com.example.phonesaleapp.api.service.CustomerService;
 import com.example.phonesaleapp.model.account.AccountOption;
 import com.example.phonesaleapp.model.customer.CustomerByEmailDTO;
+import com.example.phonesaleapp.model.customer.CustomerIdResponse;
 import com.example.phonesaleapp.view.bill.BillActivity;
 import com.example.phonesaleapp.view.login.LoginActivity;
 import com.google.android.material.snackbar.Snackbar;
@@ -122,6 +124,34 @@ public class AccountFragment extends Fragment {
                 startActivity(intent4);
                 break;
             case "Đăng xuất":
+                CustomerService customerService = RetrofitClient.getClient().create(CustomerService.class);
+                Call<CustomerIdResponse> customerIdResponseCall = customerService.getCustomerIDByEmail(email);
+                customerIdResponseCall.enqueue(new Callback<CustomerIdResponse>() {
+                    @Override
+                    public void onResponse(Call<CustomerIdResponse> call, Response<CustomerIdResponse> response) {
+                        if (response.isSuccessful()){
+                            String customerId = response.body().getCustomerId();
+                            Call<Void> callRemoveToken = customerService.removeToken(customerId);
+                            callRemoveToken.enqueue(new Callback<Void>() {
+                                @Override
+                                public void onResponse(Call<Void> call, Response<Void> response) {
+                                    if (response.isSuccessful()) {
+                                        Log.d("Test", "Xóa token");
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<Void> call, Throwable t) {
+                                    Log.e("Test", "Lỗi" + t.getMessage());
+                                }
+                            });
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<CustomerIdResponse> call, Throwable throwable) {
+
+                    }
+                });
                 Intent intent = new Intent(getContext(), LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);

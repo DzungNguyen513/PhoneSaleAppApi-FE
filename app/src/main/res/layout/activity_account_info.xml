@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".view.account.AccountInfoActivity">
+    tools:context=".view.account.AccountInfoActivity"
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -44,17 +45,16 @@
         android:id="@+id/topPanel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:background="@drawable/top_background">
+        android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_image"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:src="@drawable/profile"
+            android:src="@drawable/userprofile2"
             android:layout_gravity="center"
-            android:layout_below="@+id/toolbar"
+            app:civ_border_color="@color/neutral_blue_gray"
+            app:civ_border_width="4dp"
             android:layout_marginTop="24dp"/>
         <TextView
             android:id="@+id/tv_customerName1"
@@ -63,15 +63,23 @@
             android:text="Trống"
             android:layout_below="@+id/profile_image"
             android:gravity="center"
-            android:textSize="30sp"
+            android:textSize="28sp"
             android:textStyle="bold"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thông tin tài khoản"
+            android:layout_below="@+id/profile_image"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#637E8A"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_below="@id/topPanel"
         android:layout_marginTop="16dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp">
@@ -84,14 +92,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Họ và tên:"
-                android:textSize="20sp"/>
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/tv_customerName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Trống"
-                android:textSize="25sp"
+                android:textSize="22sp"
                 android:textStyle="bold"/>
         </LinearLayout>
 
@@ -103,14 +111,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Số điện thoại:"
-                android:textSize="20sp"/>
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/tv_phoneNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Trống"
-                android:textSize="25sp"
+                android:textSize="22sp"
                 android:textStyle="bold"/>
         </LinearLayout>
         <LinearLayout
@@ -121,14 +129,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Email:"
-                android:textSize="20sp"/>
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/tv_emailAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Trống"
-                android:textSize="25sp"
+                android:textSize="22sp"
                 android:textStyle="bold"/>
         </LinearLayout>
         <LinearLayout
@@ -139,15 +147,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Địa chỉ:"
-                android:textSize="20sp"/>
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/tv_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Trống"
-                android:textSize="25sp"
-                android:textStyle="bold"/>
+                android:textSize="22sp"
+                android:textStyle="bold" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -158,15 +166,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Giới tính:"
-                android:textSize="20sp"/>
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/tv_gender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Trống"
-                android:textSize="25sp"
+                android:textSize="22sp"
                 android:textStyle="bold"/>
         </LinearLayout>
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

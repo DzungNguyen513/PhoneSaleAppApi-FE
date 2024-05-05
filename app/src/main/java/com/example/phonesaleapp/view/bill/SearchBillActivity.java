@@ -22,6 +22,7 @@ import com.example.phonesaleapp.model.customer.CustomerIdResponse;
 import com.example.phonesaleapp.api.service.BillService;
 import com.example.phonesaleapp.api.service.CustomerService;
 import com.example.phonesaleapp.model.bill.Bill;
+import com.example.phonesaleapp.view.shoppingcart.ChatMessageActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SearchBillActivity extends AppCompatActivity {
-    ImageView img_Back;
+    ImageView img_Back, img_message;
     TextView tv_keyword;
     EditText edt_searchBill;
     RecyclerView rcv_searchBill;
@@ -65,6 +66,14 @@ public class SearchBillActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 searchBill(s.toString().trim());
+            }
+        });
+        img_message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SearchBillActivity.this, ChatMessageActivity.class);
+                intent.putExtra("email", email);
+                startActivity(intent);
             }
         });
     }
@@ -117,6 +126,7 @@ public class SearchBillActivity extends AppCompatActivity {
     private void AnhXa(){
         adapter = new BillItemAdapter(this, lstBill);
         img_Back = this.findViewById(R.id.img_Back);
+        img_message = this.findViewById(R.id.img_message);
         edt_searchBill = this.findViewById(R.id.edt_searchBill);
         tv_keyword = this.findViewById(R.id.tv_keyword);
         rcv_searchBill = this.findViewById(R.id.rcv_searchBill);

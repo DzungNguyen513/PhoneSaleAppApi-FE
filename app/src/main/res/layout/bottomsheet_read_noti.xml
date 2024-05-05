@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/white">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Đánh dấu tất cả là đã đọc"
+        android:textSize="18sp"
+        android:layout_gravity="center"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Bạn chắc chắn muốn đánh dấu tất cả là đã đọc ?"
+        android:textSize="16sp"/>
+
+    <Button
+        android:id="@+id/btn_confirmReadNoti"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Xác nhận"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:backgroundTint="@color/neutral_blue_gray"
+        android:layout_marginTop="25dp"/>
+</LinearLayout>

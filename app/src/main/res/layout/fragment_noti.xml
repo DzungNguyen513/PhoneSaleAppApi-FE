@@ -22,10 +22,10 @@
                 android:textColor="@color/black"
                 android:textSize="24sp" />
             <ImageView
-                android:id="@+id/img_message"
+                android:id="@+id/img_readNoti"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/messageicon"
+                android:src="@drawable/readnoti"
                 android:layout_gravity="end"
                 android:paddingEnd="16dp"
                 android:paddingRight="16dp" />

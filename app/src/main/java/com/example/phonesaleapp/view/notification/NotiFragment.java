@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -20,6 +22,7 @@ import com.example.phonesaleapp.api.service.CustomerService;
 import com.example.phonesaleapp.api.service.SystemNotificationService;
 import com.example.phonesaleapp.model.customer.CustomerIdResponse;
 import com.example.phonesaleapp.model.systemnotification.SystemNotification;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +32,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class NotiFragment extends Fragment {
+    ImageView img_readNoti;
     SystemNotificationAdapter adapter;
     List<SystemNotification> lstNoti = new ArrayList<>();
     ListView lv_lstNoti;
@@ -73,11 +77,27 @@ public class NotiFragment extends Fragment {
 
             }
         });
-
+        img_readNoti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                View bottomSheetView  = getLayoutInflater().inflate(R.layout.bottomsheet_read_noti, null);
+                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
+                bottomSheetDialog.setContentView(bottomSheetView );
+                Button btn_confirmReadNoti = bottomSheetView .findViewById(R.id.btn_confirmReadNoti);
+                btn_confirmReadNoti.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        bottomSheetDialog.dismiss();
+                    }
+                });
+                bottomSheetDialog.show();
+            }
+        });
     }
     private void AnhXa(View view){
         adapter = new SystemNotificationAdapter(getContext(), R.layout.item_notification, lstNoti);
         lv_lstNoti = view.findViewById(R.id.lv_lstNoti);
         lv_lstNoti.setAdapter(adapter);
+        img_readNoti = view.findViewById(R.id.img_readNoti);
     }
 }
