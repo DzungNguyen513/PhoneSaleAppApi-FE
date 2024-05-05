@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
                 });
         email = getIntent().getStringExtra("email");
         UserInfo.getInstance().setEmail(email);
+
+
         bottomNav = this.findViewById(R.id.bottomnav);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
         bottomNav.setSelectedItemId(R.id.action_Home);

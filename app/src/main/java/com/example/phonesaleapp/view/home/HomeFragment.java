@@ -2,6 +2,7 @@ package com.example.phonesaleapp.view.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.phonesaleapp.R;
+import com.example.phonesaleapp.UserInfo;
 import com.example.phonesaleapp.adapter.product.HorizontalListAdapter;
 import com.example.phonesaleapp.adapter.product.ImagePagerAdapter;
 import com.example.phonesaleapp.adapter.product.ListProductAdapter;
@@ -42,6 +44,7 @@ public class HomeFragment extends Fragment implements ProductClickListener  {
     HorizontalListAdapter adapterCat;
     ArrayList<Product_Detail> arrayListProduct= new ArrayList<>();
     ListProductAdapter productAdapter;
+    String email = UserInfo.getInstance().getEmail();
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         Init(view);
@@ -57,6 +60,7 @@ public class HomeFragment extends Fragment implements ProductClickListener  {
 
         recyclerViewProduct.setAdapter(productAdapter);
 
+
         return view;
     }
     @Override
@@ -66,6 +70,7 @@ public class HomeFragment extends Fragment implements ProductClickListener  {
         ImagePagerAdapter adapter= new ImagePagerAdapter(requireContext(),images);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -170,6 +175,7 @@ public class HomeFragment extends Fragment implements ProductClickListener  {
     public void onClickProduct(String productID) {
         Intent intent= new Intent(getContext(), ProductDetail_Activity.class);
         intent.putExtra("productId", productID);
+        intent.putExtra("email", email);
         startActivity(intent);
     }
 }
