@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 
@@ -24,6 +25,18 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             String message = remoteMessage.getNotification().getBody();
             displayNotification(title, message);
         }
+    }
+    @Override
+    public void onNewToken(String token) {
+        super.onNewToken(token);
+        saveToken(token);
+    }
+
+    private void saveToken(String token) {
+        SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("fcm_token", token);
+        editor.apply();
     }
 
     private void displayNotification(String title, String message) {
