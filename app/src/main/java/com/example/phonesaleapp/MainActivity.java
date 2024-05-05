@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         });
+        loadTokenCustomerId();
         Intent intent = getIntent();
         if (intent != null) {
             String fragmentName = intent.getStringExtra("fragmentName");
@@ -71,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
                 bottomNav.setSelectedItemId(R.id.action_Cart);
             }
         }
-        loadTokenCustomerId();
     }
     private void displayCartFragment(String email) {
         CartFragment fragment = CartFragment.newInstance(email);
