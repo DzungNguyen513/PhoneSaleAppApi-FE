@@ -16,10 +16,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
+import com.example.phonesaleapp.MainActivity;
 import com.example.phonesaleapp.R;
+import com.example.phonesaleapp.UserInfo;
 import com.example.phonesaleapp.adapter.product.Grid_Adapter;
 import com.example.phonesaleapp.adapter.product.ListProductImagesAdapter;
 import com.example.phonesaleapp.api.RetrofitClient;
@@ -33,6 +36,8 @@ import com.example.phonesaleapp.model.product.ProductDetail;
 import com.example.phonesaleapp.model.product.ProductImage;
 import com.example.phonesaleapp.model.shoppingcart.ShoppingCart;
 import com.example.phonesaleapp.model.shoppingcart.ShoppingCartDetail;
+import com.example.phonesaleapp.view.shoppingcart.CartFragment;
+import com.example.phonesaleapp.view.shoppingcart.CheckoutActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
@@ -41,7 +46,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 
 public class ProductDetail_Activity  extends AppCompatActivity {
     ArrayList<ProductImage> arrayListproductImages= new ArrayList<>();
@@ -61,10 +65,9 @@ public class ProductDetail_Activity  extends AppCompatActivity {
     ArrayList<String > arrayListStorage= new ArrayList<>();
     private String strColor=" ", strStorage=" ",color="";
     private  int storage=0;
-
-
     private String spc="";
     String customerId;
+    String email = UserInfo.getInstance().getEmail();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,9 +75,6 @@ public class ProductDetail_Activity  extends AppCompatActivity {
         Init();
         Intent intent= getIntent();
         String productId= intent.getStringExtra("productId");
-
-
-
         String email= intent.getStringExtra("email");
         CustomerService customerService = RetrofitClient.getClient().create(CustomerService.class);
         Call<CustomerIdResponse> customerIdResponseCall = customerService.getCustomerIDByEmail(email);
@@ -84,7 +84,6 @@ public class ProductDetail_Activity  extends AppCompatActivity {
             public void onResponse(Call<CustomerIdResponse> call, Response<CustomerIdResponse> response) {
                 if (response.isSuccessful() && response.body()!=null){
                     customerId = response.body().getCustomerId();
-
                     ShoppingCartService shoppingCartService = RetrofitClient.getClient().create(ShoppingCartService.class);
                     Call<ShoppingCart> shoppingCartCall= shoppingCartService.GetByCustomerId(customerId);
                     shoppingCartCall.enqueue(new Callback<ShoppingCart>() {
@@ -95,16 +94,13 @@ public class ProductDetail_Activity  extends AppCompatActivity {
                                 spc= shoppingCart.getShoppingCartId();
                             }
                         }
-
                         @Override
                         public void onFailure(Call<ShoppingCart> call, Throwable throwable) {
 
                         }
                     });
-
                 }
             }
-
             @Override
             public void onFailure(Call<CustomerIdResponse> call, Throwable throwable) {
 
@@ -122,13 +118,11 @@ public class ProductDetail_Activity  extends AppCompatActivity {
                     // Thực hiện các hoạt động khác với shopping cart ID ở đây
                 }
             }
-
             @Override
             public void onFailure(Call<String> call, Throwable throwable) {
                 Log.d("Lỗi ", String.valueOf(throwable));
             }
         });
-
         Load_Product_Detail(productId);
         btnAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,9 +144,7 @@ public class ProductDetail_Activity  extends AppCompatActivity {
             }
         });
     }
-
     private  void Load_Product_Detail( String productId){
-
         // Load product image
         listProductImagesAdapter= new ListProductImagesAdapter(this, arrayListproductImages);
         viewPagerProductImage.setAdapter(listProductImagesAdapter);
@@ -190,14 +182,12 @@ public class ProductDetail_Activity  extends AppCompatActivity {
                     }
                 }
             }
-
             @Override
             public void onFailure(Call<List<ProductDetail>> call, Throwable t) {
             }
         });
-
         // Load describe product
-        Call<Product> callProduct= productService.GetProduct(productId);
+        Call<Product> callProduct= productService.GetProductCustomer(productId);
         callProduct.enqueue(new Callback<Product>() {
             @Override
             public void onResponse(Call<Product> call, Response<Product> response) {
@@ -210,13 +200,11 @@ public class ProductDetail_Activity  extends AppCompatActivity {
                     txtDetailOfProduct.setText(productName + " ."+ product.getDetail());
                 }
             }
-
             @Override
             public void onFailure(Call<Product> call, Throwable t) {
 
             }
         });
-
         // load amount
         Call<Integer> callAmount= productService.TotalAmountByProductId(productId);
         callAmount.enqueue(new Callback<Integer>() {
@@ -227,17 +215,12 @@ public class ProductDetail_Activity  extends AppCompatActivity {
                     txtAmountProduct.setText("Kho: "+amount);
                 }
             }
-
             @Override
             public void onFailure(Call<Integer> call, Throwable throwable) {
 
             }
         });
-
     }
-
-
-
     private void ShowOptionProduct(String productID,String ShoppingCartID, int kt){
         // Use BottomSheetDialog
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ProductDetail_Activity.this);
@@ -247,7 +230,6 @@ public class ProductDetail_Activity  extends AppCompatActivity {
         layoutParams.height = 1500;
         view.setLayoutParams(layoutParams);
         bottomSheetDialog.show();
-
 
         //ánh xạ
         txtAmountProductDetail= view.findViewById(R.id.textViewAmount_PRDD);
@@ -264,21 +246,17 @@ public class ProductDetail_Activity  extends AppCompatActivity {
         txtWarning= view.findViewById(R.id.txtWarning);
         buttonOrder=view.findViewById(R.id.buttonOrder);
         buttomCollapse= view.findViewById(R.id.buttonCollapse);
-
-
         // lời gọi dịch vụ
         ProductService productService= RetrofitClient.getClient().create(ProductService.class);
         // đưa ra thông tin
-        Call<Product> callProduct= productService.GetProduct(productID);
+        Call<Product> callProduct= productService.GetProductCustomer(productID);
         callProduct.enqueue(new Callback<Product>() {
             @Override
             public void onResponse(Call<Product> call, Response<Product> response) {
                 if(response.isSuccessful() && response.body()!=null) {
                     Product product = (Product) response.body();
                     txtPriceProduct.setText(String.valueOf(product.getPrice()));
-
                     // Load image chung
-
                     Call<List<ProductImage>> callListImage= productService.GetProductImages(productID);
                     callListImage.enqueue(new Callback<List<ProductImage>>() {
                         @Override
@@ -297,27 +275,22 @@ public class ProductDetail_Activity  extends AppCompatActivity {
 
                             }
                         }
-
                         @Override
                         public void onFailure(@NonNull Call<List<ProductImage>> call, @NonNull Throwable t) {
                         }
                     });
                 }
             }
-
             @Override
             public void onFailure(Call<Product> call, Throwable t) {
 
             }
         });
-
         // khai báo adapter
         gridAdapterColor= new Grid_Adapter(this, R.layout.item_category, arrayListColor);
         gridViewColor.setAdapter(gridAdapterColor);
         gridAdapterStorage= new Grid_Adapter(this, R.layout.item_category, arrayListStorage);
         gridViewStorage.setAdapter(gridAdapterStorage);
-
-
         // load amount common
         Call<Integer> callAmount= productService.TotalAmountByProductId(productID);
         callAmount.enqueue(new Callback<Integer>() {
@@ -328,13 +301,11 @@ public class ProductDetail_Activity  extends AppCompatActivity {
                     txtAmountProductDetail.setText("" + amount);
                 }
             }
-
             @Override
             public void onFailure(Call<Integer> call, Throwable throwable) {
 
             }
         });
-
         // Load color and storage
         Call<List<ProductDetail>> callPrdDetail= productService.GetProductDetails(productID);
         callPrdDetail.enqueue(new Callback<List<ProductDetail>>() {
@@ -360,7 +331,6 @@ public class ProductDetail_Activity  extends AppCompatActivity {
 
             }
         });
-
         // event click on grid
         gridViewColor.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -389,15 +359,11 @@ public class ProductDetail_Activity  extends AppCompatActivity {
                             }
                         }
                     }
-
-
                     @Override
                     public void onFailure(Call<List<ProductImage>> call, Throwable t) {
 
                     }
-
                 });
-
                 // change price by color and storage
                 Call<Integer> callPrice = productService.calculateProductDetailPrice(productID, color, storage);
                 callPrice.enqueue(new Callback<Integer>() {
@@ -409,13 +375,11 @@ public class ProductDetail_Activity  extends AppCompatActivity {
                         }
 
                     }
-
                     @Override
                     public void onFailure(Call<Integer> call, Throwable throwable) {
 
                     }
                 });
-
                 // chang amount by color and storage
                 Call<Integer> callAmountByColorStor= productService.AmountByColorStorage(productID, color, storage);
                 callAmountByColorStor.enqueue(new Callback<Integer>() {
@@ -434,14 +398,11 @@ public class ProductDetail_Activity  extends AppCompatActivity {
                             ChangeAmout(imgMinus, imgPlus, txtAmount_BuyProduct, txtWarning,amount, txtColor,txtStorage);
                         }
                     }
-
                     @Override
                     public void onFailure(Call<Integer> call, Throwable throwable) {
 
                     }
                 });
-
-
             }
         });
         // lúc chọn dung lượng
@@ -455,7 +416,6 @@ public class ProductDetail_Activity  extends AppCompatActivity {
                 txtStorage.setBackgroundResource(R.drawable.custom_border);
                 txtAmount_BuyProduct.setText("1");
                 txtAmount_BuyProduct.setBackgroundColor(getResources().getColor(android.R.color.white));
-
                 // change price by color and storage
                 Call<Integer> callPrice = productService.calculateProductDetailPrice(productID, color, storage);
                 callPrice.enqueue(new Callback<Integer>() {
@@ -465,15 +425,12 @@ public class ProductDetail_Activity  extends AppCompatActivity {
                             int totalPrice= response.body();
                             txtPriceProduct.setText(String.valueOf(totalPrice));
                         }
-
                     }
-
                     @Override
                     public void onFailure(Call<Integer> call, Throwable throwable) {
 
                     }
                 });
-
                 // chang amount by color and storage
                 Call<Integer> callAmountByColorStor= productService.AmountByColorStorage(productID, color, storage);
                 callAmountByColorStor.enqueue(new Callback<Integer>() {
@@ -487,14 +444,13 @@ public class ProductDetail_Activity  extends AppCompatActivity {
                                 txtWarning.setText("Sản phẩm này đã hết. Vui lòng chọn sản phẩm khác!");
                                 txtAmount_BuyProduct.setText("0");
                                 txtAmount_BuyProduct.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
-
+                            }else if (amount <=2){
+                                txtWarning.setText("Số lượng sản phẩm còn rất thấp!");
                             }
-
                             // sự kiện thay đổi số lượng
                             ChangeAmout(imgMinus, imgPlus, txtAmount_BuyProduct, txtWarning,amount, txtColor, txtStorage);
                         }
                     }
-
                     @Override
                     public void onFailure(Call<Integer> call, Throwable throwable) {
 
@@ -503,7 +459,6 @@ public class ProductDetail_Activity  extends AppCompatActivity {
 
             }
         });
-
         //nhấn nút thêm vào giỏ hàng
         if (kt==1){
             buttonOrder.setText("Mua ngay");
@@ -535,24 +490,23 @@ public class ProductDetail_Activity  extends AppCompatActivity {
                                         }
                                         Toast.makeText(ProductDetail_Activity.this, "Thêm giỏ hàng Thành công", Toast.LENGTH_SHORT).show();
                                     }else if(kt==1){
-                                        /////  code mua ngayy
+                                        // Code mua ngay
+                                        Intent intent = new Intent(ProductDetail_Activity.this, MainActivity.class);
+                                        intent.putExtra("fragmentName", "CartFragment");
+                                        intent.putExtra("email", email);
+                                        startActivity(intent);
                                     }
-
                                 }
-
                             }
                         }
-
                         @Override
                         public void onFailure(Call<Integer> call, Throwable throwable) {
 
                         }
                     });
-
                 }
            }
         });
-
         // nhấn nút đóng dialog
         buttomCollapse.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -562,18 +516,11 @@ public class ProductDetail_Activity  extends AppCompatActivity {
                 }
             }
         });
-
-
     }
-
-
 
     private void ChangeAmout(ImageView imgMinus, ImageView imgPlus,
                              TextView txtAmount, TextView txtWarning, int amoutC, TextView txtColor, TextView txtStorage){
-
-
         imgMinus.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 txtWarning.setText("");
@@ -610,7 +557,6 @@ public class ProductDetail_Activity  extends AppCompatActivity {
             }
         });
     }
-
 
     private void Init() {
         viewPagerProductImage= findViewById(R.id.viewPagerListProductImage);

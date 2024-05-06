@@ -94,7 +94,11 @@ public class AccountFragment extends Fragment {
             public void onResponse(Call<CustomerByEmailDTO> call, Response<CustomerByEmailDTO> response) {
                 if (response.isSuccessful()){
                     CustomerByEmailDTO customer = response.body();
-                    tv_customerName.setText(customer.getCustomerName().toString().trim());
+                    if (customer.getCustomerName() == null){
+                        tv_customerName.setText("Khách hàng");
+                    } else {
+                        tv_customerName.setText(customer.getCustomerName().toString().trim());
+                    }
                 }
             }
             @Override

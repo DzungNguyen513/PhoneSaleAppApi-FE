@@ -3,6 +3,7 @@ package com.example.phonesaleapp;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,7 +27,6 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNav;
     String email;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
                 });
         email = getIntent().getStringExtra("email");
         UserInfo.getInstance().setEmail(email);
-
-
         bottomNav = this.findViewById(R.id.bottomnav);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
         bottomNav.setSelectedItemId(R.id.action_Home);
@@ -65,6 +63,21 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
         loadTokenCustomerId();
+        Intent intent = getIntent();
+        if (intent != null) {
+            String fragmentName = intent.getStringExtra("fragmentName");
+            String email = intent.getStringExtra("email");
+            if ("CartFragment".equals(fragmentName)) {
+                displayCartFragment(email);
+                bottomNav.setSelectedItemId(R.id.action_Cart);
+            }
+        }
+    }
+    private void displayCartFragment(String email) {
+        CartFragment fragment = CartFragment.newInstance(email);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
     }
     private void loadTokenCustomerId(){
         FirebaseMessaging.getInstance().getToken()

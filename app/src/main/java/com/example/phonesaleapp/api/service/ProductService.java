@@ -11,13 +11,13 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface ProductService {
-    @GET("Product/GetProducts")
+    @GET("Product/GetProductCustomer")
     Call<List<Product>> GetProducts();
     @GET("Product/GetProductImages/{productId}")
     Call<List<ProductImage>> GetProductImages(@Path("productId") String productId);
     
-    @GET("Product/GetProduct/{productId}")
-    Call<Product> GetProduct(@Path("productId") String productId);
+    @GET("Product/GetProductCustomer/{productId}")
+    Call<Product> GetProductCustomer(@Path("productId") String productId);
 
     @GET("Product/GetProductDetails/{productId}")
     Call<List<ProductDetail>> GetProductDetails(@Path("productId") String productId);
