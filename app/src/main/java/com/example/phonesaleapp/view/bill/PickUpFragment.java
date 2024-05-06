@@ -163,4 +163,9 @@ public class PickUpFragment extends Fragment implements ProductClickListener {
         intent.putExtra("productId", productID);
         startActivity(intent);
     }
+
+    @Override
+    public void onItemClick(String CategoryId) {
+
+    }
 }

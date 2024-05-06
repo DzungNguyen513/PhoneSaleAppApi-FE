@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,6 +29,7 @@ import com.example.phonesaleapp.model.category.Category;
 import com.example.phonesaleapp.model.product.Product;
 import com.example.phonesaleapp.model.product.ProductImage;
 import com.example.phonesaleapp.model.product.Product_Detail;
+import com.example.phonesaleapp.view.home.Event.CatClickItemListener;
 import com.example.phonesaleapp.view.home.Event.ProductClickListener;
 
 import java.util.ArrayList;
@@ -37,23 +39,22 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HomeFragment extends Fragment implements ProductClickListener  {
-    ArrayList<String> arrayListCatName= new ArrayList<>();;
-    RecyclerView recyclerView, recyclerViewProduct;
+    ArrayList<Category> arrayListCat= new ArrayList<>();;
+    RecyclerView recyclerViewCat, recyclerViewProduct;
     ViewPager viewPager;
+
+    TextView txtResult;
     CircleTabLayout tabLayout;
     HorizontalListAdapter adapterCat;
     ArrayList<Product_Detail> arrayListProduct= new ArrayList<>();
     ListProductAdapter productAdapter;
     String email = UserInfo.getInstance().getEmail();
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         Init(view);
-        // listView ngang
-        LinearLayoutManager layoutManager= new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
-        recyclerView.setLayoutManager(layoutManager);
-        // Thiết lập adapter
-        adapterCat= new HorizontalListAdapter(arrayListCatName);
-        recyclerView.setAdapter(adapterCat);
+
+
         // adapter của listProduct
         recyclerViewProduct.setLayoutManager(new GridLayoutManager(getContext(), 2));
         productAdapter= new ListProductAdapter(getContext(), arrayListProduct, this);
@@ -88,12 +89,20 @@ public class HomeFragment extends Fragment implements ProductClickListener  {
             }
         });
 
-        LoadCategory();
+        // listView ngang của category
+        LinearLayoutManager layoutManager= new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+        recyclerViewCat.setLayoutManager(layoutManager);
+        // Thiết lập adapter
+        adapterCat= new HorizontalListAdapter(arrayListCat,  this);
+        recyclerViewCat.setAdapter(adapterCat);
+
+        LoadCategory(recyclerViewCat);
         LoadProduct();
 
     }
 
-    private  void LoadCategory(){
+    private  void LoadCategory(RecyclerView recyclerViewCat){
+        arrayListCat.add(new Category("All","Tất cả", 1));
         CategoryService categoryService= RetrofitClient.getClient().create(CategoryService.class);
         Call<List<Category>> callCat= categoryService.GetCategories();
         callCat.enqueue(new Callback<List<Category>>() {
@@ -102,7 +111,7 @@ public class HomeFragment extends Fragment implements ProductClickListener  {
                 if(response.isSuccessful() && response.body()!=null){
                     List<Category> categories= response.body();
                     for (Category cat: categories){
-                        arrayListCatName.add(cat.getCategoryName());
+                        arrayListCat.add(cat);
                         adapterCat.notifyDataSetChanged();
                     }
                 }
@@ -112,7 +121,16 @@ public class HomeFragment extends Fragment implements ProductClickListener  {
                 Toast.makeText(getContext(), ""+t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
+        // Lọc sản phẩm theo danh mục
+
+
     }
+
+
+
+
+
 
     private  void LoadProduct(){
         ProductService productService= RetrofitClient.getClient().create(ProductService.class);
@@ -165,10 +183,11 @@ public class HomeFragment extends Fragment implements ProductClickListener  {
         });
     }
     private void Init(View view){
-        recyclerView= view.findViewById(R.id.recyclerView);
+        recyclerViewCat= view.findViewById(R.id.recyclerView);
         viewPager= view.findViewById(R.id.viewPagerImage);
         tabLayout= view.findViewById(R.id.tabLayout);
         recyclerViewProduct= view.findViewById(R.id.recyclerViewProduct);
+        txtResult= view.findViewById(R.id.textViewResult);
     }
 
     @Override
@@ -177,5 +196,72 @@ public class HomeFragment extends Fragment implements ProductClickListener  {
         intent.putExtra("productId", productID);
         intent.putExtra("email", email);
         startActivity(intent);
+    }
+
+    @Override
+    public void onItemClick(String CategoryId) {
+        arrayListProduct= new ArrayList<>();
+        if (CategoryId=="All"){
+            LoadProduct();
+            txtResult.setVisibility(View.GONE);
+            recyclerViewProduct.setVisibility(View.VISIBLE);
+        }else{
+            ProductService productService= RetrofitClient.getClient().create(ProductService.class);
+            Call<List<Product>> callProductByCat= productService.FilterByCategory(CategoryId);
+
+            callProductByCat.enqueue(new Callback<List<Product>>() {
+                @Override
+                public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                    if (response.isSuccessful() && response.body()!=null){
+                        List<Product> products= response.body();
+                        if (products.isEmpty()){
+                            txtResult.setVisibility(View.VISIBLE);
+                            recyclerViewProduct.setVisibility(View.GONE);
+                        }else {
+                            txtResult.setVisibility(View.GONE);
+                            recyclerViewProduct.setVisibility(View.VISIBLE);
+                            for (Product pd : products) {
+                                Product_Detail productDetail = new Product_Detail(pd.getProductId(), pd.getProductName(), pd.getPrice(), "");
+
+                                Call<List<ProductImage>> callListImage = productService.GetProductImages(pd.getProductId());
+                                callListImage.enqueue(new Callback<List<ProductImage>>() {
+                                    @Override
+                                    public void onResponse(@NonNull Call<List<ProductImage>> call, @NonNull Response<List<ProductImage>> response) {
+                                        if (response.isSuccessful() && response.body() != null) {
+                                            List<ProductImage> productImages = response.body();
+                                            for (ProductImage pro : productImages) {
+                                                if (pro.isPrimary()) {
+                                                    productDetail.imagePath = pro.getImagePath();
+                                                    arrayListProduct.add(productDetail);
+                                                    productAdapter.notifyDataSetChanged();
+                                                    break;
+                                                }
+                                            }
+
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(@NonNull Call<List<ProductImage>> call, @NonNull Throwable t) {
+
+                                    }
+                                });
+
+
+                            }
+                        }
+                    }else{
+                        txtResult.setVisibility(View.VISIBLE);
+                        recyclerViewProduct.setVisibility(View.GONE);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<Product>> call, Throwable throwable) {
+
+                }
+            });
+        }
+
     }
 }

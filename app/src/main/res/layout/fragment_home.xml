@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/textViewDanhMuc"
-            android:layout_marginTop="2dp" />
+        android:layout_marginTop="2dp" />
 
         <com.example.phonesaleapp.view.home.CircleTabLayout
             android:id="@+id/tabLayout"
@@ -66,6 +66,17 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/recyclerView"
             android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:id="@+id/textViewResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/recyclerView"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="21dp"
+            android:text="Không tìm thấy sản phẩm"
+            android:textSize="20sp"
+            android:visibility="gone"/>
 
         <FrameLayout
             android:id="@+id/fragment_container"

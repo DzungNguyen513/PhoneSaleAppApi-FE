@@ -162,4 +162,9 @@ public class DestroyBillFragment extends Fragment implements ProductClickListene
         intent.putExtra("productId", productID);
         startActivity(intent);
     }
+
+    @Override
+    public void onItemClick(String CategoryId) {
+
+    }
 }

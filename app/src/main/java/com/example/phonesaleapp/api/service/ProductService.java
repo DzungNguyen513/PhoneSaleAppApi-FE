@@ -40,4 +40,12 @@ public interface ProductService {
     );
 
 
+    @GET("Product/FilterByCategory/{CategoryId}")
+    Call <List<Product>> FilterByCategory (@Path("CategoryId") String CategoryId);
+
+
+    @GET("Product/SearchProducts/{searchString}")
+    Call <List<Product>> SearchProducts (@Path("searchString") String searchString);
+
+
 }
