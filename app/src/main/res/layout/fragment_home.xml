@@ -12,14 +12,27 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@drawable/toolbar_background_home"
         android:elevation="4dp">
+
         <TextView
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:text="Trang chủ"
-            android:textColor="@color/black"
-            android:textSize="24sp" />
+            android:drawableLeft="@drawable/baseline_home_black_20"
+            android:textSize="30sp"
+            android:layout_marginRight="5dp"/>
+
+        <EditText
+            android:id="@+id/edTSearch"
+            android:layout_width="270dp"
+            android:layout_height="40dp"
+            android:layout_gravity="left"
+            android:layout_marginLeft="40dp"
+            android:background="@color/white"
+            android:ems="10"
+            android:hint="Nhập từ khóa tìm kiếm"
+            android:inputType="text" />
+
         <ImageView
             android:id="@+id/img_searchProduct"
             android:layout_width="wrap_content"
@@ -28,6 +41,9 @@
             android:paddingEnd="16dp"
             android:paddingRight="16dp"
             android:src="@drawable/searchbill" />
+
+
+
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.core.widget.NestedScrollView
@@ -66,6 +82,7 @@
                 android:layout_height="wrap_content"/>
 
             <TextView
+                android:id="@+id/txtSPHC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -73,7 +90,7 @@
                 android:textSize="18sp" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewProduct"
+                android:id="@+id/recyclerViewProduct_Search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"/>
@@ -86,8 +103,11 @@
                 android:layout_marginLeft="100dp"
                 android:layout_marginTop="21dp"
                 android:text="Không tìm thấy sản phẩm"
+                android:visibility="gone"
                 android:textSize="20sp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+
 
 </FrameLayout>

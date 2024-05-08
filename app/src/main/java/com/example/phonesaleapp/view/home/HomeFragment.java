@@ -2,10 +2,11 @@ package com.example.phonesaleapp.view.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +30,6 @@ import com.example.phonesaleapp.model.category.Category;
 import com.example.phonesaleapp.model.product.Product;
 import com.example.phonesaleapp.model.product.ProductImage;
 import com.example.phonesaleapp.model.product.Product_Detail;
-import com.example.phonesaleapp.view.home.Event.CatClickItemListener;
 import com.example.phonesaleapp.view.home.Event.ProductClickListener;
 
 import java.util.ArrayList;
@@ -39,21 +39,24 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HomeFragment extends Fragment implements ProductClickListener  {
-    ArrayList<Category> arrayListCat= new ArrayList<>();;
+    ArrayList<Category> arrayListCat= new ArrayList<>();
     RecyclerView recyclerViewCat, recyclerViewProduct;
     ViewPager viewPager;
-
-    TextView txtResult;
+    EditText edtSearch;
+    ImageView img_Search;
+    TextView txtResult, txtSPHC;
     CircleTabLayout tabLayout;
     HorizontalListAdapter adapterCat;
     ArrayList<Product_Detail> arrayListProduct= new ArrayList<>();
     ListProductAdapter productAdapter;
+
     String email = UserInfo.getInstance().getEmail();
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         Init(view);
-
+        txtResult.setVisibility(View.GONE);
 
         // adapter của listProduct
         recyclerViewProduct.setLayoutManager(new GridLayoutManager(getContext(), 2));
@@ -67,6 +70,7 @@ public class HomeFragment extends Fragment implements ProductClickListener  {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        txtResult.setVisibility(View.GONE);
         int []images= {R.drawable.anhqc1, R.drawable.qcip14, R.drawable.qcip15};
         ImagePagerAdapter adapter= new ImagePagerAdapter(requireContext(),images);
         viewPager.setAdapter(adapter);
@@ -93,13 +97,26 @@ public class HomeFragment extends Fragment implements ProductClickListener  {
         LinearLayoutManager layoutManager= new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         recyclerViewCat.setLayoutManager(layoutManager);
         // Thiết lập adapter
-        adapterCat= new HorizontalListAdapter(arrayListCat,  this);
+        adapterCat= new HorizontalListAdapter(arrayListCat,getContext(),  this);
         recyclerViewCat.setAdapter(adapterCat);
 
         LoadCategory(recyclerViewCat);
         LoadProduct();
+        img_Search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String strSearch= edtSearch.getText().toString();
+                Intent intent= new Intent(getContext(), SearchProduct.class);
+                intent.putExtra("search",strSearch);
+                intent.putExtra("email", email);
+                startActivity(intent);
+
+            }
+        });
 
     }
+
+
 
     private  void LoadCategory(RecyclerView recyclerViewCat){
         arrayListCat.add(new Category("All","Tất cả", 1));
@@ -126,10 +143,6 @@ public class HomeFragment extends Fragment implements ProductClickListener  {
 
 
     }
-
-
-
-
 
 
     private  void LoadProduct(){
@@ -186,8 +199,11 @@ public class HomeFragment extends Fragment implements ProductClickListener  {
         recyclerViewCat= view.findViewById(R.id.recyclerView);
         viewPager= view.findViewById(R.id.viewPagerImage);
         tabLayout= view.findViewById(R.id.tabLayout);
-        recyclerViewProduct= view.findViewById(R.id.recyclerViewProduct);
+        recyclerViewProduct= view.findViewById(R.id.recyclerViewProduct_Search);
         txtResult= view.findViewById(R.id.textViewResult);
+        edtSearch= view.findViewById(R.id.edTSearch);
+        img_Search= view.findViewById(R.id.img_searchProduct);
+        txtSPHC= view.findViewById(R.id.txtSPHC);
     }
 
     @Override
@@ -217,6 +233,7 @@ public class HomeFragment extends Fragment implements ProductClickListener  {
                         if (products.isEmpty()){
                             txtResult.setVisibility(View.VISIBLE);
                             recyclerViewProduct.setVisibility(View.GONE);
+                            txtSPHC.setVisibility(View.GONE);
                         }else {
                             txtResult.setVisibility(View.GONE);
                             recyclerViewProduct.setVisibility(View.VISIBLE);
@@ -237,7 +254,6 @@ public class HomeFragment extends Fragment implements ProductClickListener  {
                                                     break;
                                                 }
                                             }
-
                                         }
                                     }
 
@@ -253,6 +269,7 @@ public class HomeFragment extends Fragment implements ProductClickListener  {
                     }else{
                         txtResult.setVisibility(View.VISIBLE);
                         recyclerViewProduct.setVisibility(View.GONE);
+                        txtSPHC.setVisibility(View.GONE);
                     }
                 }
 

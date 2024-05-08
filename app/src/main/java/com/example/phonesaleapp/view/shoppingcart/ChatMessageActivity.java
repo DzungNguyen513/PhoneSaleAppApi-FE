@@ -27,6 +27,6 @@ public class ChatMessageActivity extends AppCompatActivity {
     }
 
     private void AnhXa() {
-        img_Back = findViewById(R.id.img_Back);
+        img_Back = findViewById(R.id.img_Back_Search);
     }
 }

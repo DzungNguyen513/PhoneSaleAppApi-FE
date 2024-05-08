@@ -9,14 +9,12 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
@@ -29,15 +27,12 @@ import com.example.phonesaleapp.api.RetrofitClient;
 import com.example.phonesaleapp.api.service.CustomerService;
 import com.example.phonesaleapp.api.service.ProductService;
 import com.example.phonesaleapp.api.service.ShoppingCartService;
-import com.example.phonesaleapp.model.color.Color;
 import com.example.phonesaleapp.model.customer.CustomerIdResponse;
 import com.example.phonesaleapp.model.product.Product;
 import com.example.phonesaleapp.model.product.ProductDetail;
 import com.example.phonesaleapp.model.product.ProductImage;
 import com.example.phonesaleapp.model.shoppingcart.ShoppingCart;
 import com.example.phonesaleapp.model.shoppingcart.ShoppingCartDetail;
-import com.example.phonesaleapp.view.shoppingcart.CartFragment;
-import com.example.phonesaleapp.view.shoppingcart.CheckoutActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
@@ -67,6 +62,7 @@ public class ProductDetail_Activity  extends AppCompatActivity {
     private  int storage=0;
     private String spc="";
     String customerId;
+    int dem_them=0, dem_day=0;
     String email = UserInfo.getInstance().getEmail();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -175,10 +171,14 @@ public class ProductDetail_Activity  extends AppCompatActivity {
                 if (response.isSuccessful() && response.body()!=null){
                     List<ProductDetail> productDetails= response.body();
                     for (ProductDetail product : productDetails){
-                        strStorage += product.getStorageGb() +" / ";
-                        listStorage.add(product.getStorageGb());
-                        listColor.add(product.getColorName());
-                        strColor += " "+product.getColorName() +" /";
+                        if(dem_them<1){
+                            strStorage += product.getStorageGb() +" / ";
+                            listStorage.add(product.getStorageGb());
+                            listColor.add(product.getColorName());
+                            strColor += " "+product.getColorName() +" /";
+                            dem_them++;
+                        }
+
                     }
                 }
             }
@@ -193,11 +193,16 @@ public class ProductDetail_Activity  extends AppCompatActivity {
             public void onResponse(Call<Product> call, Response<Product> response) {
                 if(response.isSuccessful() && response.body()!=null){
                     Product product= (Product) response.body();
-                    String productName= product.getProductName() + strStorage.substring(0, strStorage.length()-1)
-                            +strColor.substring(0, strColor.length()-1);
+                    String productName= product.getProductName();
+                    if(dem_day<1){
+                        productName += strStorage.substring(0, strStorage.length()-1)
+                                +strColor.substring(0, strColor.length()-1);
+                        dem_day++;
+                    }
                     txtProductName.setText(productName);
-                    txtProductPrice.setText(String.valueOf(product.getPrice()));
+                    txtProductPrice.setText(String.format("đ%,d.000", (int) product.getPrice()));
                     txtDetailOfProduct.setText(productName + " ."+ product.getDetail());
+
                 }
             }
             @Override
@@ -371,7 +376,7 @@ public class ProductDetail_Activity  extends AppCompatActivity {
                     public void onResponse(@NonNull Call<Integer> call, @NonNull Response<Integer> response) {
                         if (response.isSuccessful() && response.body()!=null){
                             int totalPrice= response.body();
-                            txtPriceProduct.setText(String.valueOf(totalPrice));
+                            txtPriceProduct.setText(String.format("đ%,d.000", (int) totalPrice));
                         }
 
                     }
@@ -566,7 +571,7 @@ public class ProductDetail_Activity  extends AppCompatActivity {
         txtDetailOfProduct= findViewById(R.id.textViewDetailOfProduct);
         btnAddToCart= findViewById(R.id.buttonAddtoCart);
         btnOrderNow= findViewById(R.id.buttonOrderNow);
-        img_Back = findViewById(R.id.img_Back);
+        img_Back = findViewById(R.id.img_Back_Search);
         txtAmountProduct= findViewById(R.id.tv_AmountProduct_Detail);
     }
 }

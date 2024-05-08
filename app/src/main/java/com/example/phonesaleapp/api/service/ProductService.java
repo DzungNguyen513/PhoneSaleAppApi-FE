@@ -45,7 +45,11 @@ public interface ProductService {
 
 
     @GET("Product/SearchProducts/{searchString}")
-    Call <List<Product>> SearchProducts (@Path("searchString") String searchString);
+    Call <List<Product>> SearchProducts (
+            @Path("searchString") String searchString,
+            @Query("categoryId") String categoryId,
+            @Query("priceMin") Integer priceMin,
+            @Query("priceMax") Integer priceMax);
 
 
 }

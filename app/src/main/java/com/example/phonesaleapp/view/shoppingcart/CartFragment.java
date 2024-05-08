@@ -244,7 +244,7 @@ public class CartFragment extends Fragment implements ProductClickListener{
         tv_totalCheck = view.findViewById(R.id.tv_TotalCheck);
         btn_buy = view.findViewById(R.id.btn_buy);
         rl_cartEmpty = view.findViewById(R.id.rl_cartEmpty);
-        img_Back = view.findViewById(R.id.img_Back);
+        img_Back = view.findViewById(R.id.img_Back_Search);
         ln_shopping = view.findViewById(R.id.ln_shopping);
         img_message = view.findViewById(R.id.img_message);
     }

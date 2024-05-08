@@ -14,7 +14,7 @@
         android:elevation="4dp">
 
         <ImageView
-            android:id="@+id/img_Back"
+            android:id="@+id/img_Back_Search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/backicon"

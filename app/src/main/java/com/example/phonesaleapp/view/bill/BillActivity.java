@@ -77,7 +77,7 @@ public class BillActivity extends AppCompatActivity {
         });
     }
     private void AnhXa(){
-        img_Back = this.findViewById(R.id.img_Back);
+        img_Back = this.findViewById(R.id.img_Back_Search);
         img_searchBill = this.findViewById(R.id.img_searchBill);
         img_message = this.findViewById(R.id.img_message);
         viewPager = this.findViewById(R.id.view_pager);

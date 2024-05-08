@@ -1,5 +1,7 @@
 package com.example.phonesaleapp.adapter.product;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.phonesaleapp.R;
@@ -15,13 +18,24 @@ import com.example.phonesaleapp.view.home.Event.CatClickItemListener;
 import com.example.phonesaleapp.view.home.Event.ProductClickListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAdapter.ViewHolder>{
     private ArrayList<Category> data;
+    private Context context;
+
     private ProductClickListener catClickItemListener;
+    private int selectedItemList=-1;
 
     public HorizontalListAdapter(ArrayList<Category> data, ProductClickListener catClickItemListener) {
         this.data = data;
+        this.catClickItemListener = catClickItemListener;
+
+    }
+
+    public HorizontalListAdapter(ArrayList<Category> data, Context context, ProductClickListener catClickItemListener) {
+        this.data = data;
+        this.context = context;
         this.catClickItemListener = catClickItemListener;
     }
 
@@ -39,11 +53,22 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
     public void onBindViewHolder(@NonNull HorizontalListAdapter.ViewHolder holder, int position) {
         Category cat= data.get(position);
         holder.textViewCat.setText(cat.getCategoryName());
+
+        if (position == selectedItemList) {
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.light_blue_t));
+        } else {
+            holder.itemView.setBackgroundColor(Color.TRANSPARENT);
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (catClickItemListener!=null){
-                    catClickItemListener.onItemClick(cat.getCategoryId());
+
+                        catClickItemListener.onItemClick(cat.getCategoryId());
+
+                    selectedItemList=position;
+                    // Cập nhật lại giao diện để hiển thị màu nền mới
+                    notifyDataSetChanged();
                 }
             }
         });

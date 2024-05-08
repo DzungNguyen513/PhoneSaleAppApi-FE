@@ -74,7 +74,7 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
 
         public void bind(Product_Detail product) {
             nameProduct.setText(product.productName);
-            priceProduct.setText(String.valueOf(product.price));
+            priceProduct.setText(String.format("đ%,d.000", (int) product.price));
             String baseUrl = RetrofitClient.getBaseUrl();
             String imageUrl = baseUrl.replace("/api/", "/Assets/Images/") + product.productId + "/" + product.imagePath;
             Glide.with(context).load(imageUrl).into(imgProduct);

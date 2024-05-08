@@ -13,8 +13,6 @@ import android.text.Spanned;
 import com.example.phonesaleapp.R;
 import com.example.phonesaleapp.model.systemnotification.SystemNotification;
 
-import retrofit2.Call;
-
 public class NotificationDetailActivity extends AppCompatActivity {
     ImageView img_Back;
     TextView tv_titleNoti, tv_dateNoti, tv_contentNoti;
@@ -44,7 +42,7 @@ public class NotificationDetailActivity extends AppCompatActivity {
         }
     }
     private void AnhXa(){
-        img_Back = this.findViewById(R.id.img_Back);
+        img_Back = this.findViewById(R.id.img_Back_Search);
         tv_titleNoti = this.findViewById(R.id.tv_titleNoti);
         tv_dateNoti = this.findViewById(R.id.tv_dateNoti);
         tv_contentNoti = this.findViewById(R.id.tv_contentNoti);

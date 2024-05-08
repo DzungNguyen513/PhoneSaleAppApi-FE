@@ -92,7 +92,7 @@ public class BillDetailActivity extends AppCompatActivity {
         rcv_lstBillDetail = this.findViewById(R.id.rcv_lstBillDetail);
         rcv_lstBillDetail.setAdapter(adapter);
         rcv_lstBillDetail.setLayoutManager(new LinearLayoutManager(this));
-        img_Back = this.findViewById(R.id.img_Back);
+        img_Back = this.findViewById(R.id.img_Back_Search);
         tv_statusBill = this.findViewById(R.id.tv_statusBill);
         tv_billId = this.findViewById(R.id.tv_billId);
         tv_dateBill = this.findViewById(R.id.tv_dateBill);

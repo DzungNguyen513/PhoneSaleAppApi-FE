@@ -125,7 +125,7 @@ public class SearchBillActivity extends AppCompatActivity {
     }
     private void AnhXa(){
         adapter = new BillItemAdapter(this, lstBill);
-        img_Back = this.findViewById(R.id.img_Back);
+        img_Back = this.findViewById(R.id.img_Back_Search);
         img_message = this.findViewById(R.id.img_message);
         edt_searchBill = this.findViewById(R.id.edt_searchBill);
         tv_keyword = this.findViewById(R.id.tv_keyword);
