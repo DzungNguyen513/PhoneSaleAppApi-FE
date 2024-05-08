@@ -4,4 +4,9 @@
     <string name="action_fav">Giỏ hàng</string>
     <string name="action_my">Lịch sử mua hàng</string>
     <string name="icon">Lịch sử mua hàng</string>
+    <string-array name="sort_options">
+        <item>Giảm dần</item>
+        <item>Tăng dần</item>
+    </string-array>
 </resources>
+

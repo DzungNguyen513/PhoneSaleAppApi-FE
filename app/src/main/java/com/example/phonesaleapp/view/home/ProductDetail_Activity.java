@@ -402,7 +402,7 @@ public class ProductDetail_Activity  extends AppCompatActivity {
                     public void onResponse(@NonNull Call<Integer> call, @NonNull Response<Integer> response) {
                         if (response.isSuccessful() && response.body()!=null){
                             int totalPrice= response.body();
-                            txtPriceProduct.setText(String.valueOf(totalPrice));
+                            txtPriceProduct.setText(String.format("đ%,d.000", (int) totalPrice));
                         }
                     }
                     @Override

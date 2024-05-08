@@ -117,7 +117,7 @@ public class SearchProduct extends AppCompatActivity implements ProductClickList
                 btnFilter_Product.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        arrayListProduct = new ArrayList<>();
+                        arrayListProduct.clear();
                         if (edtpriceMin.getText().toString().isEmpty() && edtpriceMax.getText().toString().isEmpty()) {
                             // Không có giá nhập vào, tiến hành tìm kiếm sản phẩm mà không áp dụng điều kiện giá
                             searchProducts(strSearch, categoryID, null, null);

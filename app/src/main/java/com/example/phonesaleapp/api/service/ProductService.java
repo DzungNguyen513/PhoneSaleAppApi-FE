@@ -44,12 +44,13 @@ public interface ProductService {
     Call <List<Product>> FilterByCategory (@Path("CategoryId") String CategoryId);
 
 
-    @GET("Product/SearchProducts/{searchString}")
+    @GET("Product/SearchProducts")
     Call <List<Product>> SearchProducts (
-            @Path("searchString") String searchString,
+            @Query("searchString") String searchString,
             @Query("categoryId") String categoryId,
             @Query("priceMin") Integer priceMin,
             @Query("priceMax") Integer priceMax);
 
-
+    @GET("Product/SortProductsByPrice/{i}")
+    Call <List<Product>> SortProductsByPrice (@Path("i") int i);
 }

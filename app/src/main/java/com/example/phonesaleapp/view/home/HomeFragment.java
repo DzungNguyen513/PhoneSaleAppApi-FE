@@ -1,12 +1,18 @@
 package com.example.phonesaleapp.view.home;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +49,7 @@ public class HomeFragment extends Fragment implements ProductClickListener  {
     RecyclerView recyclerViewCat, recyclerViewProduct;
     ViewPager viewPager;
     EditText edtSearch;
-    ImageView img_Search;
+    ImageView img_Search, img_Sort;
     TextView txtResult, txtSPHC;
     CircleTabLayout tabLayout;
     HorizontalListAdapter adapterCat;
@@ -114,6 +120,107 @@ public class HomeFragment extends Fragment implements ProductClickListener  {
             }
         });
 
+        img_Sort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                int[] location = new int[2];
+                v.getLocationOnScreen(location);
+                int x = location[0];
+                int y = location[1];
+
+
+
+                LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View popupView = inflater.inflate(R.layout.layout_sortprice, null);
+
+                Spinner spinnerSort = popupView.findViewById(R.id.spinnerSort);
+                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.sort_options, android.R.layout.simple_spinner_item);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerSort.setAdapter(adapter);
+
+                PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+                popupWindow.showAtLocation(v, Gravity.NO_GRAVITY, x, y + v.getHeight());
+
+
+                if (spinnerSort.getVisibility() == View.VISIBLE) {
+                    spinnerSort.setVisibility(View.GONE);
+                } else {
+                    spinnerSort.setVisibility(View.VISIBLE);
+                }
+
+
+                spinnerSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        switch (position) {
+                            case 0:
+                                arrayListProduct.clear();
+                                SortProductByPrice(0);
+                                break;
+                            case 1:
+                                arrayListProduct.clear();
+                                SortProductByPrice(1);
+                                break;
+                        }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+            }
+        });
+
+    }
+
+    private void SortProductByPrice(int i){
+        ProductService productService= RetrofitClient.getClient().create(ProductService.class);
+
+        Call<List<Product>> callListP_Sort= productService.SortProductsByPrice(i);
+
+        callListP_Sort.enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                if(response.isSuccessful() & response.body()!=null){
+                    List<Product> products= response.body();
+                    for (Product pd : products) {
+                        Product_Detail productDetail = new Product_Detail(pd.getProductId(), pd.getProductName(), pd.getPrice(), "");
+
+                        Call<List<ProductImage>> callListImage = productService.GetProductImages(pd.getProductId());
+                        callListImage.enqueue(new Callback<List<ProductImage>>() {
+                            @Override
+                            public void onResponse(@NonNull Call<List<ProductImage>> call, @NonNull Response<List<ProductImage>> response) {
+                                if (response.isSuccessful() && response.body() != null) {
+                                    List<ProductImage> productImages = response.body();
+                                    for (ProductImage pro : productImages) {
+                                        if (pro.isPrimary()) {
+                                            productDetail.imagePath = pro.getImagePath();
+                                            arrayListProduct.add(productDetail);
+                                            productAdapter.notifyDataSetChanged();
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(@NonNull Call<List<ProductImage>> call, @NonNull Throwable t) {
+
+                            }
+                        });
+
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Product>> call, Throwable throwable) {
+
+            }
+        });
     }
 
 
@@ -139,7 +246,7 @@ public class HomeFragment extends Fragment implements ProductClickListener  {
             }
         });
 
-        // Lọc sản phẩm theo danh mục
+
 
 
     }
@@ -204,6 +311,7 @@ public class HomeFragment extends Fragment implements ProductClickListener  {
         edtSearch= view.findViewById(R.id.edTSearch);
         img_Search= view.findViewById(R.id.img_searchProduct);
         txtSPHC= view.findViewById(R.id.txtSPHC);
+        img_Sort= view.findViewById(R.id.img_sortPrice);
     }
 
     @Override
@@ -216,7 +324,7 @@ public class HomeFragment extends Fragment implements ProductClickListener  {
 
     @Override
     public void onItemClick(String CategoryId) {
-        arrayListProduct= new ArrayList<>();
+        arrayListProduct.clear();
         if (CategoryId=="All"){
             LoadProduct();
             txtResult.setVisibility(View.GONE);
