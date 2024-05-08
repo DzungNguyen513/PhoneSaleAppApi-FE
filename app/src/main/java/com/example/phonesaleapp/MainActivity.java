@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -72,6 +74,10 @@ public class MainActivity extends AppCompatActivity {
                 bottomNav.setSelectedItemId(R.id.action_Cart);
             }
         }
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        filter.addAction(Intent.ACTION_BATTERY_CHANGED);
+        registerReceiver(new AlertBroadcastReceiver(), filter);
     }
     private void displayCartFragment(String email) {
         CartFragment fragment = CartFragment.newInstance(email);
@@ -81,45 +87,45 @@ public class MainActivity extends AppCompatActivity {
     }
     private void loadTokenCustomerId(){
         FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(task -> {
-                    if (!task.isSuccessful()) {
-                        Log.w("FCM", "Lỗi đăng kí Token", task.getException());
-                        return;
+            .addOnCompleteListener(task -> {
+                if (!task.isSuccessful()) {
+                    Log.w("FCM", "Lỗi đăng kí Token", task.getException());
+                    return;
+                }
+                String token = task.getResult();
+                Log.d("FCM", "FCM Token: " + token);
+                CustomerService service = RetrofitClient.getClient().create(CustomerService.class);
+                Call<CustomerIdResponse> customerIdResponseCall = service.getCustomerIDByEmail(email);
+                customerIdResponseCall.enqueue(new Callback<CustomerIdResponse>() {
+                    @Override
+                    public void onResponse(Call<CustomerIdResponse> call, Response<CustomerIdResponse> response) {
+                        if (response.isSuccessful()){
+                            String customerId = response.body().getCustomerId();
+                            TokenUpdateDTO tokenUpdateDTO = new TokenUpdateDTO(token);
+                            Call<Void> callToken = service.updateToken(customerId, tokenUpdateDTO);
+                            callToken.enqueue(new Callback<Void>() {
+                                @Override
+                                public void onResponse(Call<Void> call, Response<Void> response) {
+                                    if (response.isSuccessful()) {
+                                        Log.d("Update Token", "Token được tạo thành công");
+                                    } else {
+                                        Log.e("Update Token", "Lỗi tạo token " + response.message());
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<Void> call, Throwable t) {
+                                    Log.e("Update Token", "Lỗi tạo token: " + t.getMessage());
+                                }
+                            });
+                        }
                     }
-                    String token = task.getResult();
-                    Log.d("FCM", "FCM Token: " + token);
-                    CustomerService service = RetrofitClient.getClient().create(CustomerService.class);
-                    Call<CustomerIdResponse> customerIdResponseCall = service.getCustomerIDByEmail(email);
-                    customerIdResponseCall.enqueue(new Callback<CustomerIdResponse>() {
-                        @Override
-                        public void onResponse(Call<CustomerIdResponse> call, Response<CustomerIdResponse> response) {
-                            if (response.isSuccessful()){
-                                String customerId = response.body().getCustomerId();
-                                TokenUpdateDTO tokenUpdateDTO = new TokenUpdateDTO(token);
-                                Call<Void> callToken = service.updateToken(customerId, tokenUpdateDTO);
-                                callToken.enqueue(new Callback<Void>() {
-                                    @Override
-                                    public void onResponse(Call<Void> call, Response<Void> response) {
-                                        if (response.isSuccessful()) {
-                                            Log.d("Update Token", "Token được tạo thành công");
-                                        } else {
-                                            Log.e("Update Token", "Lỗi tạo token " + response.message());
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<Void> call, Throwable t) {
-                                        Log.e("Update Token", "Lỗi tạo token: " + t.getMessage());
-                                    }
-                                });
-                            }
-                        }
-                        @Override
-                        public void onFailure(Call<CustomerIdResponse> call, Throwable throwable) {
-                        }
-                    });
-
+                    @Override
+                    public void onFailure(Call<CustomerIdResponse> call, Throwable throwable) {
+                    }
                 });
+            });
+
     }
 }
 
