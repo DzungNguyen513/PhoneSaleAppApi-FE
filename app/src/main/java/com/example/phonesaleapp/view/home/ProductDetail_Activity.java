@@ -163,29 +163,7 @@ public class ProductDetail_Activity  extends AppCompatActivity {
         });
         tabLayout.setupWithViewPager(viewPagerProductImage);
 
-        // Load  product detail
-        Call<List<ProductDetail>> callProductDetail= productService.GetProductDetails(productId);
-        callProductDetail.enqueue(new Callback<List<ProductDetail>>() {
-            @Override
-            public void onResponse(Call<List<ProductDetail>> call, Response<List<ProductDetail>> response) {
-                if (response.isSuccessful() && response.body()!=null){
-                    List<ProductDetail> productDetails= response.body();
-                    for (ProductDetail product : productDetails){
-                        if(dem_them<1){
-                            strStorage += product.getStorageGb() +" / ";
-                            listStorage.add(product.getStorageGb());
-                            listColor.add(product.getColorName());
-                            strColor += " "+product.getColorName() +" /";
-                            dem_them++;
-                        }
 
-                    }
-                }
-            }
-            @Override
-            public void onFailure(Call<List<ProductDetail>> call, Throwable t) {
-            }
-        });
         // Load describe product
         Call<Product> callProduct= productService.GetProductCustomer(productId);
         callProduct.enqueue(new Callback<Product>() {
@@ -194,11 +172,7 @@ public class ProductDetail_Activity  extends AppCompatActivity {
                 if(response.isSuccessful() && response.body()!=null){
                     Product product= (Product) response.body();
                     String productName= product.getProductName();
-                    if(dem_day<1){
-                        productName += strStorage.substring(0, strStorage.length()-1)
-                                +strColor.substring(0, strColor.length()-1);
-                        dem_day++;
-                    }
+
                     txtProductName.setText(productName);
                     txtProductPrice.setText(String.format("đ%,d.000", (int) product.getPrice()));
                     txtDetailOfProduct.setText(productName + " ."+ product.getDetail());
@@ -232,7 +206,7 @@ public class ProductDetail_Activity  extends AppCompatActivity {
         View view = getLayoutInflater().inflate(R.layout.bottomdialog_buypoduct, null);
         bottomSheetDialog.setContentView(view);
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
-        layoutParams.height = 1500;
+        layoutParams.height = 1200;
         view.setLayoutParams(layoutParams);
         bottomSheetDialog.show();
 
