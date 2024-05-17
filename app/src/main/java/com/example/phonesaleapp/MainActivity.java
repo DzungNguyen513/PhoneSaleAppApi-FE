@@ -1,9 +1,7 @@
 package com.example.phonesaleapp;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -15,6 +13,7 @@ import com.example.phonesaleapp.api.RetrofitClient;
 import com.example.phonesaleapp.api.service.CustomerService;
 import com.example.phonesaleapp.model.customer.CustomerIdResponse;
 import com.example.phonesaleapp.model.customer.TokenUpdateDTO;
+import com.example.phonesaleapp.view.AlertBroadcastReceiver;
 import com.example.phonesaleapp.view.account.AccountFragment;
 import com.example.phonesaleapp.view.shoppingcart.CartFragment;
 import com.example.phonesaleapp.view.home.HomeFragment;

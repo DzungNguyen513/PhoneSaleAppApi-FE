@@ -1,4 +1,4 @@
-package com.example.phonesaleapp;
+package com.example.phonesaleapp.view;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
